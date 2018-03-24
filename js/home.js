@@ -197,3 +197,11 @@ $('#btn-home-login').on('click', () => {
 $('#input-login-username').keyup(() => {
     Home.Login.checkUsername($('#input-login-username').val());
 });
+
+/**
+ * When the update is ready, inform the user and provide
+ * the option to install the new update.
+ */
+ipcRenderer.on('updateReady', (event, text) => {
+    alert("Update is available!");
+});
