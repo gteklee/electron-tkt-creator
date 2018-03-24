@@ -1,0 +1,81 @@
+/* Affects everything related to the application
+   style wise. */
+
+html { background-color: #F5F5F5; }
+input { font-family: 'Montserrat', sans-serif; font-size: 16px; width: 376px; height: 40px; }
+    input:focus { outline: none; border: 2px solid #4286f4; } 
+section { margin-left: 53px; font-family:'Montserrat', sans-serif; }
+
+    .title-header { text-align: left; padding: 0; margin: 0; margin-bottom: 20px; }
+        .title { padding: 0; margin: 0; }
+
+    .img-container { text-align: center; }
+
+    .input-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+        .input-block {
+            background-color: #FFF;
+
+            border: solid;
+            border-width: 1px;
+            border-radius: 10px;
+            border-color: #BEBEBE;
+        }
+        .input-block-hidden {
+            display: none;
+        }
+            .input-header { padding: 0; margin: 0; font-weight: bold; }
+            .input-login { padding: 0; margin: 0; }
+
+            .btn-container { display: flex; padding: 0; margin: 0; justify-content: center; }
+                .btn {
+                    border: solid;
+                    border-radius: 3px;
+                    border-width: 1px;
+                    border-color: black;
+
+                    background-color: #0094DE;
+                    color: black;
+                    font-weight: bold;
+                }
+                    .btn:hover { border-color: grey; }
+                    .btn:active {
+                        border-color: #05618F;
+                        background-color: #05618F;
+                        color: white;
+                    }
+                
+    .footer-container {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+
+        margin-right: 20px;
+
+        font-size: 20px;
+    }
+        #version { color: #0094DE; }
+
+    .err-container {display: flex; justify-content: center; }
+        .err-msg { color: red; padding: 0; margin: 0; }
+
+    .login-success-container { display: flex; align-content: center; justify-content: center; }
+
+
+@media screen and (min-height: 540px)
+{
+    section { margin-left: 83px; }
+}
+
+@media screen and (min-height: 630px)
+{
+    section { margin-left: 95px; }
+}
+
+@media screen and (min-height: 825px)
+{
+    section { margin-left: 125px; }
+}

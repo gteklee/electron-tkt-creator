@@ -1,0 +1,30 @@
+/* Only affects elements under section#option-home. */
+
+section#option-home {}
+
+    section#option-home .title-header { text-decoration: underline; }
+
+    section#option-home .input-container {
+        height: 50%;
+    }
+
+        section#option-home .input-block {
+            width: 380px; 
+            padding: 50px;
+        }
+
+            section#option-home .img-container {
+                margin-bottom: 15px;
+            }
+
+                section#option-home #input-login-header-password {
+                    margin-top: 30px;
+                }
+
+                section#option-home .err-container {
+                    margin-top: 5px;
+                }
+            
+            section#option-home .btn-container {
+                margin-top: 50px;
+            }

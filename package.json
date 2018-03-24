@@ -1,0 +1,32 @@
+{
+  "name": "electron-tkt-creator",
+  "version": "0.0.1",
+  "description": "A complete rewrite of the Gtek Ticket Creator program. This utilizes the electron framework and Sonar API.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "build --win",
+    "ship": "build --win -p always"
+  },
+  "repository": "https://github.com/gteklee/electron-tkt-creator",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "Henry Lee Barton III",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "~1.8.2",
+    "electron-builder": "^20.6.2"
+  },
+  "dependencies": {
+    "electron-updater": "^2.21.3",
+    "express": "^4.16.3",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "jquery": "^3.3.1"
+  }
+}

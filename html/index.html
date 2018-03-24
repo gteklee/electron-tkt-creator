@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Electron Ticket Creator</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/nav.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/home.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/fontawesome-all.min.css" />
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <!-- JQuery -->
+    <script> window.$ = window.jQuery = require('jquery'); </script> 
+    <script src="../js/jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
+    <script src="../js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../js/jquery-ui-1.12.1.custom/jquery-ui.css" />
+  </head>
+
+  <body>
+    
+    <!-- Navbar -->
+    <div class="navbar">
+      <ul>
+        <li class="other" id="option-home"> <i id="option-home" class="fas fa-user"></i> <span id="option-home"> HOME </span> </li>
+        <li class="other" id="option-repair"> <i id="option-repair" class="fas fa-wrench"></i> <span id="option-repair"> REPAIR </span> </li>
+        <li class="other" id="option-install"> <i id="option-install" class="fas fa-home"></i> <span id="option-install"> INSTALL </span> </li>
+        <li class="other" id="option-onsite"> <i id="option-onsite" class="fas fa-money-bill-alt"></i> <span id="option-onsite"> ONSITE </span> </li>
+        <li class="other" id="option-relo"> <i id="option-relo" class="fas fa-boxes"></i> <span id="option-relo"> RELOCATION </span> </li>
+        <li class="other" id="option-static"> <i id="option-static" class="fas fa-gamepad"></i> <span id="option-static"> STATIC IP </span>  </li>
+        <li class="other" id="option-key"> <i id="option-key" class="fas fa-key"></i> <span id="option-key"> KEY UPGRADE </span>  </li>
+        <li class="other" id="option-voip"> <i id="option-voip" class="fas fa-phone"></i> <span id="option-voip"> VOIP </span> </li>
+        <li class="other" id="option-mtl"> <i id="option-mtl" class="fas fa-building"></i> <span id="option-mtl"> MTL / MDU </span> </li>
+        <li class="other" id="option-other"> <i id="option-other" class="fas fa-question"></i> <span id="option-mtl"> OTHER </span> </li>
+      </ul>
+    </div>
+
+<!-- SECTIONS -->
+
+    <!-- HOME -->
+    <section class="section-hidden" id="option-home">
+      <div class="title-header">
+        <h1 class="title">HOME</h1>
+      </div>
+
+      <div class="img-container">
+        <img src="../img/logo.png"/>
+      </div>
+
+      <div class="input-container">
+        <div class="input-block" id="input-block-log-in">
+          <p class="input-header" id="input-login-header-username"> Username </p>
+          <input class="input-login" id="input-login-username" type="text" name="username"/>
+          <div class="err-container">
+            <p class="err-msg" id="err-username"></p>
+          </div>
+
+          <p class="input-header" id="input-login-header-password"> Password </p>
+          <input class="input-login" id="input-login-password" type="password" name="password"/>
+          <p class="err-msg" id="err-password"></p>
+
+          <div class="btn-container">
+            <input type="button" class="btn" value="LOGIN" id="btn-home-login"/>
+          </div>
+          <div class="err-container">
+            <p class="err-msg" id="err-login"></p>
+          </div>
+        </div>
+        <div class="input-block-hidden" id="input-block-logged-in">
+          <div class="login-success-container">
+            <h1 class="login-success"> </h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-container">
+        <p class="version" id="version"> v0.0.1 </p>
+      </div>
+    </section>
+
+    <!-- REPAIR TICKET -->
+    <section class="section-hidden" id="option-repair">
+      
+    </section>
+    <!-- INSTALL TICKET -->
+    <!-- ONSITE TICKET -->
+    <!-- RELOCATION TICKET -->
+    <!-- STATIC IP REQUEST -->
+    <!-- KEY UPGRADE REQUEST -->
+    <!-- VOIP ESCALATION -->
+    <!-- MTL / MDU ESCALATION -->
+    <!-- OTHER ESCALATION -->
+
+    <script>
+      require('../js/nav.js');
+      require('../js/home.js');
+    </script>
+  </body>
+
+</html>

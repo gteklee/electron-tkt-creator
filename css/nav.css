@@ -1,0 +1,124 @@
+/** Navbar **/
+.navbar {
+	position: absolute;
+	overflow: hidden;
+	margin: 0 auto;
+	top: 0;
+	left: 0;
+	height: 100%;
+	font-size: 16px;
+	font-weight: bold;
+}
+	
+	.navbar ul {
+		display: flex;
+		flex-direction: column;
+		align-content: stretch;
+
+		position: relative;
+		height: 100%;
+		list-style: none;
+		margin: 0 auto;
+		padding: 0;
+		justify-content: center;
+	}
+
+	.navbar ul li {
+		display: flex;
+		flex-grow: 1;
+		justify-content: center;
+
+		position: relative;
+		border: solid;
+		padding-right: 30px;
+		padding-left: 30px;
+		border-color: #d7d7d7;
+		border-width: 1px;
+		background-color: #e2e2e2;
+		text-align: center;
+	}
+
+		.navbar ul li:hover {
+			color: #0094DE;
+			cursor: pointer;
+		}
+
+		.navbar ul li.active {
+			position: relative;
+			display: flex;
+			border-left-width: 5px;
+			border-left-color: #0094DE;
+			border-right: none;
+			background-color: #fefefe;
+			color: #0094DE;
+			margin-right: -3px;
+		}
+
+		.navbar ul li:first-child.active {
+			border-top: none;
+		}
+		.navbar ul li:last-child.active {
+			border-bottom: none;
+		}
+
+			.navbar ul li i {
+				align-self: center;
+			}
+
+			.navbar ul li span {
+				position: absolute;
+				align-self: flex-end;
+				padding-bottom: 0;
+				margin: 0;
+
+				font-size: 6px;
+				font-family: 'Montserrat', sans-serif;
+			}
+
+
+.section-active { display: block; }
+.section-hidden { display: none; }
+
+	/*.dropdown:hover .dropdown-options {
+		display: block;
+	}
+
+		.dropdown-options {
+			display: none;
+			z-index: 1;
+		}
+
+	.fa-caret-right {
+		font-size: 12px;
+	}*/
+
+@media screen and (max-height: 540px)
+{
+	.navbar ul li {
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+}
+
+@media screen and (min-height: 630px)
+{
+	.navbar { font-size: 25px; }
+	.navbar ul li span {
+		font-size: 10px;
+	}
+}
+
+@media screen and (min-height: 800px)
+{
+	.navbar ul li span {
+		padding-bottom: 10px;
+	}
+}
+
+@media screen and (min-height: 825px)
+{
+	.navbar ul li {
+		padding-right: 45px;
+		padding-left: 45px;
+	}
+}
