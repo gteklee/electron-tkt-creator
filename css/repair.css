@@ -21,7 +21,7 @@ section#option-repair {}
             margin-top: 50px;
         }
 
-    section#option-repair #input-block-header-cst-info {
+    section#option-repair #input-block-header-cst-info, section#option-repair #input-block-header-cst-confirm {
         color: #0094DE;
     }
 
@@ -58,6 +58,8 @@ section#option-repair {}
     section#option-repair #repair-radio_ssid-header { margin-top: 25px }
     section#option-repair #repair-radio_ap_count-header { margin-top: 25px }
 
+    section#option-repair #info-confirm-cst_id { margin-bottom: 50px; }
+
     section#option-repair #btn-repair-customer-check {
         margin-top: 50px;
         margin-bottom: 5px;
@@ -65,4 +67,8 @@ section#option-repair {}
 
     section#option-repair #btn-repair-create-ticket {
         margin-top: 5px;
+    }
+
+    section#option-repair #btn-repair-customer-confirm {
+        margin-right: 10px;
     }

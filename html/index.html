@@ -70,7 +70,7 @@
           </div>
         </div>
         <div class="input-block-hidden" id="input-block-logged-in">
-          <div class="login-success-container">
+          <div class="info-container">
             <h1 class="login-success"> </h1>
           </div>
         </div>
@@ -95,29 +95,46 @@
   
   <!-- SEARCH CUSTOMER -->
         <div class="input-block" id="input-customer-search">
-            <div class="header-container" id="input-block-header-cst-info">
-              <h1 class="input-block-header"> Customer Information </h1>
-            </div>
+          <div class="header-container" id="input-block-header-cst-info">
+            <h1 class="input-block-header"> Search For Customer </h1>
+          </div>
 
-            <p class="input-header" id="input-customer-header-id"> ID </p>
-            <input class="input-repair" id="input-repair-customer-id" type="text" name="customer-id"/>
+          <p class="input-header" id="input-customer-header-id"> ID </p>
+          <input class="input-repair" id="input-repair-customer-id" type="text" name="customer-id"/>
+          <div class="err-container">
+            <p class="err-msg" id="err-cst_id"></p>
+          </div>
 
-            <p class="input-header" id="input-customer-header-name"> NAME </p>
-            <input class="input-repair" id="input-repair-customer-name" type="text" name="customer-name"/>
+          <div class="btn-container">
+              <input type="button" class="btn" value="CHECK ACCOUNT" id="btn-repair-customer-check"/>
+          </div>
 
-            <div class="btn-container">
-                <input type="button" class="btn" value="CHECK ACCOUNT" id="btn-repair-customer-check"/>
-            </div>
+          <div class="header-container">
+              <p class="input-header"> OR </p>
+          </div>
 
-            <div class="header-container">
-                <p class="input-header"> OR </p>
-            </div>
-
-            <div class="btn-container">
-                <input type="button" class="btn" value="CREATE TICKET" id="btn-repair-create-ticket"/>
-            </div>
+          <div class="btn-container">
+              <input type="button" class="btn" value="CREATE EMPTY TICKET" id="btn-repair-create-ticket"/>
+          </div>
         </div>
     <!---->
+
+  <!-- CONFIRM CUSTOMER ACCOUNT -->
+        <div class="input-block-hidden" id="input-customer-confirm">
+          <div class="header-container" id="input-block-header-cst-confirm">
+            <h1 class="input-block-header"> Confirm Account </h1>
+          </div>
+
+          <div class="info-container">
+            <p class="input-header" id="info-confirm-cst_id"> Account Found: </p>
+          </div>
+
+          <div class="btn-container">
+            <input type="button" class="btn-confirm" value="CONFIRM" id="btn-repair-customer-confirm"/>
+            <input type="button" class="btn-confirm" value="DENY" id="btn-repair-customer-deny"/>
+          </div>
+
+        </div>
 
   <!-- EMPTY TICKET FORM -->
         <div class="input-block-hidden" id="input-ticket-template">

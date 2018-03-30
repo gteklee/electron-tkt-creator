@@ -20,11 +20,11 @@ let Sonar = new function()
          * @param {*} password
          * @param {*} callback
          */
-        this.GetCustomer = function(id, name, username, password, callback)
+        this.GetCustomer = function(id, username, password, callback)
         {
-            options.path = '';
+            options.path = '/api/v1/accounts/' + id;
             options.headers = {'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64')};
-            optoins.method = 'GET';
+            options.method = 'GET';
             this.callback = callback;
 
             this.getData(options, this.callback);

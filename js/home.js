@@ -26,7 +26,6 @@ let Home = new function()
         this.password = ''; // password: string.
         this.name = ''; // name of the user: string
         this.errorMsg = ''; // error message to be displayed: string.
-        this.server; // require object: obj.
 
         this.loggedIn = false; // is user logged in?: bool
         this.error = false; // does an error exist with log in?: bool
@@ -62,7 +61,7 @@ let Home = new function()
                     if(data.error.status_code == 401)
                         this.errorMsg = 'Incorrect username or password!';
                     else
-                        this.errorMsg = 'Inform Admin of Error Code ' + data.serror.status_code + '!';
+                        this.errorMsg = 'Inform Admin of Error Code ' + data.error.status_code + '!';
 
                     this.displayError('#err-login');
                 }
@@ -128,9 +127,7 @@ let Home = new function()
                 this.errorMsg = 'Username or Password cannot be blank!';
             }
             else // if no errors
-            {
                 this.resetError('#err-login');
-            }
 
             if(this.error)
             {
@@ -167,9 +164,7 @@ let Home = new function()
                 this.errorMsg = 'Username contains uppercase characters!';
             }
             else
-            {
                 this.resetError('#err-username');
-            }
 
             if(this.error)
                 this.displayError('#err-username');

@@ -13,10 +13,19 @@
 let Tickets = new function()
 {
     /**
-     *
+     * Repair deals with all functions of the repair
+     * ticket process.
+     * 
+     * getCustomer(id)
+     * confirmAccountFound(obj)
+     * 
      */
-    this.Repair = new function()
+/**/this.Repair = new function()
     {
+        this.error = false;
+        this.errorMsg = '';
+        this.currentSection = '#input-customer-search';
+
         /**
          * All data needed when the repair ticket
          * form is submitted.
@@ -51,15 +60,59 @@ let Tickets = new function()
          * @param {*} id 
          * @param {*} name 
          */
-        this.getCustomer = function(id, name)
+        this.getCustomer = function(id)
         {
             this.id = id;
-            this.name = name;
+            this.name = '';
             this.Sonar = require('../server/Sonar.js');
 
-            this.Sonar.Customer.GetCustomer(this.id, this.name, sessionStorage.username, sessionStorage.password, (data) => {
+            this.Sonar.Customer.GetCustomer(this.id, sessionStorage.username, sessionStorage.password, (data) => {
                 
+                if(data.error)
+                {
+                    this.error = true;
+
+                    if(data.error.status_code == 404)
+                        this.errorMsg = 'Customer ID does not exist!';
+                    else
+                        this.errorMsg = 'Inform Admin of Error Code ' + data.error.status_code + '!';
+
+                    this.displayError('#err-cst_id');
+                }
+                else
+                {
+                    console.log(data);
+                    this.confirmAccountFound(data);
+                }
             });
+        }
+
+        /**
+         * Takes the data returned when an account is found
+         * with the provided id and then presents the user
+         * to make sure the correct acount was pulled.
+         * @param {*} obj
+         */
+        this.confirmAccountFound = function(obj)
+        {
+            this.object = obj;  // Object passed.
+
+            // Set the appropriate text to user.
+            // Name of customer is pulled from object retreived from Sonar.
+            $('#info-confirm-cst_id').text('Account Found: ' + this.object.data.name);
+
+            this.displayAccountConfirmation();  // Display account confirmation section.
+        }
+
+        /**
+         * Displays the account confirmation section.
+         */
+        this.displayAccountConfirmation = function()
+        {
+            $('#input-customer-search').removeClass('input-block').addClass('input-block-hidden');
+            $('#input-customer-confirm').removeClass('input-block-hidden').addClass('input-block');
+            //$('#back-btn').removeClass('bbtn-container-hidden').addClass('bbtn-container');
+            this.currentSection = '#input-customer-confirm';
         }
 
         /**
@@ -70,6 +123,29 @@ let Tickets = new function()
             $('#input-customer-search').removeClass('input-block').addClass('input-block-hidden');
             $('#input-ticket-template').removeClass('input-block-hidden').addClass('input-block');
             $('#back-btn').removeClass('bbtn-container-hidden').addClass('bbtn-container');
+            this.currentSection = '#input-ticket-template';
+        }
+
+        /**
+         * If there is an error and this function is called,
+         * then the error message is displayed to the user.
+         * @param {*} id -> element location of error message
+         */
+        this.displayError = function(id)
+        {
+            if(this.error)
+                $(id).text(this.errorMsg);
+        }
+
+        /**
+         * Resets error message when error is resolved.
+         * @param {*} id -> element location of error message.
+         */
+        this.resetError = function(id)
+        {
+            this.error = false;
+            this.errorMsg = '';
+            $(id).text('');
         }
 
         /**
@@ -156,8 +232,8 @@ let Tickets = new function()
         }
 
         /**
-         * Check the id on each key stroke.
-         * @param {*} id 
+         * Check the id per keystroke.
+         * @param {*} id
          */
         this.checkId = function(id)
         {
@@ -165,46 +241,57 @@ let Tickets = new function()
 
             if(this.id.match(/^[a-zA-Z]/))
             {
-                console.log("Error");
+                this.error = true;
+                this.errorMsg = 'ID contains invalid characters!';
             }
+            else
+                this.resetError('#err-cst_id');
+
+            if(this.error)
+                this.displayError('#err-cst_id');
         }
 
         /**
-         * Check the id and name when check account
-         * button is clicked.
+         * Check if the ID is empty.
          * @param {*} id 
-         * @param {*} name 
          */
-        this.checkIdName = function(id, name)
+        this.checkEmptyId = function(id)
         {
             this.id = id;
-            this.name = name;
 
-            if(this.id == '' || this.name == '')
+            if(this.id == '')
             {
-                console.log('Error: ID and name cannot be empty!');
-                return;
+                this.error = true;
+                this.errorMsg = 'ID cannot be blank!';
             }
             else
-                this.getCustomer(this.id, this.name);
+                this.resetError('#err-cst_id')
+                
+            if(this.error)
+            {
+                this.displayError('#err-cst_id');
+                return;
+            }
 
+            this.getCustomer(this.id);
         }
 
         /**
          * When back button is clicked, take user
          * back to the customer information page.
          */
-        this.back = function ()
+        this.back = function()
         {
             $('#input-customer-search').removeClass('input-block-hidden').addClass('input-block');
-            $('#input-ticket-template').removeClass('input-block').addClass('input-block-hidden');
+            $(this.currentSection).removeClass('input-block').addClass('input-block-hidden');
             $('#back-btn').removeClass('bbtn-container').addClass('bbtn-container-hidden');
+            this.currentSection = '#input-customer-search';
         }
     }
 
-    this.Install = new function() {}
-    this.Onsite = new function() {}
-    this.Relo = new function() {}
+/**/this.Install = new function() {}
+/**/this.Onsite = new function() {}
+/**/this.Relo = new function() {}
 
     /**
      * Customer packages.
@@ -236,8 +323,8 @@ $('#input-repair-customer-id').keyup(() => {
 /**
  * "CHECK ACCOUNT" button clicked event.
  */
-$('#btn-repair-create-ticket').on('click', () => {
-    Tickets.Repair.checkIdName($('#input-repair-customer-id'), $('#input-repair-customer-name'));
+$('#btn-repair-customer-check').on('click', () => {
+    Tickets.Repair.checkEmptyId($('#input-repair-customer-id').val());
 });
 
 /**
@@ -245,6 +332,13 @@ $('#btn-repair-create-ticket').on('click', () => {
  */
 $('#btn-repair-create-ticket').on('click', () => {
     Tickets.Repair.displayEmptyForm();
+});
+
+/**
+ * "DENY" button clicked event.
+ */
+$('#btn-repair-customer-deny').on('click', () => {
+    Tickets.Repair.back();
 });
 
 /**
