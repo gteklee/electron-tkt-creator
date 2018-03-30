@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../css/index.css"/>
     <link rel="stylesheet" type="text/css" href="../css/nav.css"/>
     <link rel="stylesheet" type="text/css" href="../css/home.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/repair.css"/>
     <link rel="stylesheet" type="text/css" href="../css/fontawesome-all.min.css" />
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -82,7 +83,170 @@
 
     <!-- REPAIR TICKET -->
     <section class="section-hidden" id="option-repair">
-      
+      <div class="title-header">
+        <h1 class="title"> REPAIR TICKET </h1>
+      </div>
+
+      <div class="bbtn-container-hidden" id="back-btn">
+        <i class="fas fa-chevron-circle-left fa-2x" id="back-btn-icon"></i>
+      </div>
+
+      <div class="input-container">
+  
+  <!-- SEARCH CUSTOMER -->
+        <div class="input-block" id="input-customer-search">
+            <div class="header-container" id="input-block-header-cst-info">
+              <h1 class="input-block-header"> Customer Information </h1>
+            </div>
+
+            <p class="input-header" id="input-customer-header-id"> ID </p>
+            <input class="input-repair" id="input-repair-customer-id" type="text" name="customer-id"/>
+
+            <p class="input-header" id="input-customer-header-name"> NAME </p>
+            <input class="input-repair" id="input-repair-customer-name" type="text" name="customer-name"/>
+
+            <div class="btn-container">
+                <input type="button" class="btn" value="CHECK ACCOUNT" id="btn-repair-customer-check"/>
+            </div>
+
+            <div class="header-container">
+                <p class="input-header"> OR </p>
+            </div>
+
+            <div class="btn-container">
+                <input type="button" class="btn" value="CREATE TICKET" id="btn-repair-create-ticket"/>
+            </div>
+        </div>
+    <!---->
+
+  <!-- EMPTY TICKET FORM -->
+        <div class="input-block-hidden" id="input-ticket-template">
+    <!-- TICKET INFO-->
+          <div class="input-block" id="ticket-info-block">
+            <h1 class="input-block-header"> Ticket Information </h1>
+
+            <p class="input-header" id="repair-tkt_type-header"> TICKET TYPE </p>
+            <select class="input-repair" id="input-repair-tkt_type">
+              <option value="0">  </option>
+              <option value="1"> Radio down </option>
+              <option value="2"> No connection </option>
+              <option value="3"> Intermittent connection </option>
+              <option value="4"> Slow/Interm Speeds </option>
+              <option value="5"> Poor Signal </option>
+              <option value="6"> Conversion </option>
+              <option value="7"> Onsite </option>
+              <option value="8"> Misc. </option>
+            </select>
+
+            <p class="input-header" id="repair-tower-header"> NEAREST TOWER </p>
+            <select class="input-repair" id="input-repair-tkt_tower">
+            </select>
+
+            <p class="input-header" id="repair-zone-header"> ZONE </p>
+            <select class="input-repair" id="input-repair-tkt_zone">
+                <option value="0">  </option>
+                <option value="1"> 1 </option>
+                <option value="2"> 2 </option>
+                <option value="3"> 3 </option>
+                <option value="4"> 4 </option>
+                <option value="4"> 5 </option>
+                <option value="4"> 6 </option>
+                <option value="4"> 7 </option>
+            </select>
+
+            <p class="input-header" id="repair-notes-header"> NOTES / PROBLEM </p>
+            <textarea class="input-repair" id="input-repair-tkt_notes" rows="6" placeholder="What was the problem the customer was reporting? What was done on the call? Include the customer's attitude."></textarea>
+          </div>
+    <!---->
+
+    <!-- CUSTOMER INFO-->
+          <div class="input-block" id="customer-info-block">
+              <h1 class="input-block-header"> Customer Information </h1>
+
+              <p class="input-header" id="input-customer-header-id"> CUSTOMER ID </p>
+              <input class="input-repair" id="input-repair-customer-id" type="text" name="customer-id"/>
+
+              <p class="input-header" id="repair-name-header"> CUSTOMER NAME </p>
+              <input class="input-repair" id="input-repair-customer-name" type="text" name="customer-name"/>
+
+              <p class="input-header" id="repair-package-header"> SERVICE PACKAGE </p>
+              <div class="input-group" id="input-group-package">
+                <input id="input-cst_package-residential" type="radio" name="package" value="Residential"> Residential <br>
+                <input id="input-cst_package-business" type="radio" name="package" value="Business"> Business <br>
+                <input id="input-cst_package-other" type="radio" name="package" value="Other"> Other <br>
+                <select class="input-repair" id="input-repair-package">
+                </select>
+              </div>
+
+              <p class="input-header" id="repair-speedtest-header"> SPEED TEST RESULTS </p>
+              <input class="input-repair" id="input-repair-cst_speed-test" type="text" name="cst_speed-test"/>
+
+              <p class="input-header" id="repair-torch-header"> TORCH RESULTS </p>
+              <input class="input-repair" id="input-repair-cst_torch" type="text" name="cst_torch"/> 
+          </div>
+    <!---->
+
+    <!-- RADIO INFO-->
+          <div class="input-block" id="radio-info-block">
+            <h1 class="input-block-header"> Radio Information </h1>
+
+            <p class="input-header" id="repair-radio_manage-header"> MANAGEMENT IP </p>
+            <input class="input-repair" id="input-repair-radio_managed" type="text" name="radio_managed"/>
+
+            <p class="input-header" id="repair-radio_public-header"> PUBLIC IP </p>
+            <input class="input-repair" id="input-repair-radio_public" type="text" name="radio_public"/>
+
+            <p class="input-header" id="repair-radio_mac-header"> MAC ADDRESS </p>
+            <input class="input-repair" id="input-repair-radio_mac" type="text" name="radio_mac"/>
+
+            <p class="input-header" id="repair-radio_test-header"> SPEED TEST </p>
+            <input class="input-repair" id="input-repair-radio_speed-test" type="text" name="radio_speed-test"/>
+
+            <p class="input-header" id="repair-radio_type-header"> RADIO TYPE </p>
+            <div class="input-group" id="input-group-radio_type">
+              <select class="input-repair" id="input-repair-radio_type">
+                <option value=""></option>
+                <option value="UBNT"> UBNT </option>
+                <option value="EPMP"> ePMP </option>
+                <option value="CANOPY"> Canopy </option>
+                <option value="TELRAD"> LTE - Telrad </option>
+              </select>
+              <select class="input-repair" id="input-repair-radio_type_type">
+              </select>
+            </div>
+
+            <p class="input-header" id="repair-radio_signal-header"> SIGNAL STRENGTH </p>
+            <input class="input-repair" id="input-repair-radio_signal" type="text" name="radio_signal"/>
+
+            <p class="input-header" id="repair-radio_last_signal-header"> LAST KNOWN SIGNAL STRENGTH </p>
+            <input class="input-repair" id="input-repair-radio_last_signal" type="text" name="radio_last_signal"/>
+
+            <p class="input-header" id="repair-radio_ccq-header"> CCQ </p>
+            <input class="input-repair" id="input-repair-radio_ccq" type="text" name="radio_ccq"/>
+
+            <p class="input-header" id="repair-radio_qual_cap-header"> QUALITY / CAPACITY </p>
+            <input class="input-repair" id="input-repair-radio_qual" type="text" name="radio_qual"/>
+
+            <p class="input-header" id="repair-radio_ssid-header"> AP SSID </p>
+            <input class="input-repair" id="input-repair-radio_ssid" type="text" name="radio_ssid"/>
+
+            <p class="input-header" id="repair-radio_ap_count-header"> AP CUSTOMER COUNT </p>
+            <input class="input-repair" id="input-repair-radio_ap_count" type="text" name="radio_ap_count"/>
+          </div>
+    <!---->
+
+          <!--<div class="dir-btn-container">
+            <div class="bbtn-container" id="repair-tkt-back">
+                <i class="fas fa-chevron-circle-left fa-2x" id="back-btn-icon"></i>
+            </div>
+
+            <div class="fbtn-container" id="repair-tkt-forward">
+                <i class="fas fa-chevron-circle-right fa-2x" id="back-btn-icon"></i>
+            </div>
+          </div>-->
+
+        </div>
+      </div>
     </section>
     <!-- INSTALL TICKET -->
     <!-- ONSITE TICKET -->
@@ -96,6 +260,7 @@
     <script>
       require('../js/nav.js');
       require('../js/home.js');
+      require('../js/tickets.js');
     </script>
   </body>
 

@@ -1,0 +1,68 @@
+/* Only affects elements under section#option-repair. */
+
+section#option-repair {}
+
+    section#option-repair .input-block, section#option-repair .input-block-left, section#option-repair .input-block-right { 
+        padding: 0 50px 50px 50px;
+    }
+
+
+    section#option-repair #input-ticket-template {}
+
+        section#option-repair #ticket-info-block {
+            margin-top: 50px;
+        }
+
+        section#option-repair #customer-info-block {
+            margin-top: 50px;
+        }
+
+        section#option-repair #radio-info-block {
+            margin-top: 50px;
+        }
+
+    section#option-repair #input-block-header-cst-info {
+        color: #0094DE;
+    }
+
+    section#option-repair #ticket-info-block .input-block-header, section#option-repair #customer-info-block .input-block-header, section#option-repair #radio-info-block .input-block-header {
+        color: #0094DE;
+    }
+
+    section#option-repair #input-customer-header-name {
+        margin-top: 25px;
+    }
+
+/** Repair Ticket Form **/
+    section#option-repair #repair-tower-header { margin-top: 25px; }
+    section#option-repair #repair-zone-header { margin-top: 25px; }
+    section#option-repair #repair-notes-header { margin-top: 25px; }
+    section#option-repair #repair-name-header { margin-top: 25px; }
+    section#option-repair #repair-package-header { margin-top: 25px; }
+    section#option-repair #repair-speedtest-header { margin-top: 25px; }
+    section#option-repair #repair-torch-header { margin-top: 25px; }
+    section#option-repair #input-cst_package-residential { margin-top: 10px; }
+    section#option-repair input[type="radio"] { margin-left: 10px; }
+    section#option-repair #input-repair-package { margin: 10px 0 10px 10px; width: 276px; }
+
+    section#option-repair #repair-radio_public-header { margin-top: 25px; }
+    section#option-repair #repair-radio_mac-header { margin-top: 25px; }
+    section#option-repair #repair-radio_test-header { margin-top: 25px; }
+    section#option-repair #repair-radio_type-header { margin-top: 25px; }
+    section#option-repair #input-repair-radio_type { margin: 10px 0 10px 10px; width: 120px; }
+    section#option-repair #input-repair-radio_type_type { margin: 0 0 0 5px; width: 232px; }
+    section#option-repair #repair-radio_signal-header { margin-top: 25px }
+    section#option-repair #repair-radio_last_signal-header { margin-top: 25px }
+    section#option-repair #repair-radio_ccq-header { margin-top: 25px }
+    section#option-repair #repair-radio_qual_cap-header { margin-top: 25px }
+    section#option-repair #repair-radio_ssid-header { margin-top: 25px }
+    section#option-repair #repair-radio_ap_count-header { margin-top: 25px }
+
+    section#option-repair #btn-repair-customer-check {
+        margin-top: 50px;
+        margin-bottom: 5px;
+    }
+
+    section#option-repair #btn-repair-create-ticket {
+        margin-top: 5px;
+    }

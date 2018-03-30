@@ -5,22 +5,27 @@
  * 
  * Functions:
  * 
- * checkUsernamePassword(string, string)    :: void
- * checkUsername(string)                    :: void
- * displayError()                           :: void
+ * Login() :: void
  */
-let Home = new function() 
+let Home = new function()
 {
     /**
-     * Home property that deals with allowing the
+     * Login property that deals with allowing the
      * user to log into the application.
+     * 
+     * Functions:
+     * login(string, string)                    :: void
+     * checkUsernamePassword(string, string)    :: void
+     * checkUsername(string)                    :: void
+     * displayError(string)                     :: void
+     * resetError(string)                       :: void
      */
 /**/this.Login = new function()
     {
         this.username = ''; // username: string.
         this.password = ''; // password: string.
+        this.name = ''; // name of the user: string
         this.errorMsg = ''; // error message to be displayed: string.
-
         this.server; // require object: obj.
 
         this.loggedIn = false; // is user logged in?: bool
@@ -48,7 +53,7 @@ let Home = new function()
             this.Sonar = require('../server/Sonar.js');
 
             // Authenticates and logs the user in if successful with username and password.
-            this.Sonar.Authenticate(this.user, this.pass, (data) => {
+            this.Sonar.Login.Authenticate(this.user, this.pass, (data) => {
 
                 if(data.error)
                 {
@@ -64,15 +69,19 @@ let Home = new function()
                 else
                 {
                     console.log('Success! ', data);
-                    let name = this.getName(username, data);
-                    $('#input-block-log-in').removeClass('input-block').addClass('input-block-hidden');
-                    $('#input-block-logged-in').removeClass('input-block-hidden').addClass('input-block');
-                    $('.login-success').text('Welcome, ' + name + '!');
+                    this.name = this.getName(username, data);
+                    this.loggedIn = true;
+                    this.welcomeUser();
+                    this.createSession();
                 }
             });
 
             /**
-             * 
+             * Once the user is successfully logged in, get the
+             * public name of the user to inform them they
+             * successfully logged in.
+             * @param {*} username 
+             * @param {*} data 
              */
             this.getName = function(username, data)
             {
@@ -80,6 +89,25 @@ let Home = new function()
                     if(data.data[i].username == username)
                         return data.data[i].public_name;
             }
+        }
+
+        /**
+         * Utilizes the username, password, and loggedIn
+         * variables to create a session state for the user.
+         */
+        this.createSession = function()
+        {
+            sessionStorage.username = this.username;
+            sessionStorage.password = this.password;
+            sessionStorage.name = this.name;
+            sessionStorage.loggedIn = this.loggedIn;
+        }
+
+        this.welcomeUser = function()
+        {
+            $('#input-block-log-in').removeClass('input-block').addClass('input-block-hidden');
+            $('#input-block-logged-in').removeClass('input-block-hidden').addClass('input-block');
+            $('.login-success').text('Welcome, ' + this.name + '!');
         }
 
         /**
@@ -99,7 +127,7 @@ let Home = new function()
                 this.error = true;
                 this.errorMsg = 'Username or Password cannot be blank!';
             }
-            else    // if no errors
+            else // if no errors
             {
                 this.resetError('#err-login');
             }
@@ -110,9 +138,6 @@ let Home = new function()
                 return;
             }
 
-            /**
-             * LOG USER IN
-             */
             this.login(this.username, this.password);
         }
 
@@ -202,6 +227,22 @@ $('#input-login-username').keyup(() => {
  * When the update is ready, inform the user and provide
  * the option to install the new update.
  */
+const ipcRenderer = require('electron').ipcRenderer;
 ipcRenderer.on('updateReady', (event, text) => {
     alert("Update is available!");
+});
+
+/**
+ * When page loads, check if session is still available and
+ * update elements accordingly.
+ */
+$(window).on('load', () => {
+    if(sessionStorage.loggedIn)
+    {
+        Home.Login.loggedIn = true;
+        Home.Login.username = sessionStorage.username;
+        Home.Login.password = sessionStorage.password;
+        Home.Login.name = sessionStorage.name;
+        Home.Login.welcomeUser();
+    }
 });

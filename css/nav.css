@@ -1,6 +1,6 @@
 /** Navbar **/
 .navbar {
-	position: absolute;
+	position: fixed;
 	overflow: hidden;
 	margin: 0 auto;
 	top: 0;

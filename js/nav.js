@@ -12,6 +12,13 @@ $other.on('click', event => {
 
     console.log(section);
 
+    if(!sessionStorage.loggedIn)
+    {
+        $('#err-login').text('Please login before creating tickets!');
+        return;
+    }
+
+
     if($(option).hasClass('active')) return; // Already selected.
 
     $('.active').removeClass('active').addClass('other');      // Set option that was active to not.
