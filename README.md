@@ -20,12 +20,6 @@ npm install
 npm start
 ```
 
-Also this application utilizes the twilio API. You will need a 'tokens.js' file in the js folder with the following code:
-```bash
-
-```
-Replace <> with the appropriate information.
-
 To update build the app locally, edit the version in package.json and run:
 ```node
 npm run ship

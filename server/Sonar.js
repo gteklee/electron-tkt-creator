@@ -7,13 +7,13 @@ let Sonar = new function()
         host: 'gtek.sonar.software',
         path: '',
         headers: '',
-        method: 'GET'
+        method: ''
     }
 
     this.Customer = new function()
     {
         /**
-         * Get the user data from Sonar provided ID and NAME.
+         * Get the customer data from Sonar provided ID.
          * @param {*} id 
          * @param {*} name
          * @param {*} username
@@ -29,6 +29,52 @@ let Sonar = new function()
 
             this.getData(options, this.callback);
         }
+
+        /**
+         * Get the customer ip assignments.
+         * @param {*} id 
+         * @param {*} username 
+         * @param {*} password 
+         * @param {*} callback 
+         */
+        this.GetIPAssignments = function(id, username, password, callback)
+        {
+            options.path = '/api/v1/accounts/' + id + '/ip_assignments';
+            options.headers = {'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64')};
+            options.method = 'GET';
+            this.callback = callback;
+
+            this.getData(options, this.callback);
+        }
+
+        this.GetInventoryItem = function(id, username, password, callback)
+        {
+            options.path = '/api/v1/inventory/items/' + id;
+            options.headers = {'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64')};
+            options.method = 'GET';
+            this.callback = callback;
+
+            this.getData(options, this.callback);
+        }
+
+        /**
+         * Get the package/service the customer has on the account.
+         * @param {*} id 
+         * @param {*} username 
+         * @param {*} password 
+         * @param {*} callback 
+         */
+        this.GetServices = function(id, username, password, callback)
+        {
+            options.path = '/api/v1/accounts/' + id + '/services';
+            options.headers = {'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64')};
+            options.method = 'GET';
+            this.callback = callback;
+
+            this.getData(options, this.callback);
+
+        }
+
 
         /**
          * This is the actual https request to the Sonar API.

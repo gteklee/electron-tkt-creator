@@ -31,6 +31,8 @@ let Tickets = new function()
          * form is submitted.
          */
         this.TicketData = {
+            acct: null,
+
             tkt_type:   '',
             tkt_tower:  '',
             tkt_zone:   '',
@@ -38,7 +40,7 @@ let Tickets = new function()
 
             cst_id:         '',
             cst_name:       '',
-            cst_package:    '',
+            cst_package:    [],
             cst_speedtest:  '',
             cst_torch:      '',
 
@@ -81,10 +83,162 @@ let Tickets = new function()
                 }
                 else
                 {
-                    console.log(data);
                     this.confirmAccountFound(data);
                 }
             });
+        }
+
+        /**
+         * When the account is retreived and confirmed,
+         * this automatically fills all information
+         * that can be retreived from the account.
+         */
+        this.fillTicketForm = function()
+        {
+            this.Sonar = require('../server/Sonar.js');
+            this.account = this.TicketData.acct.data;
+            this.TicketData.cst_id = this.account.id;
+            this.TicketData.cst_name = this.account.name;
+
+            // Set name and id.
+
+            /** IP assignments */
+            this.Sonar.Customer.GetIPAssignments(this.account.id, sessionStorage.username, sessionStorage.password, (data) => {
+
+                // Get all ip assignments as long as ips are assigned.
+                if(data.data.length > 0)
+                {
+                    let managed_inventory_id; // Inventory item.
+
+                    // Get managed ip, public ip, and radio type.
+                    for(let i = 0; i < data.data.length; i++)
+                    {
+                        let assignment = data.data[i];  // Ip assignment pulled from Sonar.
+
+                        // Determine ips.
+                        if(assignment.subnet.indexOf('10.1.') > -1) { this.TicketData.radio_managed = assignment.subnet; this.TicketData.radio_type = 'UBNT'; managed_inventory_id = assignment.assigned_id; } // Radio
+                        else if(assignment.subnet.indexOf('10.130.')  > -1) { this.TicketData.radio_managed = assignment.subnet; this.TicketData.radio_type = 'Canopy'; managed_inventory_id = assignment.assigned_id; } // Radio
+                        else if(assignment.subnet.indexOf('10.150.')  > -1) { this.TicketData.radio_managed = assignment.subnet; this.TicketData.radio_type = 'ePMP'; managed_inventory_id = assignment.assigned_id; } // Radio
+                        else if(assignment.subnet.indexOf('65.91.199.')  > -1 || assignment.subnet.indexOf('65.91.198.')  > -1) { this.TicketData.radio_managed = assignment.subnet; this.TicketData.radio_type = 'Telrad'; managed_inventory_id = assignment.assigned_id; } // Radio
+                        else if(assignment.subnet.indexOf('65.91.196.' > -1) || assignment.subnet.indexOf('65.91.197.') > -1) { this.TicketData.radio_public = assignment.subnet; } // Static
+                        else if(assignment.subnet.indexOf('8.24.')  > -1)  { this.TicketData.radio_public = assignment.subnet; }  // Static
+                        else if(assignment.subnet.indexOf('50.93.')  > -1) { this.TicketData.radio_public = assignment.subnet; }  // Static
+                        else if(assignment.subnet.indexOf('65.90.')  > -1) { this.TicketData.radio_public = assignment.subnet; }  // Static
+                        else if(assignment.subnet.indexOf('172.20.')  > -1) { this.TicketData.radio_public = assignment.subnet; } // Static
+                    }
+
+                    // Get MAC address by using assignment id of inventory item.
+                    this.Sonar.Customer.GetInventoryItem(managed_inventory_id, sessionStorage.username, sessionStorage.password, (obj) => {
+                        
+                        // Check each field in the inventory items.
+                        if(!obj.error)
+                        {
+                            for(let i = 0; i < obj.data.fields.length; i++)
+                            {
+                                let field = obj.data.fields[i]; // Get current element.
+
+                                if(field.data == '') // If field is blank, go to next element.
+                                    continue;
+
+                                if(field.data.length == 17) // Got MAC address.
+                                    this.TicketData.radio_mac = field.data;
+                            }
+                        }
+
+                        this.fillTicket();
+                    });
+                }
+            });
+
+            /** Customer services */
+            this.Sonar.Customer.GetServices(this.account.id, sessionStorage.username, sessionStorage.password, (data) => {
+
+                // Determine package by id.
+                for(let i = 0; i < data.data.length; i++)
+                {
+                    let service = data.data[i]; // Service package pulled from Sonar.
+
+                    // Make sure this is a package we want to look at.
+                    if(service.id < 1 || service.id > 10 && service.id < 64 || service.id > 79 && service.id != 95)
+                        continue;
+
+                    // Determine package.
+                    if(service.id >= 1 && service.id <= 5) // Res
+                    {
+                        this.TicketData.cst_package[0] = 'Residential';
+
+                        // Check type of package.
+                        if(service.id == 1) this.TicketData.cst_package[1] = 'Steel';
+                        else if(service.id == 2) this.TicketData.cst_package[1] = 'Bronze';
+                        else if(service.id == 3) this.TicketData.cst_package[1] = 'Silver';
+                        else if(service.id == 4) this.TicketData.cst_package[1] = 'Gold';
+                        else if(service.id == 5) this.TicketData.cst_package[1] = 'Platinum';
+                    }
+                    else if(service.id >= 6 && service.id <= 10) // Bus
+                    {
+                        this.TicketData.cst_package[0] = 'Business';
+
+                        // Check type of package.
+                        if(service.id == 6) this.TicketData.cst_package[1] = 'Steel';
+                        else if(service.id == 7) this.TicketData.cst_package[1] = 'Bronze';
+                        else if(service.id == 8) this.TicketData.cst_package[1] = 'Silver';
+                        else if(service.id == 9) this.TicketData.cst_package[1] = 'Gold';
+                        else if(service.id == 10) this.TicketData.cst_package[1] = 'Platinum';
+                    }
+                    else if(service.id >= 64 && service.id <= 79) // PTP
+                    {
+                        this.TicketData.cst_package[0] = 'Other';
+                        this.TicketData.cst_package[1] = 'Point-To-Point';
+                    }
+                    else if(service.id == 95) // Trade
+                    {
+                        this.TicketData.cst_package[0] = 'Other';
+                        this.TicketData.cst_package[1] = 'Trade Agreement';
+                    }
+                }
+            });
+
+            /**
+             * Fill ticket form.
+             */
+            this.fillTicket = function()
+            {
+                let _ = this.TicketData;
+                console.log(_.cst_id);
+                console.log(_.cst_name);
+                console.log(_.cst_package[0] + ' ' + _.cst_package[1]);
+                console.log(_.radio_type + ': ' + _.radio_managed);
+                console.log(_.radio_mac);
+                console.log(_.radio_public);
+
+                this.clearTicket();
+
+                // Fill out the appropriate values.
+                if(_.cst_id != '') $('#input-repair-customer_id').val(_.cst_id);        // Customer ID.
+                if(_.cst_name != '') $('#input-repair-customer_name').val(_.cst_name);  // Customer Name.
+                if(_.radio_managed != '') $('#input-repair-radio_managed').val(_.radio_managed); // Radio managed IP.
+                if(_.radio_public != '') $('#input-repair-radio_public').val(_.radio_public);    // Public IP.
+                if(_.radio_mac != '') $('#input-repair-radio_mac').val(_.radio_mac);             // Radio MAC.
+                if(_.radio_type != '') { $('#input-repair-radio_type').val(_.radio_type.toUpperCase()).change(); }
+                // Package radio buttons.
+                if(_.cst_package.length > 0)
+                {
+                    $('input[type=radio][name=package][value=' + _.cst_package[0] + ']').attr('checked', true).change();
+                    $('#input-repair-package').val(_.cst_package[1]);
+                }
+
+                this.displayForm();
+            }
+
+            // Clear ticket form.
+            this.clearTicket = function()
+            {
+                $('#input-repair-customer_id').val('');
+                $('#input-repair-customer_name').val('');
+                $('#input-repair-radio_managed').val('');
+                $('#input-repair-radio_public').val('');
+                $('#input-repair-radio_mac').val('');
+            }
         }
 
         /**
@@ -95,13 +249,30 @@ let Tickets = new function()
          */
         this.confirmAccountFound = function(obj)
         {
-            this.object = obj;  // Object passed.
+            this.clearTicketData();
+            this.TicketData.acct = obj; // Store account retreived.
 
             // Set the appropriate text to user.
             // Name of customer is pulled from object retreived from Sonar.
-            $('#info-confirm-cst_id').text('Account Found: ' + this.object.data.name);
+            $('#info-confirm-cst_id').text('Account Found: ' + this.TicketData.acct.data.name);
 
             this.displayAccountConfirmation();  // Display account confirmation section.
+        }
+
+        /**
+         * Clears the data in TicketData for a new customer.
+         */
+        this.clearTicketData = function()
+        {
+            let _ = this.TicketData;
+
+            _.cst_id = '';
+            _.cst_name = '';
+            _.cst_package = [];
+            _.radio_managed = '';
+            _.radio_public = '';
+            _.radio_mac = '';
+            _.radio_type = '';
         }
 
         /**
@@ -109,7 +280,7 @@ let Tickets = new function()
          */
         this.displayAccountConfirmation = function()
         {
-            $('#input-customer-search').removeClass('input-block').addClass('input-block-hidden');
+            $(this.currentSection).removeClass('input-block').addClass('input-block-hidden');
             $('#input-customer-confirm').removeClass('input-block-hidden').addClass('input-block');
             //$('#back-btn').removeClass('bbtn-container-hidden').addClass('bbtn-container');
             this.currentSection = '#input-customer-confirm';
@@ -118,9 +289,9 @@ let Tickets = new function()
         /**
          * Displays the empty ticket template form.
          */
-        this.displayEmptyForm = function()
+        this.displayForm = function()
         {
-            $('#input-customer-search').removeClass('input-block').addClass('input-block-hidden');
+            $(this.currentSection).removeClass('input-block').addClass('input-block-hidden');
             $('#input-ticket-template').removeClass('input-block-hidden').addClass('input-block');
             $('#back-btn').removeClass('bbtn-container-hidden').addClass('bbtn-container');
             this.currentSection = '#input-ticket-template';
@@ -331,7 +502,7 @@ $('#btn-repair-customer-check').on('click', () => {
  * "CREATE TICKET" button clicked event.
  */
 $('#btn-repair-create-ticket').on('click', () => {
-    Tickets.Repair.displayEmptyForm();
+    Tickets.Repair.displayForm();
 });
 
 /**
@@ -339,6 +510,13 @@ $('#btn-repair-create-ticket').on('click', () => {
  */
 $('#btn-repair-customer-deny').on('click', () => {
     Tickets.Repair.back();
+});
+
+/**
+ * "CONFIRM" button clicked event.
+ */
+$('#btn-repair-customer-confirm').on('click', () => {
+    Tickets.Repair.fillTicketForm();
 });
 
 /**
