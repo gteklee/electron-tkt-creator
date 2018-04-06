@@ -84,7 +84,7 @@
     <!-- REPAIR TICKET -->
     <section class="section-hidden" id="option-repair">
       <div class="title-header">
-        <h1 class="title"> REPAIR TICKET </h1>
+        <h1 class="title"> REPAIR JOB </h1>
       </div>
 
       <div class="bbtn-container-hidden" id="back-btn">
@@ -140,9 +140,9 @@
         <div class="input-block-hidden" id="input-ticket-template">
     <!-- TICKET INFO-->
           <div class="input-block" id="ticket-info-block">
-            <h1 class="input-block-header"> Ticket Information </h1>
+            <h1 class="input-block-header"> Job Information </h1>
 
-            <p class="input-header" id="repair-tkt_type-header"> TICKET TYPE </p>
+            <p class="input-header" id="repair-tkt_type-header"> JOB TYPE </p>
             <select class="input-repair" id="input-repair-tkt_type">
               <option value="0">  </option>
               <option value="1"> Radio down </option>
@@ -154,10 +154,16 @@
               <option value="7"> Onsite </option>
               <option value="8"> Misc. </option>
             </select>
+            <div class="err-container">
+              <p class="err-msg" id="err-tkt_type"></p>
+            </div>
 
             <p class="input-header" id="repair-tower-header"> NEAREST TOWER </p>
             <select class="input-repair" id="input-repair-tkt_tower">
             </select>
+            <div class="err-container">
+              <p class="err-msg" id="err-tkt_tower"></p>
+            </div>
 
             <p class="input-header" id="repair-zone-header"> ZONE </p>
             <select class="input-repair" id="input-repair-tkt_zone">
@@ -170,6 +176,9 @@
                 <option value="4"> 6 </option>
                 <option value="4"> 7 </option>
             </select>
+            <div class="err-container">
+              <p class="err-msg" id="err-tkt_zone"></p>
+            </div>
 
             <p class="input-header" id="repair-notes-header"> NOTES / PROBLEM </p>
             <textarea class="input-repair" id="input-repair-tkt_notes" rows="6" placeholder="What was the problem the customer was reporting? What was done on the call? Include the customer's attitude."></textarea>
@@ -182,9 +191,15 @@
 
               <p class="input-header" id="input-customer-header-id"> CUSTOMER ID </p>
               <input class="input-repair" id="input-repair-customer_id" type="text" name="customer-id"/>
+              <div class="err-container">
+                <p class="err-msg" id="err-customer_id"></p>
+              </div>
 
               <p class="input-header" id="repair-name-header"> CUSTOMER NAME </p>
               <input class="input-repair" id="input-repair-customer_name" type="text" name="customer-name"/>
+              <div class="err-container">
+                <p class="err-msg" id="err-customer_name"></p>
+              </div>
 
               <p class="input-header" id="repair-package-header"> SERVICE PACKAGE </p>
               <div class="input-group" id="input-group-package">
@@ -209,12 +224,21 @@
 
             <p class="input-header" id="repair-radio_manage-header"> MANAGEMENT IP </p>
             <input class="input-repair" id="input-repair-radio_managed" type="text" name="radio_managed"/>
+            <div class="err-container">
+              <p class="err-msg" id="err-radio_managed"></p>
+            </div>
 
             <p class="input-header" id="repair-radio_public-header"> PUBLIC IP </p>
             <input class="input-repair" id="input-repair-radio_public" type="text" name="radio_public"/>
+            <div class="err-container">
+              <p class="err-msg" id="err-radio_public"></p>
+            </div>
 
             <p class="input-header" id="repair-radio_mac-header"> MAC ADDRESS </p>
             <input class="input-repair" id="input-repair-radio_mac" type="text" name="radio_mac"/>
+            <div class="err-container">
+              <p class="err-msg" id="err-radio_mac"></p>
+            </div>
 
             <p class="input-header" id="repair-radio_test-header"> SPEED TEST </p>
             <input class="input-repair" id="input-repair-radio_speed-test" type="text" name="radio_speed-test"/>
@@ -231,9 +255,15 @@
               <select class="input-repair" id="input-repair-radio_type_type">
               </select>
             </div>
+            <div class="err-container">
+              <p class="err-msg" id="err-radio_type"></p>
+            </div>
 
             <p class="input-header" id="repair-radio_signal-header"> SIGNAL STRENGTH </p>
             <input class="input-repair" id="input-repair-radio_signal" type="text" name="radio_signal"/>
+            <div class="err-container">
+              <p class="err-msg" id="err-radio_signal"></p>
+            </div>
 
             <p class="input-header" id="repair-radio_last_signal-header"> LAST KNOWN SIGNAL STRENGTH </p>
             <input class="input-repair" id="input-repair-radio_last_signal" type="text" name="radio_last_signal"/>
@@ -252,17 +282,12 @@
           </div>
     <!---->
 
-          <!--<div class="dir-btn-container">
-            <div class="bbtn-container" id="repair-tkt-back">
-                <i class="fas fa-chevron-circle-left fa-2x" id="back-btn-icon"></i>
-            </div>
-
-            <div class="fbtn-container" id="repair-tkt-forward">
-                <i class="fas fa-chevron-circle-right fa-2x" id="back-btn-icon"></i>
-            </div>
-          </div>-->
-
+          <div class="btn-container" id="btn-container-tkt-submit">
+            <input type="button" class="btn-tkt" value="CLEAR" id="btn-repair-tkt-clear"/>
+            <input type="button" class="btn-tkt" value="SUBMIT" id="btn-repair-tkt-submit"/>
+          </div>
         </div>
+
       </div>
     </section>
     <!-- INSTALL TICKET -->
@@ -275,9 +300,10 @@
     <!-- OTHER ESCALATION -->
 
     <script>
-      require('../js/nav.js');
-      require('../js/home.js');
-      require('../js/tickets.js');
+      require('../js/nav.js');      // Navigation handling.
+      require('../js/home.js');     // Handle home page.
+      require('../js/tickets.js');  // Handle tickets.
+      require('../js/forms.js');    // Handle form error checking.
     </script>
   </body>
 

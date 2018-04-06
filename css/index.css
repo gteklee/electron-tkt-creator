@@ -44,7 +44,7 @@ section { margin-left: 53px; font-family:'Montserrat', sans-serif; overflow: aut
             .input-login { padding: 0; margin: 0; }
 
             .btn-container { display: flex; padding: 0; margin: 0; justify-content: center; }
-                .btn, .btn-confirm {
+                .btn, .btn-confirm, .btn-tkt {
                     border: solid;
                     border-radius: 3px;
                     border-width: 1px;
@@ -57,9 +57,13 @@ section { margin-left: 53px; font-family:'Montserrat', sans-serif; overflow: aut
                     font-size: 16px; 
                     width: 188px !important; 
                     height: 40px;
+                } .btn-tkt {
+                    font-size: 16px;
+                    width: 100px !important;
+                    height: 40px;
                 }
-                    .btn:hover, .btn-confirm:hover { border-color: grey; cursor:  pointer;}
-                    .btn:active, .btn-confirm:active {
+                    .btn:hover, .btn-confirm:hover, .btn-tkt:hover { border-color: grey; cursor:  pointer;}
+                    .btn:active, .btn-confirm:active, .btn-tkt:active {
                         border-color: #05618F;
                         background-color: #05618F;
                         color: white;

@@ -12,6 +12,7 @@
  */
 let Tickets = new function()
 {
+    this.Towers = require('../js/modules/Towers.js'); // Get the Towers module.
     /**
      * Repair deals with all functions of the repair
      * ticket process.
@@ -293,6 +294,7 @@ let Tickets = new function()
         {
             $(this.currentSection).removeClass('input-block').addClass('input-block-hidden');
             $('#input-ticket-template').removeClass('input-block-hidden').addClass('input-block');
+            $('#input-ticket-submit').removeClass('input-block-hidden').addClass('input-block');
             $('#back-btn').removeClass('bbtn-container-hidden').addClass('bbtn-container');
             this.currentSection = '#input-ticket-template';
         }

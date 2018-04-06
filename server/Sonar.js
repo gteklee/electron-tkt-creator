@@ -99,6 +99,48 @@ let Sonar = new function()
         }
     }
 
+    this.Towers = new function()
+    {
+        /**
+         * Get all towers from Sonar.
+         * @param {*} id 
+         * @param {*} username 
+         * @param {*} password 
+         * @param {*} callback 
+         */
+        this.GetTowers = function(username, password, callback)
+        {
+            options.path = '/api/v1/network/network_sites';
+            options.headers = {'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64')};
+            options.method = 'GET';
+            this.callback = callback;
+
+            this.getData(options, this.callback);
+        }
+        
+        /**
+         * Http request to Sonar to retreive data.
+         * @param {*} options 
+         * @param {*} callback 
+         */
+        this.getData = function(options, callback)
+        {
+            https.request(options, (res) => {
+                let body = '';  // body of JSON.
+
+                res.on('data', (chunk) => { // data is received.
+                    body += chunk;
+                });
+
+                res.on('end', () => { // when finished parsing data.
+                    let data = JSON.parse(body);
+                    callback(data);
+                });
+
+            }).end();
+        }
+    }
+
     this.Login = new function()
     {
         /**

@@ -50,6 +50,7 @@ let Home = new function()
             this.user = username;
             this.pass = password;
             this.Sonar = require('../server/Sonar.js');
+            this.Towers = require('../js/modules/Towers.js');
 
             // Authenticates and logs the user in if successful with username and password.
             this.Sonar.Login.Authenticate(this.user, this.pass, (data) => {
@@ -72,6 +73,7 @@ let Home = new function()
                     this.loggedIn = true;
                     this.welcomeUser();
                     this.createSession();
+                    this.Towers.RetrieveTowers();
                 }
             });
 

@@ -7,7 +7,10 @@ section#option-repair {}
     }
 
 
-    section#option-repair #input-ticket-template {}
+    section#option-repair #input-ticket-template {
+        border: none;
+        background: none;
+    }
 
         section#option-repair #ticket-info-block {
             margin-top: 50px;
@@ -72,3 +75,58 @@ section#option-repair {}
     section#option-repair #btn-repair-customer-confirm {
         margin-right: 10px;
     }
+
+    section#option-repair #btn-repair-tkt-clear, section#option-repair #btn-repair-tkt-copy, section#option-repair #btn-repair-tkt-submit {
+        margin-top: 50px;
+    } section#option-repair #btn-repair-tkt-submit {
+        margin-left: 25px;
+    }
+
+
+
+
+
+@media screen and (min-width: 1300px)
+{
+    /* Re-organize position of each input-block */
+    section#option-repair .input-block#input-ticket-template {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    section#option-repair .input-block#input-ticket-template #customer-info-block {
+        margin-left: 50px;
+    }
+
+    section#option-repair  #btn-container-tkt-submit {
+        width: 600px;
+    }
+}
+
+@media screen and (min-width: 1340px)
+{
+    section#option-repair  #btn-container-tkt-submit {
+        width: 800px;
+    }
+}
+
+@media screen and (min-width: 1540px)
+{
+    section#option-repair  #btn-container-tkt-submit {
+        width: 1100px;
+    }
+}
+
+@media screen and (min-width: 1755px)
+{
+    section#option-repair  #btn-container-tkt-submit {
+        width: 1200px;
+    }
+
+    section#option-repair .input-block#input-ticket-template #radio-info-block {
+        margin-left: 50px;
+    }
+}
