@@ -39,8 +39,8 @@ let Tickets = new function()
             tkt_zone:   '',
             tkt_notes:  '',
 
-            cst_id:         '',
-            cst_name:       '',
+            customer_id:    '',
+            customer_name:  '',
             cst_package:    [],
             cst_speedtest:  '',
             cst_torch:      '',
@@ -50,6 +50,7 @@ let Tickets = new function()
             radio_mac:          '',
             radio_speedtest:    '',
             radio_type:         '',
+            radio_type_type:    '',
             radio_signal:       '',
             radio_last_signal:  '',
             radio_ccq:          '',
@@ -98,8 +99,8 @@ let Tickets = new function()
         {
             this.Sonar = require('../server/Sonar.js');
             this.account = this.TicketData.acct.data;
-            this.TicketData.cst_id = this.account.id;
-            this.TicketData.cst_name = this.account.name;
+            this.TicketData.customer_id = this.account.id;
+            this.TicketData.customer_name = this.account.name;
 
             // Set name and id.
 
@@ -205,8 +206,8 @@ let Tickets = new function()
             this.fillTicket = function()
             {
                 let _ = this.TicketData;
-                console.log(_.cst_id);
-                console.log(_.cst_name);
+                console.log(_.customer_id);
+                console.log(_.customer_name);
                 console.log(_.cst_package[0] + ' ' + _.cst_package[1]);
                 console.log(_.radio_type + ': ' + _.radio_managed);
                 console.log(_.radio_mac);
@@ -215,8 +216,8 @@ let Tickets = new function()
                 this.clearTicket();
 
                 // Fill out the appropriate values.
-                if(_.cst_id != '') $('#input-repair-customer_id').val(_.cst_id);        // Customer ID.
-                if(_.cst_name != '') $('#input-repair-customer_name').val(_.cst_name);  // Customer Name.
+                if(_.customer_id != '') $('#input-repair-customer_id').val(_.customer_id);        // Customer ID.
+                if(_.customer_name != '') $('#input-repair-customer_name').val(_.customer_name);  // Customer Name.
                 if(_.radio_managed != '') $('#input-repair-radio_managed').val(_.radio_managed); // Radio managed IP.
                 if(_.radio_public != '') $('#input-repair-radio_public').val(_.radio_public);    // Public IP.
                 if(_.radio_mac != '') $('#input-repair-radio_mac').val(_.radio_mac);             // Radio MAC.
@@ -224,8 +225,8 @@ let Tickets = new function()
                 // Package radio buttons.
                 if(_.cst_package.length > 0)
                 {
-                    $('input[type=radio][name=package][value=' + _.cst_package[0] + ']').attr('checked', true).change();
-                    $('#input-repair-package').val(_.cst_package[1]);
+                    $('input[type=radio][name=package][value=' + _.cst_package[0] + ']').prop('checked', true).change();
+                    $('#input-repair-cst_package').val(_.cst_package[1]);
                 }
 
                 this.displayForm();
@@ -240,6 +241,121 @@ let Tickets = new function()
                 $('#input-repair-radio_public').val('');
                 $('#input-repair-radio_mac').val('');
             }
+        }
+
+        /**
+         * Error check and Submit ticket form.
+         */
+        this.submitTicketForm = function()
+        {
+            let _ = this.TicketData;
+
+            // Get data from form.
+            if($('#input-repair-tkt_type').val() == 1) _.tkt_type = 'Radio Down';
+            else if($('#input-repair-tkt_type').val() == 2) _.tkt_type = 'No Connection';
+            else if($('#input-repair-tkt_type').val() == 3) _.tkt_type = 'Intermittent Connection';
+            else if($('#input-repair-tkt_type').val() == 4) _.tkt_type = 'Slow / Intermittent Speeds';
+            else if($('#input-repair-tkt_type').val() == 5) _.tkt_type = 'Poor Signal';
+            else if($('#input-repair-tkt_type').val() == 6) _.tkt_type = 'Conversion';
+            else if($('#input-repair-tkt_type').val() == 7) _.tkt_type = 'Onsite';
+            else if($('#input-repair-tkt_type').val() == 8) _.tkt_type = 'Misc.';
+
+            _.tkt_tower = $('#input-repair-tkt_tower').val();
+            _.tkt_zone = $('#input-repair-tkt_zone').val();
+            _.tkt_notes = $('#input-repair-tkt_notes').val();
+
+            if(_.customer_id == '')
+                _.customer_id = $('#input-repair-customer_id').val();
+             
+            if(_.customer_name == '')
+                _.customer_name = $('#input-repair-customer_name').val();
+
+            if(_.cst_package.length < 1)
+            {
+                _.cst_package.push($('input[type=radio][name=package]:checked').val());
+                _.cst_package.push($('#input-repair-cst_package').val());
+            }
+
+            _.cst_speedtest = $('#input-repair-cst_speedtest').val();
+            _.cst_torch = $('#input-repair-cst_torch').val();
+
+            if(_.radio_managed == '')
+                _.radio_managed = $('#input-repair-radio_managed').val();
+
+            if(_.radio_public == '')
+                _.radio_public = $('#input-repair-radio_public').val();
+
+            if(_.radio_mac == '')
+                _.radio_mac = $('#input-repair-radio_mac').val();
+
+            _.radio_speedtest = $('#input-repair-radio_speedtest').val();
+
+            if(_.radio_type == '')
+                _.radio_type = $('#input-repair-radio_type').val();
+
+            _.radio_type_type = $('#input-repair-radio_type_type').val();
+            _.radio_signal = $('#input-repair-radio_signal').val();
+            _.radio_last_signal = $('#input-repair-radio_last_signal').val();
+            _.radio_ccq = $('#input-repair-radio_ccq').val();
+            _.radio_qual = $('#input-repair-radio_qual').val();
+            _.radio_ssid = $('#input-repair-radio_ssid').val();
+            _.radio_ap_count = $('#input-repair-radio_ap_count').val();
+
+            // Create string template.
+            let template = 'Job Type: ' + _.tkt_type + '\n\n';
+            template += _.customer_name + '\n';
+            template += _.cst_package[0] + ' ' + _.cst_package[1] + '\n\n';
+            template += 'Tower: ' + _.tkt_tower + '\n';
+            template += 'Zone: ' + _.tkt_zone + '\n\n';
+            template += 'Managed IP:   ' + _.radio_managed + '\n';
+            template += 'Public IP:    ' + _.radio_public + '\n';
+            template += 'MAC Address:  ' + _.radio_mac + '\n';
+            template += 'Radio Type:   ' + _.radio_type + ' ' + _.radio_type_type + '\n';
+            template += 'SSID:         ' + _.radio_ssid + '\n';
+            template += 'AP CST Count: ' + _.radio_ap_count + '\n';
+            template += 'CCQ:          ' + _.radio_ccq + '\n';
+            template += 'Qual / Cap:   ' + _.radio_qual + '\n';
+            template += 'Radio Signal: ' + _.radio_signal + '\n';
+            template += 'Last Known Good Signal: ' + _.radio_last_signal + '\n';
+            template += 'Radio Speed Test: ' + _.radio_speedtest + '\n\n';
+            template += 'Torch Results: ' + _.cst_torch + '\n';
+            template += 'CST Speed Test Results ' + _.cst_speedtest + '\n';
+
+
+            console.log(_);
+            console.log(template);
+        }
+
+        /**
+         * Clear all repair ticket form fields.
+         */
+        this.clearTicketForm = function()
+        {
+            $('#input-repair-tkt_type').val('').change();
+            $('#input-repair-tkt_tower').val('');
+            $('#input-repair-tkt_zone').val('');
+            $('#input-repair-tkt_notes').val('');
+
+            $('#input-repair-customer_id').val('');
+            $('#input-repair-customer_name').val('');
+            $('input[type=radio][name=package][value="Residential"]').prop('checked', false).change();
+            $('input[type=radio][name=package][value="Business"]').prop('checked', false).change();
+            $('input[type=radio][name=package][value="Other"]').prop('checked', false).change();
+            $('#input-repair-cst_speedtest').val('');
+            $('#input-repair-cst_torch').val('');
+
+            $('#input-repair-radio_managed').val('');
+            $('#input-repair-radio_public').val('');
+            $('#input-repair-radio_mac').val('');
+            $('#input-repair-radio_speedtest').val('');
+            $('#input-repair-radio_type').val('');
+            $('#input-repair-radio_type_type').val('');
+            $('#input-repair-radio_signal').val('');
+            $('#input-repair-radio_last_signal').val('');
+            $('#input-repair-radio_ccq').val('');
+            $('#input-repair-radio_qual').val('');
+            $('#input-repair-radio_ssid').val('');
+            $('#input-repair-radio_ap_count').val('');
         }
 
         /**
@@ -267,8 +383,8 @@ let Tickets = new function()
         {
             let _ = this.TicketData;
 
-            _.cst_id = '';
-            _.cst_name = '';
+            _.customer_id = '';
+            _.customer_name = '';
             _.cst_package = [];
             _.radio_managed = '';
             _.radio_public = '';
@@ -319,6 +435,18 @@ let Tickets = new function()
             this.error = false;
             this.errorMsg = '';
             $(id).text('');
+        }
+
+        /**
+         * Set the zone selected based on the tower selected.
+         */
+        this.selectZone = function()
+        {
+            this.tower = $('#input-repair-tkt_tower option:selected')[0].value; // Get tower name.
+            let zone = Tickets.Towers.getZone(this.tower);  // Get zone of selected tower based on name.
+
+            // Select received zone value.
+            $('#input-repair-tkt_zone').val(zone);
         }
 
         /**
@@ -377,14 +505,14 @@ let Tickets = new function()
         this.setServicePackageOptions = function()
         {
             // Remove all options.
-            $('#input-repair-package').find('option').remove();
+            $('#input-repair-cst_package').find('option').remove();
 
             // Add appropriate options.
             if($('#input-cst_package-residential').is(':checked') || $('#input-cst_package-business').is(':checked'))
             {
                 for(let i = 0; i < Tickets.Package.Default.length; i++)
                 {
-                    $('#input-repair-package').append($('<option>', {
+                    $('#input-repair-cst_package').append($('<option>', {
                         value: Tickets.Package.Default[i].Value,
                         text: Tickets.Package.Default[i].Text
                     }));
@@ -394,7 +522,7 @@ let Tickets = new function()
             {
                 for(let i = 0; i < Tickets.Package.Other.length; i++)
                 {
-                    $('#input-repair-package').append($('<option>', {
+                    $('#input-repair-cst_package').append($('<option>', {
                         value: Tickets.Package.Other[i].Value,
                         text: Tickets.Package.Other[i].Text
                     }));
@@ -522,6 +650,20 @@ $('#btn-repair-customer-confirm').on('click', () => {
 });
 
 /**
+ * "CLEAR" button clicked event.
+ */
+$('#btn-repair-tkt-clear').on('click', () => {
+    Tickets.Repair.clearTicketForm();
+});
+
+/**
+ * "SUBMIT" button clicked event.
+ */
+$('#btn-repair-tkt-submit').on('click', () => {
+    Tickets.Repair.submitTicketForm();
+});
+
+/**
  * Service Package radio button changed event.
  */
 $('input[type=radio][name=package]').change((event) => {
@@ -533,6 +675,13 @@ $('input[type=radio][name=package]').change((event) => {
  */
 $('#input-repair-radio_type').on('change', () => {
     Tickets.Repair.setRadioTypeOptions();
+});
+
+/**
+ * Tower on selection event.
+ */
+$('#input-repair-tkt_tower').on('change', () => {
+    Tickets.Repair.selectZone();
 });
 
 /**

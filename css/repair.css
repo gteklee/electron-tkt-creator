@@ -46,7 +46,7 @@ section#option-repair {}
     section#option-repair #repair-torch-header { margin-top: 25px; }
     section#option-repair #input-cst_package-residential { margin-top: 10px; }
     section#option-repair input[type="radio"] { margin-left: 10px; }
-    section#option-repair #input-repair-package { margin: 10px 0 10px 10px; width: 276px; }
+    section#option-repair #input-repair-cst_package { margin: 10px 0 10px 10px; width: 276px; }
 
     section#option-repair #repair-radio_public-header { margin-top: 25px; }
     section#option-repair #repair-radio_mac-header { margin-top: 25px; }

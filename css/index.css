@@ -68,6 +68,7 @@ section { margin-left: 53px; font-family:'Montserrat', sans-serif; overflow: aut
                         background-color: #05618F;
                         color: white;
                     }
+                    .btn-tkt:disabled { background-color: #05618F; border-color: grey; }
             
 /** DIRECTION BUTTONS **/
             .dir-btn-container { display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px; }

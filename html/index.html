@@ -172,8 +172,8 @@
                 <option value="2"> 2 </option>
                 <option value="3"> 3 </option>
                 <option value="4"> 4 </option>
-                <option value="4"> 5 </option>
-                <option value="4"> 6 </option>
+                <option value="5"> 5 </option>
+                <option value="6"> 6 </option>
                 <option value="4"> 7 </option>
             </select>
             <div class="err-container">
@@ -206,12 +206,12 @@
                 <input id="input-cst_package-residential" type="radio" name="package" value="Residential"> Residential <br>
                 <input id="input-cst_package-business" type="radio" name="package" value="Business"> Business <br>
                 <input id="input-cst_package-other" type="radio" name="package" value="Other"> Other <br>
-                <select class="input-repair" id="input-repair-package">
+                <select class="input-repair" id="input-repair-cst_package">
                 </select>
               </div>
 
               <p class="input-header" id="repair-speedtest-header"> SPEED TEST RESULTS </p>
-              <input class="input-repair" id="input-repair-cst_speed-test" type="text" name="cst_speed-test"/>
+              <input class="input-repair" id="input-repair-cst_speedtest" type="text" name="cst_speed-test"/>
 
               <p class="input-header" id="repair-torch-header"> TORCH RESULTS </p>
               <input class="input-repair" id="input-repair-cst_torch" type="text" name="cst_torch"/> 
@@ -241,7 +241,7 @@
             </div>
 
             <p class="input-header" id="repair-radio_test-header"> SPEED TEST </p>
-            <input class="input-repair" id="input-repair-radio_speed-test" type="text" name="radio_speed-test"/>
+            <input class="input-repair" id="input-repair-radio_speedtest" type="text" name="radio_speed-test"/>
 
             <p class="input-header" id="repair-radio_type-header"> RADIO TYPE </p>
             <div class="input-group" id="input-group-radio_type">
@@ -285,6 +285,10 @@
           <div class="btn-container" id="btn-container-tkt-submit">
             <input type="button" class="btn-tkt" value="CLEAR" id="btn-repair-tkt-clear"/>
             <input type="button" class="btn-tkt" value="SUBMIT" id="btn-repair-tkt-submit"/>
+          </div>
+          <br>
+          <div class="err-container">
+            <p class="err-msg" id="err-submit"></p>
           </div>
         </div>
 

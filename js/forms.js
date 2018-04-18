@@ -1,3 +1,7 @@
+$(() => {
+    $('#btn-repair-tkt-submit').prop('disabled', true);
+    $('#err-submit').text('Important fields are blank!');
+});
 /**
  * Handle all error checking with all ticket forms.
  * Handle all field manipulation with all ticke forms.
@@ -15,21 +19,31 @@ $('#').on('', () => {
 $('#input-repair-tkt_type').on('change', () => {
     Forms.Repair.checkBlank($('#input-repair-tkt_type').val(), '#err-tkt_type');
     Forms.Repair.disableFields($('#input-repair-tkt_type').val());
+    Forms.Repair.checkSubmittable();
 });
 
 // Nearest Tower
 $('#input-repair-tkt_tower').on('change', () => {
     Forms.Repair.checkBlank($('#input-repair-tkt_tower').val(), '#err-tkt_tower');
+    Forms.Repair.checkSubmittable();
 });
 
 // Zone
 $('#input-repair-tkt_zone').on('change', () => {
     Forms.Repair.checkBlank($('#input-repair-tkt_zone').val(), '#err-tkt_zone');
+    Forms.Repair.checkSubmittable();
+});
+
+// Package
+$('#input-repair-cst_package').on('change', () => {
+    Forms.Repair.checkBlank($('#input-repair-cst_package').val(), '#err-cst_package');
+    Forms.Repair.checkSubmittable();
 });
 
 // Radio type
 $('#input-repair-radio_type').on('change', () => {
     Forms.Repair.checkBlank($('#input-repair-radio_type').val(), '#err-radio_type');
+    Forms.Repair.checkSubmittable();
 });
 // -----------------------------------------------------------------------------------------------
 
@@ -37,26 +51,31 @@ $('#input-repair-radio_type').on('change', () => {
 // Customer ID
 $('#input-repair-customer_id').on('change', () => {
     Forms.Repair.checkBlank($('#input-repair-customer_id').val(), '#err-customer_id');
+    Forms.Repair.checkSubmittable();
 });
 
 // Customer Name
 $('#input-repair-customer_name').on('change', () => {
     Forms.Repair.checkBlank($('#input-repair-customer_name').val(), '#err-customer_name');
+    Forms.Repair.checkSubmittable();
 });
 
 // Radio Management IP
 $('#input-repair-radio_managed').on('change', () => {
     Forms.Repair.checkBlank($('#input-repair-radio_managed').val(), '#err-radio_managed');
+    Forms.Repair.checkSubmittable();
 });
 
 // Radio Public IP
 $('#input-repair-radio_public').on('change', () => {
     Forms.Repair.checkBlank($('#input-repair-radio_public').val(), '#err-radio_public');
+    Forms.Repair.checkSubmittable();
 });
 
 // Radio MAC Address
 $('#input-repair-radio_mac').on('change', () => {
     Forms.Repair.checkBlank($('#input-repair-radio_mac').val(), '#err-radio_mac');
+    Forms.Repair.checkSubmittable();
 });
 
 // Radio Signal Strength
@@ -115,7 +134,8 @@ let Forms = new function()
         // Check if selection is blank.
         this.checkBlank = function(val, id)
         {
-            if(val == 0) // Can't be blank.
+
+            if(val == 0 || val == '') // Can't be blank.
             {
                 // Error displayed.
                 Forms.error = true;
@@ -123,14 +143,23 @@ let Forms = new function()
                 Forms.DisplayError(id, 'Field cannot be blank!');
             }
             else
-                Forms.ResetError(id);
+            {
+                if(!(Forms.errors.includes(id)))    
+                    Forms.ResetError(id);
+            }
 
-            console.log(Forms.errors);
+            //console.log(Forms.errors);
         }
 
         // Check for invalid characters in numeric fields.
         this.checkCharactersForNumeric = function(val, id)
         {
+            if(val.length < 1) 
+            {
+                Forms.ResetError(id)
+                return;
+            }
+
             for(let i = 0; i < val.length; i++)
             {
                 if(val[i].match(/^[`~!@#$%^&*()_|+\-=?;:'",.<>a-zA-Z]/))
@@ -155,6 +184,12 @@ let Forms = new function()
         // Check for invalid characters in any field.
         this.checkCharacters = function(val, id)
         {
+            if(val.length < 1) 
+            {
+                Forms.ResetError(id)
+                return;
+            }
+
             for(let i = 0; i < val.length; i++)
             {
                 if(val[i].match(/^[`~!@#$%^&*()_|+\-=?;:'",.<>]/))
@@ -172,6 +207,12 @@ let Forms = new function()
         // Check for invalid characters for ip fields.
         this.checkCharactersForIp = function(val, id)
         {
+            if(val.length < 1) 
+            {
+                Forms.ResetError(id)
+                return;
+            }
+
             for(let i = 0; i < val.length; i++)
             {
                 if(val[i].match(/^[`~!@#$%^&*()_|+\-=?;:'",<>a-zA-Z]/))
@@ -196,6 +237,12 @@ let Forms = new function()
         // Check for invalid characters for mac fields.
         this.checkCharactersForMac = function(val, id)
         {
+            if(val.length < 1) 
+            {
+                Forms.ResetError(id)
+                return;
+            }
+
             for(let i = 0; i < val.length; i++)
             {
                 if(val[i].match(/^[`~!@#$%^&*()_|+\-=?;'",<>]/))
@@ -233,26 +280,56 @@ let Forms = new function()
             if(val == 1) // Radio Down.
             {
                 $('#input-repair-cst_speed-test').prop('disabled', true);   // Disable cst_speed-test
+                $('#input-repair-cst_speed-test').val('');
                 $('#input-repair-cst_torch').prop('disabled', true);        // Disable cst_torch
+                $('#input-repair-cst_torch').val('');
                 $('#input-repair-radio_speed-test').prop('disabled', true); // Disable radio_speed-test
+                $('#input-repair-radio_speed-test').val('');
                 $('#input-repair-radio_ap_count').prop('disabled', true);   // Disable radio_ap_count
+                $('#input-repair-radio_ap_count').val('');
                 $('#input-repair-radio_ccq').prop('disabled', true);        // Disable radio_ccq
+                $('#input-repair-radio_ccq').val('');
                 $('#input-repair-radio_qual').prop('disabled', true);       // Disable radio_qual
+                $('#input-repair-radio_qual').val('');
                 $('#input-repair-radio_signal').prop('disabled', true);     // Disable radio_signal
+                $('#input-repair-radio_signal').val('');
             }
             else if(val == 2) // No Connection
             {
                 $('#input-repair-cst_speed-test').prop('disabled', true);   // Disable cst_speed-test
+                $('#input-repair-cst_speed-test').val('');
                 $('#input-repair-radio_speed-test').prop('disabled', true); // Disable radio_speed-test
+                $('#input-repair-radio_speed-test').val('');
             }
             else if(val == 5) // Intermittent Connection
             {
                 $('#input-repair-cst_speed-test').prop('disabled', true); // Disable cst_speed-test
+                $('#input-repair-cst_speed-test').val('');
             }
             else if(val == 6) // Conversion
             {
                 $('#input-repair-cst_speed-test').prop('disabled', true);   // Disable cst_speed-test
+                $('#input-repair-cst_speed-test').val('');
                 $('#input-repair-radio_speed-test').prop('disabled', true); // Disable radio_speed-test
+                $('#input-repair-radio_speed-test').val('');
+            }
+        }
+
+        // Check if the submit button can be enabled.
+        this.checkSubmittable = function()
+        {
+            if(Forms.error)
+                return;
+
+            if($('#input-repair-tkt_type').val() == '' || $('#input-repair-tkt_tower').val() == '' || $('#input-repair-tkt_zone').val() == '' || $('#input-repair-cst_package').val() == '' || $('#input-repair-radio_type').val() == '' || $('#input-repair-customer_id').val() == '' || $('#input-repair-customer_name').val() == '' || $('#input-repair-radio_managed').val() == '' || $('#input-repair-radio_public').val() == '' || $('#input-repair-radio_mac').val() == '')
+            {
+                $('#btn-repair-tkt-submit').prop('disabled', true);
+                $('#err-submit').text('Important fields are blank!');
+            }
+            else
+            {
+                $('#btn-repair-tkt-submit').prop('disabled', false);
+                $('#err-submit').text('');
             }
         }
     }
@@ -263,7 +340,10 @@ let Forms = new function()
 /**/this.DisplayError = function(id, err)
     {
         if(this.error)
-            $(id).text(err);
+        {
+            $(id).text(err); // Show text.
+            $('#btn-repair-tkt-submit').prop('disabled', true); // Disable submit button.
+        }
     }
 
     /**
@@ -277,10 +357,15 @@ let Forms = new function()
                 if(this.errors[i] == id)
                     this.errors.splice(i, 1);
 
+
         if(this.errors.length < 1) // Check if there are still errors.
+        {
             this.error = false;
+            $('#btn-repair-tkt-submit').prop('disabled', false); // Enable submit button.
+            Forms.Repair.checkSubmittable(); // Check if form is okay to submit.
+        }
         
-        $(id).text('');
+        $(id).text(''); // Reset error text.
     }
 }
 

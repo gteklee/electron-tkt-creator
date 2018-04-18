@@ -1,6 +1,19 @@
 let Towers = new function()
 {
+    // All towers listed in Sonar.
     this.towers = [];
+
+    // All towers put into the appropriate zones.
+    this.Zones = {
+        zone_1: [],
+        zone_2: [],
+        zone_3: [],
+        zone_4: [],
+        zone_5: [],
+        zone_6: [],
+        zone_7: [],
+        zone_8: []
+    };
 
     /**
      * Get all network sites from Sonar.
@@ -44,10 +57,27 @@ let Towers = new function()
         {
 
             $('#input-repair-tkt_tower').append($('<option>', {
-                value: this.towers[i].id,
+                value: this.towers[i].name,
                 text: this.towers[i].name
             }));
         }
+    }
+
+    /**
+     * Get the zone based on the name of the selected tower.
+     */
+    this.getZone = function(tower)
+    {
+        if(this.Zones.zone_1.filter(obj => obj.name == tower).length > 0) return 1;         // Zone 1
+        else if(this.Zones.zone_2.filter(obj => obj.name == tower).length > 0) return 2;    // Zone 2
+        else if(this.Zones.zone_3.filter(obj => obj.name == tower).length > 0) return 3;    // Zone 3
+        else if(this.Zones.zone_4.filter(obj => obj.name == tower).length > 0) return 4;    // Zone 4
+        else if(this.Zones.zone_5.filter(obj => obj.name == tower).length > 0) return 5;    // Zone 5
+        else if(this.Zones.zone_6.filter(obj => obj.name == tower).length > 0) return 6;    // Zone 6
+        else if(this.Zones.zone_7.filter(obj => obj.name == tower).length > 0) return 7;    // Zone 7
+        else if(this.Zones.zone_8.filter(obj => obj.name == tower).length > 0) return 8;    // Zone 8
+        else
+            console.log('Zone error!');
     }
 
     /**
@@ -85,6 +115,63 @@ let Towers = new function()
 
             return 0;   // No sorting.
         });
+
+        this.createZones();
+        console.log(this.Zones);
+    }
+
+    /**
+     * Create zones based on new tower list.
+     */
+    this.createZones = function()
+    {
+        // Check each tower by id.
+        for(let i = 0; i < this.towers.length; i++)
+        {
+            // Zone 1
+            // 7, 8, 16, 25, 26 31, 33, 39, 40, 41, 42, 45, 48, 55, 59, 65, 68, 70, 78, 79, 84
+            if(this.towers[i].id == 7 || this.towers[i].id == 8 || this.towers[i].id == 16 || this.towers[i].id == 25 || this.towers[i].id == 26 || this.towers[i].id == 31 || this.towers[i].id == 33 || this.towers[i].id == 39 || this.towers[i].id == 40 || this.towers[i].id == 41 || this.towers[i].id == 42 || this.towers[i].id == 45 || this.towers[i].id == 48 || this.towers[i].id == 55 || this.towers[i].id == 59 || this.towers[i].id == 65 || this.towers[i].id == 68 || this.towers[i].id == 70 || this.towers[i].id == 78 || this.towers[i].id == 79 || this.towers[i].id == 84)
+            {
+                this.Zones.zone_1.push(this.towers[i]);
+            }
+            else if(this.towers[i].id == 21 || this.towers[i].id == 34 || this.towers[i].id == 35 || this.towers[i].id == 51 || this.towers[i].id == 54 || this.towers[i].id == 56 || this.towers[i].id == 58 || this.towers[i].id == 72 || this.towers[i].id == 81 || this.towers[i].id == 83)
+            { // Zone 2
+              // 21, 34, 35, 51, 54, 56, 58, 72, 81, 83
+                this.Zones.zone_2.push(this.towers[i]);
+            }
+            else if(this.towers[i].id == 9 || this.towers[i].id == 24 || this.towers[i].id == 32 || this.towers[i].id == 52 || this.towers[i].id == 53 || this.towers[i].id == 62 || this.towers[i].id == 63 || this.towers[i].id == 64 || this.towers[i].id == 77)
+            { // Zone 3
+              // 9, 24, 32, 52, 53, 62, 63, 64, 72
+                this.Zones.zone_3.push(this.towers[i]);
+            }
+            else if(this.towers[i].id == 5 || this.towers[i].id == 6 || this.towers[i].id == 13 || this.towers[i].id == 15 || this.towers[i].id == 22 || this.towers[i].id == 27 || this.towers[i].id == 30 || this.towers[i].id == 36 || this.towers[i].id == 37 || this.towers[i].id == 44 || this.towers[i].id == 57 || this.towers[i].id == 73)
+            { // Zone 4
+              // 5, 6, 13, 15, 22, 27, 30, 36, 37, 44, 57, 73
+                this.Zones.zone_4.push(this.towers[i]);
+            }
+            else if(this.towers[i].id >= 1 && this.towers[i].id <= 4 || this.towers[i].id == 10 || this.towers[i].id == 11 || this.towers[i].id == 23 || this.towers[i].id == 43 || this.towers[i].id == 49 || this.towers[i].id == 69)
+            { // Zone 5
+              // 1, 2, 3, 4, 10, 11, 23, 43, 49, 69
+                this.Zones.zone_5.push(this.towers[i]);
+            }
+            else if(this.towers[i].id == 12 || this.towers[i].id == 19 || this.towers[i].id == 20 || this.towers[i].id == 29 || this.towers[i].id == 38 || this.towers[i].id == 46)
+            { // Zone 6
+              // 12, 19, 20, 29, 38, 46
+                this.Zones.zone_6.push(this.towers[i]);
+            }
+            else if(this.towers[i].id == 17 || this.towers[i].id == 18 || this.towers[i].id == 28 || this.towers[i].id == 47 || this.towers[i].id == 50 || this.towers[i].id == 80 || this.towers[i].id == 82)
+            { // Zone 7
+              // 17, 18, 28, 47, 50, 80, 82
+                this.Zones.zone_7.push(this.towers[i]);
+            }
+            else if(this.towers[i].id == 74)
+            { // Zone 8
+              // 74
+                this.Zones.zone_8.push(this.towers[i]);
+            }
+            else
+                console.log('ERROR: Tower does not belong to a zone! ' + this.towers[i].name, this.towers[i].id);
+        }
     }
 }
 

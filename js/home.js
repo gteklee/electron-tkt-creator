@@ -198,8 +198,16 @@ let Home = new function()
     }
 
     /**
-     * 
+     * Data that needs to be retrieve upon reload.
      */
+    this.Reload = new function()
+    {
+        this.towers = function()
+        {
+            this.Towers = require('../js/modules/Towers.js');
+            this.Towers.RetrieveTowers();
+        }
+    }
 /**/
 };
 
@@ -241,5 +249,6 @@ $(window).on('load', () => {
         Home.Login.password = sessionStorage.password;
         Home.Login.name = sessionStorage.name;
         Home.Login.welcomeUser();
+        Home.Reload.towers();
     }
 });
