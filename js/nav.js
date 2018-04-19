@@ -17,6 +17,7 @@ $other.on('click', event => {
         $('#err-login').text('Please login before creating tickets!');
         return;
     }
+    else if(section != 'option-repair' && section != 'option-home') return; // For release with only repair tickets.
 
 
     if($(option).hasClass('active')) return; // Already selected.

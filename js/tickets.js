@@ -106,7 +106,7 @@ let Tickets = new function()
 
             /** IP assignments */
             this.Sonar.Customer.GetIPAssignments(this.account.id, sessionStorage.username, sessionStorage.password, (data) => {
-
+                console.log(data);
                 // Get all ip assignments as long as ips are assigned.
                 if(data.data.length > 0)
                 {
@@ -145,58 +145,13 @@ let Tickets = new function()
                                 if(field.data.length == 17) // Got MAC address.
                                     this.TicketData.radio_mac = field.data;
                             }
+                            this.getServices();
                         }
-
-                        this.fillTicket();
                     });
                 }
-            });
-
-            /** Customer services */
-            this.Sonar.Customer.GetServices(this.account.id, sessionStorage.username, sessionStorage.password, (data) => {
-
-                // Determine package by id.
-                for(let i = 0; i < data.data.length; i++)
+                else
                 {
-                    let service = data.data[i]; // Service package pulled from Sonar.
-
-                    // Make sure this is a package we want to look at.
-                    if(service.id < 1 || service.id > 10 && service.id < 64 || service.id > 79 && service.id != 95)
-                        continue;
-
-                    // Determine package.
-                    if(service.id >= 1 && service.id <= 5) // Res
-                    {
-                        this.TicketData.cst_package[0] = 'Residential';
-
-                        // Check type of package.
-                        if(service.id == 1) this.TicketData.cst_package[1] = 'Steel';
-                        else if(service.id == 2) this.TicketData.cst_package[1] = 'Bronze';
-                        else if(service.id == 3) this.TicketData.cst_package[1] = 'Silver';
-                        else if(service.id == 4) this.TicketData.cst_package[1] = 'Gold';
-                        else if(service.id == 5) this.TicketData.cst_package[1] = 'Platinum';
-                    }
-                    else if(service.id >= 6 && service.id <= 10) // Bus
-                    {
-                        this.TicketData.cst_package[0] = 'Business';
-
-                        // Check type of package.
-                        if(service.id == 6) this.TicketData.cst_package[1] = 'Steel';
-                        else if(service.id == 7) this.TicketData.cst_package[1] = 'Bronze';
-                        else if(service.id == 8) this.TicketData.cst_package[1] = 'Silver';
-                        else if(service.id == 9) this.TicketData.cst_package[1] = 'Gold';
-                        else if(service.id == 10) this.TicketData.cst_package[1] = 'Platinum';
-                    }
-                    else if(service.id >= 64 && service.id <= 79) // PTP
-                    {
-                        this.TicketData.cst_package[0] = 'Other';
-                        this.TicketData.cst_package[1] = 'Point-To-Point';
-                    }
-                    else if(service.id == 95) // Trade
-                    {
-                        this.TicketData.cst_package[0] = 'Other';
-                        this.TicketData.cst_package[1] = 'Trade Agreement';
-                    }
+                    this.getServices();
                 }
             });
 
@@ -241,6 +196,58 @@ let Tickets = new function()
                 $('#input-repair-radio_public').val('');
                 $('#input-repair-radio_mac').val('');
             }
+
+            this.getServices = function()
+            {
+                /** Customer services */
+                this.Sonar.Customer.GetServices(this.account.id, sessionStorage.username, sessionStorage.password, (data) => {
+                    console.log(data);
+                    // Determine package by id.
+                    for(let i = 0; i < data.data.length; i++)
+                    {
+                        let service = data.data[i]; // Service package pulled from Sonar.
+
+                        // Make sure this is a package we want to look at.
+                        if(service.id < 1 || service.id > 10 && service.id < 64 || service.id > 79 && service.id != 95)
+                            continue;
+
+                        // Determine package.
+                        if(service.id >= 1 && service.id <= 5) // Res
+                        {
+                            this.TicketData.cst_package[0] = 'Residential';
+
+                            // Check type of package.
+                            if(service.id == 1) this.TicketData.cst_package[1] = 'Steel';
+                            else if(service.id == 2) this.TicketData.cst_package[1] = 'Bronze';
+                            else if(service.id == 3) this.TicketData.cst_package[1] = 'Silver';
+                            else if(service.id == 4) this.TicketData.cst_package[1] = 'Gold';
+                            else if(service.id == 5) this.TicketData.cst_package[1] = 'Platinum';
+                        }
+                        else if(service.id >= 6 && service.id <= 10) // Bus
+                        {
+                            this.TicketData.cst_package[0] = 'Business';
+
+                            // Check type of package.
+                            if(service.id == 6) this.TicketData.cst_package[1] = 'Steel';
+                            else if(service.id == 7) this.TicketData.cst_package[1] = 'Bronze';
+                            else if(service.id == 8) this.TicketData.cst_package[1] = 'Silver';
+                            else if(service.id == 9) this.TicketData.cst_package[1] = 'Gold';
+                            else if(service.id == 10) this.TicketData.cst_package[1] = 'Platinum';
+                        }
+                        else if(service.id >= 64 && service.id <= 79) // PTP
+                        {
+                            this.TicketData.cst_package[0] = 'Other';
+                            this.TicketData.cst_package[1] = 'Point-To-Point';
+                        }
+                        else if(service.id == 95) // Trade
+                        {
+                            this.TicketData.cst_package[0] = 'Other';
+                            this.TicketData.cst_package[1] = 'Trade Agreement';
+                        }
+                    }
+                    this.fillTicket();
+                });
+            }
         }
 
         /**
@@ -248,6 +255,7 @@ let Tickets = new function()
          */
         this.submitTicketForm = function()
         {
+            this.Sonar = require('../server/Sonar.js');
             let _ = this.TicketData;
 
             // Get data from form.
@@ -302,28 +310,32 @@ let Tickets = new function()
             _.radio_ap_count = $('#input-repair-radio_ap_count').val();
 
             // Create string template.
-            let template = 'Job Type: ' + _.tkt_type + '\n\n';
-            template += _.customer_name + '\n';
+            let template = 'Job Type: ' + _.tkt_type + '\r\r';
+            template += _.customer_name + '\r';
             template += _.cst_package[0] + ' ' + _.cst_package[1] + '\n\n';
-            template += 'Tower: ' + _.tkt_tower + '\n';
-            template += 'Zone: ' + _.tkt_zone + '\n\n';
-            template += 'Managed IP:   ' + _.radio_managed + '\n';
-            template += 'Public IP:    ' + _.radio_public + '\n';
-            template += 'MAC Address:  ' + _.radio_mac + '\n';
-            template += 'Radio Type:   ' + _.radio_type + ' ' + _.radio_type_type + '\n';
-            template += 'SSID:         ' + _.radio_ssid + '\n';
-            template += 'AP CST Count: ' + _.radio_ap_count + '\n';
-            template += 'CCQ:          ' + _.radio_ccq + '\n';
-            template += 'Qual / Cap:   ' + _.radio_qual + '\n';
-            template += 'Radio Signal: ' + _.radio_signal + '\n';
-            template += 'Last Known Good Signal: ' + _.radio_last_signal + '\n';
-            template += 'Radio Speed Test: ' + _.radio_speedtest + '\n\n';
-            template += 'Torch Results: ' + _.cst_torch + '\n';
-            template += 'CST Speed Test Results ' + _.cst_speedtest + '\n';
+            template += 'Tower: ' + _.tkt_tower + '\r';
+            template += 'Zone: ' + _.tkt_zone + '\r\r';
+            template += 'Managed IP:   ' + _.radio_managed + '\r';
+            template += 'Public IP:    ' + _.radio_public + '\r';
+            template += 'MAC Address:  ' + _.radio_mac + '\r';
+            template += 'Radio Type:   ' + _.radio_type + ' ' + _.radio_type_type + '\r';
+            template += 'SSID:         ' + _.radio_ssid + '\r';
+            template += 'AP CST Count: ' + _.radio_ap_count + '\r';
+            template += 'CCQ:          ' + _.radio_ccq + '\r';
+            template += 'Qual / Cap:   ' + _.radio_qual + '\r';
+            template += 'Radio Signal: ' + _.radio_signal + '\r';
+            template += 'Last Known Good Signal: ' + _.radio_last_signal + '\r';
+            template += 'Radio Speed Test: ' + _.radio_speedtest + '\r\r';
+            template += 'Torch Results: ' + _.cst_torch + '\r';
+            template += 'CST Speed Test Results: ' + _.cst_speedtest + '\r';
 
 
-            console.log(_);
-            console.log(template);
+            //console.log(_);
+            //console.log(template);
+            this.Sonar.Ticket.Submit(_.customer_id, template, sessionStorage.username, sessionStorage.password, (data) => {
+                console.log(data);
+                $('#succ-submit').text('Ticket Submitted!');
+            })
         }
 
         /**
@@ -401,6 +413,16 @@ let Tickets = new function()
             $('#input-customer-confirm').removeClass('input-block-hidden').addClass('input-block');
             //$('#back-btn').removeClass('bbtn-container-hidden').addClass('bbtn-container');
             this.currentSection = '#input-customer-confirm';
+        }
+
+        /**
+         * Displays the continue to ticket section.
+         */
+        this.displayContinueToTicket = function()
+        {
+            $(this.currentSection).removeClass('input-block').addClass('input-block-hidden');
+            $('#input-customer-continue').removeClass('input-block-hidden').addClass('input-block');
+            this.currentSection = '#input-customer-continue';
         }
 
         /**
@@ -646,6 +668,13 @@ $('#btn-repair-customer-deny').on('click', () => {
  * "CONFIRM" button clicked event.
  */
 $('#btn-repair-customer-confirm').on('click', () => {
+    Tickets.Repair.fillTicketForm();
+});
+
+/**
+ * "CONTINUE" button clicked event.
+ */
+$('#btn-repair-customer-continue').on('click', () => {
     Tickets.Repair.fillTicketForm();
 });
 

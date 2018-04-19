@@ -279,12 +279,12 @@ let Forms = new function()
 
             if(val == 1) // Radio Down.
             {
-                $('#input-repair-cst_speed-test').prop('disabled', true);   // Disable cst_speed-test
-                $('#input-repair-cst_speed-test').val('');
+                $('#input-repair-cst_speedtest').prop('disabled', true);   // Disable cst_speed-test
+                $('#input-repair-cst_speedtest').val('');
                 $('#input-repair-cst_torch').prop('disabled', true);        // Disable cst_torch
                 $('#input-repair-cst_torch').val('');
-                $('#input-repair-radio_speed-test').prop('disabled', true); // Disable radio_speed-test
-                $('#input-repair-radio_speed-test').val('');
+                $('#input-repair-radio_speedtest').prop('disabled', true); // Disable radio_speed-test
+                $('#input-repair-radio_speedtest').val('');
                 $('#input-repair-radio_ap_count').prop('disabled', true);   // Disable radio_ap_count
                 $('#input-repair-radio_ap_count').val('');
                 $('#input-repair-radio_ccq').prop('disabled', true);        // Disable radio_ccq

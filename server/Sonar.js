@@ -47,9 +47,33 @@ let Sonar = new function()
             this.getData(options, this.callback);
         }
 
+        /**
+         * Get a single inventory item.
+         * @param {*} id - of inventory item
+         * @param {*} username 
+         * @param {*} password 
+         * @param {*} callback 
+         */
         this.GetInventoryItem = function(id, username, password, callback)
         {
             options.path = '/api/v1/inventory/items/' + id;
+            options.headers = {'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64')};
+            options.method = 'GET';
+            this.callback = callback;
+
+            this.getData(options, this.callback);
+        }
+
+        /**
+         * Get all inventory items.
+         * @param {*} id - of user account
+         * @param {*} username 
+         * @param {*} password 
+         * @param {*} callback 
+         */
+        this.GetInventoryItems = function(id, username, password, callback)
+        {
+            options.path = '/api/v1/accounts/' + id + '/inventory_items';
             options.headers = {'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64')};
             options.method = 'GET';
             this.callback = callback;
@@ -93,6 +117,10 @@ let Sonar = new function()
                 res.on('end', () => { // when finished parsing data.
                     let data = JSON.parse(body);
                     callback(data);
+                });
+
+                res.on('error', (e) => {
+                    console.log(e.message);
                 });
 
             }).end();
@@ -187,6 +215,61 @@ let Sonar = new function()
                 });
 
             }).end();
+        }
+    }
+
+    this.Ticket = new function()
+    {
+        /**
+         * Submit ticket to Sonar by creating a new job on the given account.
+         */
+        this.Submit = function(id, template, username, password, callback)
+        {
+            this.callback = callback;
+
+            this.postData(id, template, options, username, password, this.callback);
+        }
+
+        this.postData = function(id, template, options, username, password, callback)
+        {
+            let postData = JSON.stringify(
+                {
+                    job_type_id: 2,
+                    assigned_id: id,
+                    assigned_type: 'accounts',
+                    notes: template
+                }
+            );
+
+            options.path = '/api/v1/scheduling/jobs';
+            options.headers = {
+                'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64'),
+                'Content-Type': 'application/json',
+                'Content-Length': postData.length
+            };
+            options.method = 'POST';
+
+            //callback(template, apiData);
+            console.log(postData);
+
+            let req = https.request(options, (res) => {
+                let body = '';
+
+                res.on('data', (chunk) => {
+                    body += chunk;
+                });
+
+                res.on('end', () => {
+                    callback(JSON.parse(body));
+                });
+            });
+
+            req.on('error', (e) => {
+                console.log('ERROR w/ POST: ' + e.message);
+            });
+
+            req.write(postData);
+            req.end();
         }
     }
 };

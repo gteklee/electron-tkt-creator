@@ -27,14 +27,14 @@
       <ul>
         <li class="other" id="option-home"> <i id="option-home" class="fas fa-user"></i> <span id="option-home"> HOME </span> </li>
         <li class="other" id="option-repair"> <i id="option-repair" class="fas fa-wrench"></i> <span id="option-repair"> REPAIR </span> </li>
-        <li class="other" id="option-install"> <i id="option-install" class="fas fa-home"></i> <span id="option-install"> INSTALL </span> </li>
-        <li class="other" id="option-onsite"> <i id="option-onsite" class="fas fa-money-bill-alt"></i> <span id="option-onsite"> ONSITE </span> </li>
-        <li class="other" id="option-relo"> <i id="option-relo" class="fas fa-boxes"></i> <span id="option-relo"> RELOCATION </span> </li>
-        <li class="other" id="option-static"> <i id="option-static" class="fas fa-gamepad"></i> <span id="option-static"> STATIC IP </span>  </li>
-        <li class="other" id="option-key"> <i id="option-key" class="fas fa-key"></i> <span id="option-key"> KEY UPGRADE </span>  </li>
-        <li class="other" id="option-voip"> <i id="option-voip" class="fas fa-phone"></i> <span id="option-voip"> VOIP </span> </li>
-        <li class="other" id="option-mtl"> <i id="option-mtl" class="fas fa-building"></i> <span id="option-mtl"> MTL / MDU </span> </li>
-        <li class="other" id="option-other"> <i id="option-other" class="fas fa-question"></i> <span id="option-mtl"> OTHER </span> </li>
+        <li class="" id="option-install"> <i id="option-install" class="fas fa-home"></i> <span id="option-install"> INSTALL </span> </li>
+        <li class="" id="option-onsite"> <i id="option-onsite" class="fas fa-money-bill-alt"></i> <span id="option-onsite"> ONSITE </span> </li>
+        <li class="" id="option-relo"> <i id="option-relo" class="fas fa-boxes"></i> <span id="option-relo"> RELOCATION </span> </li>
+        <li class="" id="option-static"> <i id="option-static" class="fas fa-gamepad"></i> <span id="option-static"> STATIC IP </span>  </li>
+        <li class="" id="option-key"> <i id="option-key" class="fas fa-key"></i> <span id="option-key"> KEY UPGRADE </span>  </li>
+        <li class="" id="option-voip"> <i id="option-voip" class="fas fa-phone"></i> <span id="option-voip"> VOIP </span> </li>
+        <li class="" id="option-mtl"> <i id="option-mtl" class="fas fa-building"></i> <span id="option-mtl"> MTL / MDU </span> </li>
+        <li class="" id="option-other"> <i id="option-other" class="fas fa-question"></i> <span id="option-mtl"> OTHER </span> </li>
       </ul>
     </div>
 
@@ -134,6 +134,20 @@
             <input type="button" class="btn-confirm" value="DENY" id="btn-repair-customer-deny"/>
           </div>
 
+        </div>
+        <!-- ALERT NO IP ASSIGNMENTS -->
+        <div class="input-block-hidden" id="input-customer-continue">
+          <div class="header-container" id="input-block-header-cst-continue">
+            <h1 class="input-block-header"> Information Not Found </h1>
+          </div>
+
+          <div class="info-container">
+            <p class="input-header" id="info-confirm-cst_id"> IP Assignments on the account were not found! </p>
+          </div>
+
+          <div class="btn-container">
+            <input type="button" class="btn-confirm" value="CONTINUE" id="btn-repair-customer-continue"/>
+          </div>
         </div>
 
   <!-- EMPTY TICKET FORM -->
@@ -289,6 +303,9 @@
           <br>
           <div class="err-container">
             <p class="err-msg" id="err-submit"></p>
+          </div>
+          <div class="err-container">
+            <p class="success-msg" id="succ-submit"></p>
           </div>
         </div>
 

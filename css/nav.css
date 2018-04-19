@@ -38,10 +38,14 @@
 		text-align: center;
 	}
 
-		.navbar ul li:hover {
+		.navbar ul li.other:hover {
 			color: #0094DE;
 			cursor: pointer;
 		}
+		/**.navbar ul li:hover {
+			color: #0094DE;
+			cursor: pointer;
+		}**/
 
 		.navbar ul li.active {
 			position: relative;
