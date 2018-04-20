@@ -293,13 +293,35 @@ $('#version').on('click', () => {
     }
 });
 
+const ipcRenderer = require('electron').ipcRenderer;
+/**
+ * When checking for an update, inform the user.
+ */
+ipcRenderer.on('checking-for-update', (event, text) => {
+    $('#update-ready p').text('Checking For Update...');
+});
+
+/**
+ * When downloading the update, inform the user.
+ */
+ipcRenderer.on('download-progress', (event, text) => {
+    $('#update-ready p').text('Downloading Update...');
+});
+
+/**
+ * When no update is found, inform the user they are
+ * up-to-date.
+ */
+ipcRenderer.on('update-not-available', (event, text) => {
+    $('#update-ready p').text('Up To Date!');
+});
+
 /**
  * When the update is ready, inform the user and provide
  * the option to install the new update.
  */
-const ipcRenderer = require('electron').ipcRenderer;
 ipcRenderer.on('updateReady', (event, text) => {
-    $('#update-ready p').text('Update is Available!');
+    $('#update-ready p').text('Update Is Available!');
     $('#version').css('color', 'red');
     $('#version').addClass('version-update');
     update = true;

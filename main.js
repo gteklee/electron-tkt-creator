@@ -44,6 +44,24 @@ app.on('ready', () => {
   autoUpdater.checkForUpdates();
 });
 
+// When the updater is checking for an update
+// let the browser window know.
+autoUpdater.on('checking-for-update', () => {
+  mainWindow.webContents.send('checking-for-update');
+});
+
+// When downloading a new update
+// let the browser window know.
+autoUpdater.on('download-progress', () => {
+  mainWindow.webContents.send('download-progress');
+});
+
+// When no update is available
+// let the browser window know.
+autoUpdater.on('update-not-available', () => {
+  mainWindow.webContents.send('update-not-available');
+});
+
 // When the update has been downloaded and is ready to be
 // installed, let the browser window know.
 autoUpdater.on('update-downloaded', (info) => {
