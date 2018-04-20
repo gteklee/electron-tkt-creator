@@ -242,7 +242,9 @@ $('#btn-changelog-back').on('click', () => {
         $('#input-block-logged-in').removeClass('input-block-hidden');
         $('#input-block-logged-in').addClass('input-block');
     }
+    $('.changelog-description h1').remove();
     $('.changelog-description p').remove();
+
 });
 
 /**
@@ -281,11 +283,11 @@ $('#version').on('click', () => {
         $('#input-block-changelog').addClass('input-block');
 
         // Show info.
-        $('.changelog-version').text(changelog.v001.name);
-
-        for(let i = 0; i < changelog.v001.description.length; i++)
+        for(let obj in changelog)
         {
-            $('.changelog-description').append('<p> ' + changelog.v001.description[i] + '</p>');
+            $('.changelog-description').append('<h1> ' + changelog[obj].name + ' </h1>')
+            for(let i = 0; i < changelog[obj].description.length; i++)
+                $('.changelog-description').append('<p> ' + changelog[obj].description[i] + '</p>');
         }
         displayed = true;
     }

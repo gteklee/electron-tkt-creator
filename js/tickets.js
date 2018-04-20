@@ -350,7 +350,9 @@ let Tickets = new function()
             //console.log(template);
             this.Sonar.Ticket.Submit(_.customer_id, template, sessionStorage.username, sessionStorage.password, (data) => {
                 console.log(data);
+                $('#succ-submit').fadeIn();
                 $('#succ-submit').text('Ticket Submitted!');
+                window.setTimeout(() => {$('#succ-submit').fadeOut('slow')}, 10000);
             });
 
         }
@@ -385,6 +387,46 @@ let Tickets = new function()
             $('#input-repair-radio_qual').val('');
             $('#input-repair-radio_ssid').val('');
             $('#input-repair-radio_ap_count').val('');
+        }
+
+        /**
+         * Alert the user they clicked clear.
+         */
+        this.alertClear = function()
+        {
+            $('.alert-blur').show();
+            $('#alert-block-clear').removeClass('alert-block-hidden');
+            $('#alert-block-clear').addClass('alert-block');
+        }
+
+        /**
+         * Alert the user they clicked submit.
+         */
+        this.alertSubmit = function()
+        {
+            $('.alert-blur').show();
+            $('#alert-block-submit').removeClass('alert-block-hidden');
+            $('#alert-block-submit').addClass('alert-block');
+        }
+
+        /**
+         * Cancel clear of ticket.
+         */
+        this.alertClearClose = function()
+        {
+            $('#alert-block-clear').removeClass('alert-block');
+            $('#alert-block-clear').addClass('alert-block-hidden');
+            $('.alert-blur').hide();
+        }
+
+        /**
+         * Cancel submission of ticket.
+         */
+        this.alertSubmitClose = function()
+        {
+            $('#alert-block-submit').removeClass('alert-block');
+            $('#alert-block-submit').addClass('alert-block-hidden');
+            $('.alert-blur').hide();
         }
 
         /**
@@ -699,15 +741,47 @@ $('#btn-repair-customer-continue').on('click', () => {
  * "CLEAR" button clicked event.
  */
 $('#btn-repair-tkt-clear').on('click', () => {
-    Tickets.Repair.clearTicketForm();
+    Tickets.Repair.alertClear();
+    //Tickets.Repair.clearTicketForm();
 });
+    // Alert box with buttons when clear button is clicked above.
+    /**
+     * "CLEAR" confirm button clicked event.
+     */
+    $('#btn-clear-confirmation-clear').on('click', () => {
+        Tickets.Repair.alertClearClose();
+        Tickets.Repair.clearTicketForm();
+    });
+
+    /**
+     * "CANCEL" button clicked event.
+     */
+    $('#btn-clear-confirmation-cancel').on('click', () => {
+        Tickets.Repair.alertClearClose();
+    });
 
 /**
  * "SUBMIT" button clicked event.
  */
 $('#btn-repair-tkt-submit').on('click', () => {
-    Tickets.Repair.submitTicketForm();
+    Tickets.Repair.alertSubmit();
+    //Tickets.Repair.submitTicketForm();
 });
+    // Alert box with buttons when submit button is clicked above.
+    /**
+     * "SUBMIT" confirm button clicked event.
+     */
+    $('#btn-submit-confirmation-submit').on('click', () => {
+        Tickets.Repair.alertSubmitClose();
+        Tickets.Repair.submitTicketForm();
+    });
+
+    /**
+     * "CANCEL" button clicked event.
+     */
+    $('#btn-submit-confirmation-cancel').on('click', () => {
+        Tickets.Repair.alertSubmitClose();
+    });
 
 /**
  * Service Package radio button changed event.

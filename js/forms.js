@@ -113,6 +113,9 @@ $('#input-repair-radio_mac').keyup(event => {
     Forms.Repair.checkCharactersForMac($('#input-repair-radio_mac').val(), '#err-radio_mac');
 });
 // -----------------------------------------------------------------------------------------------
+$('#btn-clear-confirmation-clear').on('click', () => {
+    Forms.Repair.checkSubmittable();
+});
 
 /**
  * Forms object contains objects for each ticket that

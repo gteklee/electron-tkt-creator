@@ -17,6 +17,15 @@ section { margin-left: 53px; font-family:'Montserrat', sans-serif; overflow: aut
 
     .img-container { text-align: center; }
 
+    .alert-blur { position: fixed; height: 100%; width: 100%; background-color: black; opacity: .65; z-index: 0; top: 0; } /** Blur background when alert is presented to user. **/
+    .alert-block-hidden { display: none; }
+    .alert-block { position: fixed; background-color: #FFF; top: 20%; padding: 50px;
+        border: solid;
+        border-width: 1px;
+        border-radius: 10px;
+        border-color: #BEBEBE;
+    }
+
     .input-container {
         display: flex;
         align-items: center;

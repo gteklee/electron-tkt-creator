@@ -1,6 +1,7 @@
 const $window = $(window);
 const $other = $('.other');
 const $hidden = $('.section-hidden');
+const $blur = $('.alert-blur');
 
 /**
  * When the user selects a menu option update the page
@@ -35,4 +36,5 @@ $other.on('click', event => {
 $window.on('load', () => {
     $other.first().removeClass('other').addClass('active');
     $hidden.first().removeClass('section-hidden').addClass('section-active');
+    $blur.hide();
 })

@@ -78,7 +78,6 @@
         <div class="input-block-hidden" id="input-block-changelog">
           <div class="info-container">
             <div class="changelog-container">
-              <h1 class="changelog-version"></h1>
               <div class="changelog-description"></div>
             </div>
           </div>
@@ -163,6 +162,7 @@
           </div>
         </div>
 
+        <div class="alert-blur"></div>
   <!-- EMPTY TICKET FORM -->
         <div class="input-block-hidden" id="input-ticket-template">
     <!-- TICKET INFO-->
@@ -320,6 +320,31 @@
           </div>
           <div class="err-container">
             <p class="success-msg" id="succ-submit"></p>
+          </div>
+        </div>
+
+        <div class="alert-block-hidden" id="alert-block-clear">
+          <h1> Are you sure you want to clear the ticket?</h1>
+          <div class="btn-container" id="btn-container-tkt-clear">
+            <input type="button" class="btn-tkt" value="CLEAR" id="btn-clear-confirmation-clear"/>
+            <input type="button" class="btn-tkt" value="CANCEL" id="btn-clear-confirmation-cancel"/>
+          </div>
+        </div>
+
+        <div class="alert-block-hidden" id="alert-block-submit">
+          <h1> Are you sure you want to submit the ticket?</h1>
+          <p> Make sure you have completed the following: </p>
+          <ul>
+            <li> Confirmation call was explained. </li>
+            <li> Possible $25 absent fee was explained. </li>
+            <li> Possible $65 trip fee was explained. </li>
+            <li> Due date is correct in Sonar ticket. </li>
+            <li> Pet disclosure has been read to the customer. </li>
+          </ul>
+          <br>
+          <div class="btn-container" id="btn-container-tkt-clear">
+            <input type="button" class="btn-tkt" value="SUBMIT" id="btn-submit-confirmation-submit"/>
+            <input type="button" class="btn-tkt" value="CANCEL" id="btn-submit-confirmation-cancel"/>
           </div>
         </div>
 

@@ -80,6 +80,8 @@ section#option-repair {}
         margin-top: 50px;
     } section#option-repair #btn-repair-tkt-submit {
         margin-left: 25px;
+    } section#option-repair #btn-clear-confirmation-cancel, section#option-repair #btn-submit-confirmation-cancel {
+        margin-left: 25px;
     }
 
 
