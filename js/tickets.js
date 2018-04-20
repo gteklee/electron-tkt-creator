@@ -147,6 +147,10 @@ let Tickets = new function()
                             }
                             this.getServices();
                         }
+                        else
+                        {
+                            console.log(obj);
+                        }
                     });
                 }
                 else
