@@ -1,4 +1,10 @@
 let Changelog = {
+    v003: {
+        name: 'v0.0.3',
+        description: [
+            'More information with automatic updates!'
+        ]
+    },
     v002: {
         name: 'v0.0.2',
         description: [
