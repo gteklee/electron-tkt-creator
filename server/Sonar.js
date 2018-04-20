@@ -227,10 +227,10 @@ let Sonar = new function()
         {
             this.callback = callback;
 
-            this.postData(id, template, options, username, password, this.callback);
+            this.postData(id, template, username, password, this.callback);
         }
 
-        this.postData = function(id, template, options, username, password, callback)
+        this.postData = function(id, template, username, password, callback)
         {
             let postData = JSON.stringify(
                 {

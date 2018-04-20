@@ -319,23 +319,40 @@ let Tickets = new function()
             template += 'Public IP:    ' + _.radio_public + '\r';
             template += 'MAC Address:  ' + _.radio_mac + '\r';
             template += 'Radio Type:   ' + _.radio_type + ' ' + _.radio_type_type + '\r';
-            template += 'SSID:         ' + _.radio_ssid + '\r';
-            template += 'AP CST Count: ' + _.radio_ap_count + '\r';
-            template += 'CCQ:          ' + _.radio_ccq + '\r';
-            template += 'Qual / Cap:   ' + _.radio_qual + '\r';
-            template += 'Radio Signal: ' + _.radio_signal + '\r';
-            template += 'Last Known Good Signal: ' + _.radio_last_signal + '\r';
-            template += 'Radio Speed Test: ' + _.radio_speedtest + '\r\r';
-            template += 'Torch Results: ' + _.cst_torch + '\r';
-            template += 'CST Speed Test Results: ' + _.cst_speedtest + '\r';
+            if(_.radio_ssid != '')
+                template += 'SSID:         ' + _.radio_ssid + '\r';
 
+            if(_.radio_ap_count != '')
+                template += 'AP CST Count: ' + _.radio_ap_count + '\r';
+
+            if(_.radio_ccq != '')    
+                template += 'CCQ:          ' + _.radio_ccq + '\r';
+            
+            if(_.radio_qual != '')
+                template += 'Qual / Cap:   ' + _.radio_qual + '\r';
+            
+            if(_.radio_signal != '')
+                template += 'Radio Signal: ' + _.radio_signal + '\r';
+
+            if(_.radio_last_signal != '')
+                template += 'Last Known Good Signal: ' + _.radio_last_signal + '\r';
+            
+            if(_.radio_speedtest != '')
+                template += 'Radio Speed Test: ' + _.radio_speedtest + '\r\r';
+            
+            if(_.cst_torch != '')
+                template += 'Torch Results: ' + _.cst_torch + '\r';
+
+            if(_.cst_speedtest != '')
+                template += 'CST Speed Test Results: ' + _.cst_speedtest + '\r';
 
             //console.log(_);
             //console.log(template);
             this.Sonar.Ticket.Submit(_.customer_id, template, sessionStorage.username, sessionStorage.password, (data) => {
                 console.log(data);
                 $('#succ-submit').text('Ticket Submitted!');
-            })
+            });
+
         }
 
         /**
@@ -466,6 +483,8 @@ let Tickets = new function()
         {
             this.tower = $('#input-repair-tkt_tower option:selected')[0].value; // Get tower name.
             let zone = Tickets.Towers.getZone(this.tower);  // Get zone of selected tower based on name.
+            console.log(this.tower);
+            console.log(zone);
 
             // Select received zone value.
             $('#input-repair-tkt_zone').val(zone);
@@ -550,8 +569,6 @@ let Tickets = new function()
                     }));
                 }
             }
-            else
-                console.log('ERROR: "Radio button change event": ticket.js')
         }
 
         /**

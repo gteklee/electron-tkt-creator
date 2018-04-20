@@ -4,7 +4,7 @@ $(() => {
 });
 /**
  * Handle all error checking with all ticket forms.
- * Handle all field manipulation with all ticke forms.
+ * Handle all field manipulation with all ticket forms.
  */
 
 /** ALL LISTENERS 
@@ -143,10 +143,7 @@ let Forms = new function()
                 Forms.DisplayError(id, 'Field cannot be blank!');
             }
             else
-            {
-                if(!(Forms.errors.includes(id)))    
-                    Forms.ResetError(id);
-            }
+                Forms.ResetError(id);
 
             //console.log(Forms.errors);
         }
