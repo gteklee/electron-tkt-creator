@@ -297,7 +297,7 @@ const ipcRenderer = require('electron').ipcRenderer;
 /**
  * When checking for an update, inform the user.
  */
-ipcRenderer.on('checking-for-update', (event, text) => {
+ipcRenderer.on('checkingForUpdate', (event, text) => {
     $('#update-ready p').text('Checking For Update...');
 });
 

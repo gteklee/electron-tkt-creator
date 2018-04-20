@@ -47,7 +47,7 @@ app.on('ready', () => {
 // When the updater is checking for an update
 // let the browser window know.
 autoUpdater.on('checking-for-update', () => {
-  mainWindow.webContents.send('checking-for-update');
+  mainWindow.webContents.send('checkingForUpdate');
 });
 
 // When downloading a new update
