@@ -210,6 +210,9 @@ let Home = new function()
     }
 /**/
 };
+let update = false;
+let displayed = false;
+let changelog = require('./modules/Changelog');
 
 /**
  * Login button-clicked listener
@@ -222,10 +225,70 @@ $('#btn-home-login').on('click', () => {
 });
 
 /**
+ * Back button clicked listener
+ */
+$('#btn-changelog-back').on('click', () => {
+    displayed = false;
+    $('#input-block-changelog').removeClass('input-block');
+    $('#input-block-changelog').addClass('input-block-hidden');
+
+    if(!Home.Login.loggedIn)
+    {
+        $('#input-block-log-in').removeClass('input-block-hidden');
+        $('#input-block-log-in').addClass('input-block');
+    }
+    else
+    {
+        $('#input-block-logged-in').removeClass('input-block-hidden');
+        $('#input-block-logged-in').addClass('input-block');
+    }
+    $('.changelog-description p').remove();
+});
+
+/**
  * User typing in username listener
  */
 $('#input-login-username').keyup(() => {
     Home.Login.checkUsername($('#input-login-username').val());
+});
+
+/**
+ * On version click - update software if needed.
+ */
+$('#version').on('click', () => {
+    if(update)  // If we are ready to update.
+    {
+        ipcRenderer.send('quitAndInstall');
+        $('#update-ready p').text('Updating...');
+        update = false;
+    }
+    else
+    {
+        if(displayed) return;
+
+        if(!Home.Login.loggedIn)
+        {
+            $('#input-block-log-in').removeClass('input-block');
+            $('#input-block-log-in').addClass('input-block-hidden');
+        }
+        else
+        {
+            // Open changelog.
+            $('#input-block-logged-in').removeClass('input-block');
+            $('#input-block-logged-in').addClass('input-block-hidden');
+        }
+        $('#input-block-changelog').removeClass('input-block-hidden');
+        $('#input-block-changelog').addClass('input-block');
+
+        // Show info.
+        $('.changelog-version').text(changelog.v001.name);
+
+        for(let i = 0; i < changelog.v001.description.length; i++)
+        {
+            $('.changelog-description').append('<p> ' + changelog.v001.description[i] + '</p>');
+        }
+        displayed = true;
+    }
 });
 
 /**
@@ -234,7 +297,10 @@ $('#input-login-username').keyup(() => {
  */
 const ipcRenderer = require('electron').ipcRenderer;
 ipcRenderer.on('updateReady', (event, text) => {
-    alert("Update is available!");
+    $('#update-ready p').text('Update is Available!');
+    $('#version').css('color', 'red');
+    $('#version').addClass('version-update');
+    update = true;
 });
 
 /**

@@ -80,23 +80,13 @@ section { margin-left: 53px; font-family:'Montserrat', sans-serif; overflow: aut
                 .bbtn-container-hidden { display: none; }
 
                 .fbtn-container { color: black; margin-right: 10px; }
-                
-    .footer-container {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-
-        margin-right: 20px;
-
-        font-size: 20px;
-    }
-        #version { color: #0094DE; }
 
     .err-container {display: flex; justify-content: center; }
         .err-msg { color: red; padding: 0; margin: 0; }
         .success-msg { color: #0094DE; padding: 0; margin: 0; }
 
     .info-container { display: flex; align-content: center; justify-content: center; }
+    .changelog-container { display: block; text-align: center; }
 
 
 @media screen and (min-height: 540px)
