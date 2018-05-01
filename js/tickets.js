@@ -76,7 +76,7 @@ let Tickets = new function()
                 {
                     this.error = true;
 
-                    if(data.error.status_code == 404)
+                    if(data.error.status_code == 404 || 422)
                         this.errorMsg = 'Customer ID does not exist!';
                     else
                         this.errorMsg = 'Inform Admin of Error Code ' + data.error.status_code + '!';
@@ -276,34 +276,25 @@ let Tickets = new function()
             _.tkt_zone = $('#input-repair-tkt_zone').val();
             _.tkt_notes = $('#input-repair-tkt_notes').val();
 
-            if(_.customer_id == '')
-                _.customer_id = $('#input-repair-customer_id').val();
-             
-            if(_.customer_name == '')
-                _.customer_name = $('#input-repair-customer_name').val();
+            _.customer_id = $('#input-repair-customer_id').val(); 
+            _.customer_name = $('#input-repair-customer_name').val();
 
-            if(_.cst_package.length < 1)
-            {
-                _.cst_package.push($('input[type=radio][name=package]:checked').val());
-                _.cst_package.push($('#input-repair-cst_package').val());
-            }
+
+            _.cst_package.push($('input[type=radio][name=package]:checked').val());
+            _.cst_package.push($('#input-repair-cst_package').val());
 
             _.cst_speedtest = $('#input-repair-cst_speedtest').val();
             _.cst_torch = $('#input-repair-cst_torch').val();
 
-            if(_.radio_managed == '')
-                _.radio_managed = $('#input-repair-radio_managed').val();
+            _.radio_managed = $('#input-repair-radio_managed').val();
 
-            if(_.radio_public == '')
-                _.radio_public = $('#input-repair-radio_public').val();
+            _.radio_public = $('#input-repair-radio_public').val();
 
-            if(_.radio_mac == '')
-                _.radio_mac = $('#input-repair-radio_mac').val();
+            _.radio_mac = $('#input-repair-radio_mac').val();
 
             _.radio_speedtest = $('#input-repair-radio_speedtest').val();
 
-            if(_.radio_type == '')
-                _.radio_type = $('#input-repair-radio_type').val();
+            _.radio_type = $('#input-repair-radio_type').val();
 
             _.radio_type_type = $('#input-repair-radio_type_type').val();
             _.radio_signal = $('#input-repair-radio_signal').val();
@@ -353,10 +344,27 @@ let Tickets = new function()
             //console.log(_);
             //console.log(template);
             this.Sonar.Ticket.Submit(_.customer_id, template, sessionStorage.username, sessionStorage.password, (data) => {
-                console.log(data);
-                $('#succ-submit').fadeIn();
-                $('#succ-submit').text('Ticket Submitted!');
-                window.setTimeout(() => {$('#succ-submit').fadeOut('slow')}, 10000);
+
+                if(data.error)
+                {
+                    $('#succ-submit').removeClass('success-msg').addClass('err-msg');
+
+                    if(data.error.status_code == 422)
+                        $('#succ-submit').text('Invalid Customer ID!');
+                    else
+                        $('#succ-submit').text('Error Submitting Ticket!');
+                    
+                    $('#succ-submit').fadeIn();
+                    window.setTimeout(() => {$('#succ-submit').fadeOut('slow')}, 10000);
+                }
+                else
+                {
+                    console.log(data);
+                    $('#succ-submit').removeClass('err-msg').addClass('success-msg');
+                    $('#succ-submit').text('Ticket Submitted!');
+                    $('#succ-submit').fadeIn();
+                    window.setTimeout(() => {$('#succ-submit').fadeOut('slow')}, 10000);
+                }
             });
 
         }

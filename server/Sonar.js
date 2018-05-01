@@ -266,6 +266,7 @@ let Sonar = new function()
 
             req.on('error', (e) => {
                 console.log('ERROR w/ POST: ' + e.message);
+                callback('error');
             });
 
             req.write(postData);
