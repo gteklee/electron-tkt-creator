@@ -223,19 +223,74 @@ let Sonar = new function()
         /**
          * Submit ticket to Sonar by creating a new job on the given account.
          */
-        this.Submit = function(id, template, username, password, callback)
+        this.Submit = function(obj, template, username, password, callback)
         {
             this.callback = callback;
 
-            this.postData(id, template, username, password, this.callback);
+            this.postData(obj.customer_id, template, username, password, this.callback);
         }
 
-        this.postData = function(id, template, username, password, callback)
+        this.UpdateCustomFields = function(obj, data, username, password, callback)
+        {
+            this.callback = callback;
+
+            this.updateField(28, obj.cst_tower_height, data, username, password, this.callback);
+
+            let business = false;
+            if(obj.cst_package[0] == 'Business')
+                business = true;
+    
+            console.log(obj.cst_package[0], business);
+
+            this.updateField(22, business, data, username, password, this.callback);
+        }
+
+        this.updateField = function(id, fieldData, objData, username, password, callback)
+        {
+            let postData = JSON.stringify(
+                {
+                    data: fieldData
+                }
+            );
+
+            options.path = '/api/v1/entity_custom_fields/jobs/' + objData.data.id + '/' + id;
+            options.headers = {
+                'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64'),
+                'Content-Type': 'application/json',
+                'Content-Length': postData.length
+            }
+            options.method = 'PATCH';
+
+            console.log(postData);
+            console.log(options.path);
+
+            let req = https.request(options, (res) => {
+                let body = '';
+
+                res.on('data', (chunk) => {
+                    body += chunk;
+                });
+
+                res.on('end', () => {
+                    callback(JSON.parse(body));
+                });
+            });
+
+            req.on('error', (e) => {
+                console.log('ERROR w/ POST: ' + e.message);
+                callback('error');
+            });
+
+            req.write(postData);
+            req.end();
+        }
+
+        this.postData = function(customer_id, template, username, password, callback)
         {
             let postData = JSON.stringify(
                 {
                     job_type_id: 2,
-                    assigned_id: id,
+                    assigned_id: customer_id,
                     assigned_type: 'accounts',
                     notes: template
                 }

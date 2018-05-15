@@ -40,6 +40,14 @@ $('#input-repair-cst_package').on('change', () => {
     Forms.Repair.checkSubmittable();
 });
 
+// Tower Height
+$('#input-cst_tower_height-yes').on('change', () => {
+    Forms.Repair.checkSubmittable();
+});
+$('#input-cst_tower_height-no').on('change', () => {
+    Forms.Repair.checkSubmittable();
+});
+
 // Radio type
 $('#input-repair-radio_type').on('change', () => {
     Forms.Repair.checkBlank($('#input-repair-radio_type').val(), '#err-radio_type');
@@ -321,7 +329,7 @@ let Forms = new function()
             if(Forms.error)
                 return;
 
-            if($('#input-repair-tkt_type').val() == '' || $('#input-repair-tkt_tower').val() == '' || $('#input-repair-tkt_zone').val() == '' || $('#input-repair-cst_package').val() == '' || $('#input-repair-radio_type').val() == '' || $('#input-repair-customer_id').val() == '' || $('#input-repair-customer_name').val() == '' || $('#input-repair-radio_managed').val() == '' || $('#input-repair-radio_public').val() == '' || $('#input-repair-radio_mac').val() == '')
+            if($('#input-repair-tkt_type').val() == '' || $('#input-repair-tkt_tower').val() == '' || $('#input-repair-tkt_zone').val() == '' || $('#input-repair-cst_package').val() == '' || $('input[type=radio][name=height]:checked').val() == null || $('#input-repair-radio_type').val() == '' || $('#input-repair-customer_id').val() == '' || $('#input-repair-customer_name').val() == '' || $('#input-repair-radio_managed').val() == '' || $('#input-repair-radio_public').val() == '' || $('#input-repair-radio_mac').val() == '')
             {
                 $('#btn-repair-tkt-submit').prop('disabled', true);
                 $('#err-submit').text('Important fields are blank!');

@@ -1,23 +1,10 @@
 let Changelog = {
-    v003: {
-        name: 'v0.0.4',
+    v100: {
+        name: 'v1.0.0',
         description: [
-            'More information with automatic updates!'
-        ]
-    },
-    v002: {
-        name: 'v0.0.2',
-        description: [
-            'Clear / Submit Confirmation Alerts!',
-            'Testing Automatic Updates!'
-        ]
-    },
-    v001: {
-        name: 'v0.0.1',
-        description: [
-            'Development Phase!',
+            'Better UI!',
             'Automatic Updates!',
-            'Tickets with Sonar API Integration!'
+            'Sonar API Integration!'
         ]
     }
 }

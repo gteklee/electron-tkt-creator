@@ -42,6 +42,7 @@ let Tickets = new function()
             customer_id:    '',
             customer_name:  '',
             cst_package:    [],
+            cst_tower_height: '',
             cst_speedtest:  '',
             cst_torch:      '',
 
@@ -279,9 +280,11 @@ let Tickets = new function()
             _.customer_id = $('#input-repair-customer_id').val(); 
             _.customer_name = $('#input-repair-customer_name').val();
 
-
+            _.cst_package = []; // Clear array before pushing again.
             _.cst_package.push($('input[type=radio][name=package]:checked').val());
             _.cst_package.push($('#input-repair-cst_package').val());
+
+            _.cst_tower_height = $('input[type=radio][name=height]:checked').val();
 
             _.cst_speedtest = $('#input-repair-cst_speedtest').val();
             _.cst_torch = $('#input-repair-cst_torch').val();
@@ -343,7 +346,7 @@ let Tickets = new function()
 
             //console.log(_);
             //console.log(template);
-            this.Sonar.Ticket.Submit(_.customer_id, template, sessionStorage.username, sessionStorage.password, (data) => {
+            this.Sonar.Ticket.Submit(_, template, sessionStorage.username, sessionStorage.password, (data) => {
 
                 if(data.error)
                 {
@@ -356,6 +359,7 @@ let Tickets = new function()
                     
                     $('#succ-submit').fadeIn();
                     window.setTimeout(() => {$('#succ-submit').fadeOut('slow')}, 10000);
+                    return;
                 }
                 else
                 {
@@ -365,6 +369,26 @@ let Tickets = new function()
                     $('#succ-submit').fadeIn();
                     window.setTimeout(() => {$('#succ-submit').fadeOut('slow')}, 10000);
                 }
+
+                // Update custom fields
+                this.Sonar.Ticket.UpdateCustomFields(_, data, sessionStorage.username, sessionStorage.password, (dataCustom) => {
+                    
+                    if(dataCustom.error)
+                    {
+                        console.log(dataCustom);
+                        $('#succ-submit').removeClass('success-msg').addClass('err-msg');
+                        $('#succ-submit').text('Error updating custom field - Job still created!');
+
+                        $('#succ-submit').fadeIn();
+                        window.setTimeout(() => {$('#succ-submit').fadeOut('slow')}, 10000);
+                        return;
+                    }
+                    else
+                    {
+                        console.log(dataCustom);
+                    }
+
+                });
             });
 
         }
@@ -384,6 +408,8 @@ let Tickets = new function()
             $('input[type=radio][name=package][value="Residential"]').prop('checked', false).change();
             $('input[type=radio][name=package][value="Business"]').prop('checked', false).change();
             $('input[type=radio][name=package][value="Other"]').prop('checked', false).change();
+            $('input[type=radio][name=height][value="Yes"]').prop('checked', false).change();
+            $('input[type=radio][name=height][value="No"]').prop('checked', false).change()
             $('#input-repair-cst_speedtest').val('');
             $('#input-repair-cst_torch').val('');
 
@@ -712,6 +738,11 @@ let Tickets = new function()
  */
 $('#input-repair-customer-id').keyup(() => {
     Tickets.Repair.checkId($('#input-repair-customer-id').val());
+});
+
+$('#input-repair-customer-id').keypress((e) => {
+    if(e.keyCode === 13 && $('#input-repair-customer-id').val() != '') // Enter key
+        $('#btn-repair-customer-check').click();
 });
 
 /**

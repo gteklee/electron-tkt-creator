@@ -342,3 +342,11 @@ $(window).on('load', () => {
         Home.Reload.towers();
     }
 });
+
+/**
+ * On enter key pressed, click login button.
+ */
+$(window).on('keydown', (e) => {
+    if(e.keyCode === 13 && !Home.Login.loggedIn)
+        $('#btn-home-login').click();
+});
