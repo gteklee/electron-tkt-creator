@@ -1,6 +1,8 @@
-# electron-tkt-creator
+![alt text](img/logo.png)
 
-**Gtek-Electron Ticket Creator:**
+# Gtek Tickets
+
+**Gtek Tickets:**
 
 This is an application used by Gtek Communications to create tickets for customers with internet related problems. This is a complete rewrite of an existing program in order to utilize the Sonar API and Electron framework.
 

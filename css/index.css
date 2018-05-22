@@ -1,6 +1,17 @@
 /* Affects everything related to the application
    style wise. */
 
+/** pre-release
+.pre-release { position: fixed; background-color: #F5F5F5;; 
+    width: 100%; height: 100%; z-index: 2; top: 0; left: 0;
+    margin: 0; padding: 0;
+}
+    #pre-release-img { margin-top: 50px; }
+    .pre-release-version { font-size: 20px; }
+    .pre-release-container { text-align: center; margin-top: 100px; font-family: 'Montserrat', sans-serif; }
+    .pre-release-info { font-size: 26px; }
+/** ----------- **/
+
 html { background-color: #F5F5F5; }
 input[type="text"], input[type="password"], input[type="button"] { font-family: 'Montserrat', sans-serif; font-size: 16px; width: 376px; height: 40px; }
 textarea { font-family: 'Montserrat', sans-serif; resize: none; width: 376px; }
