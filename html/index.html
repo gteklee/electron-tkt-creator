@@ -45,7 +45,7 @@
         <li class="" id="option-install"> <i id="option-install" class="fas fa-home"></i> <span id="option-install"> INSTALL </span> </li>
         <li class="" id="option-onsite"> <i id="option-onsite" class="fas fa-money-bill-alt"></i> <span id="option-onsite"> ONSITE </span> </li>
         <li class="" id="option-relo"> <i id="option-relo" class="fas fa-boxes"></i> <span id="option-relo"> RELOCATION </span> </li>
-        <li class="" id="option-static"> <i id="option-static" class="fas fa-gamepad"></i> <span id="option-static"> STATIC IP </span>  </li>
+        <li class="other" id="option-static"> <i id="option-static" class="fas fa-gamepad"></i> <span id="option-static"> STATIC IP </span>  </li>
         <li class="" id="option-key"> <i id="option-key" class="fas fa-key"></i> <span id="option-key"> KEY UPGRADE </span>  </li>
         <li class="" id="option-voip"> <i id="option-voip" class="fas fa-phone"></i> <span id="option-voip"> VOIP </span> </li>
         <li class="" id="option-mtl"> <i id="option-mtl" class="fas fa-building"></i> <span id="option-mtl"> MTL / MDU </span> </li>
@@ -104,7 +104,7 @@
 
       <div class="footer-container">
         <div id="update-ready"> <p> </p> </div>
-        <p class="version" id="version"> v1.0.0 </p>
+        <p class="version" id="version"> v1.1.1 </p>
       </div>
     </section>
 
@@ -209,7 +209,7 @@
 
             <p class="input-header" id="repair-zone-header"> ZONE </p>
             <select class="input-repair" id="input-repair-tkt_zone">
-                <option value="0">  </option>
+                <option value="0">   </option>
                 <option value="1"> 1 </option>
                 <option value="2"> 2 </option>
                 <option value="3"> 3 </option>
@@ -228,7 +228,7 @@
           </div>
     <!---->
 
-    <!-- CUSTOMER INFO-->
+    <!-- CUSTOMER INFO -->
           <div class="input-block" id="customer-info-block">
               <h1 class="input-block-header"> Customer Information </h1>
 
@@ -343,7 +343,7 @@
         </div>
 
         <div class="alert-block-hidden" id="alert-block-clear">
-          <h1> Are you sure you want to clear the ticket?</h1>
+          <h1> Are you sure you want to clear the ticket? </h1>
           <div class="btn-container" id="btn-container-tkt-clear">
             <input type="button" class="btn-tkt" value="CLEAR" id="btn-clear-confirmation-clear"/>
             <input type="button" class="btn-tkt" value="CANCEL" id="btn-clear-confirmation-cancel"/>
@@ -372,7 +372,6 @@
     <!-- INSTALL TICKET -->
     <!-- ONSITE TICKET -->
     <!-- RELOCATION TICKET -->
-    <!-- STATIC IP REQUEST -->
     <!-- KEY UPGRADE REQUEST -->
     <!-- VOIP ESCALATION -->
     <!-- MTL / MDU ESCALATION -->
@@ -382,7 +381,8 @@
       require('../js/nav.js');      // Navigation handling.
       require('../js/home.js');     // Handle home page.
       require('../js/tickets.js');  // Handle tickets.
-      require('../js/forms.js');    // Handle form error checking.
+      require('../js/network.js');  // Handle network tickets / requests.
+      require('../js/formsRepair.js');    // Handle form error checking.
     </script>
   </body>
 

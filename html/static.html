@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Gtek Tickets</title>
+
+        <link rel="stylesheet" type="text/css" href="../css/index.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/nav.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/home.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/static.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/fontawesome-all.min.css" />
+
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+        <!-- JQuery -->
+        <script> window.$ = window.jQuery = require('jquery'); </script> 
+        <script src="../js/jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
+        <script src="../js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../js/jquery-ui-1.12.1.custom/jquery-ui.css" />
+    </head>
+
+    <body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <ul>
+            <li class="other" id="option-home"> <i id="option-home" class="fas fa-user"></i> <span id="option-home"> HOME </span> </li>
+            <li class="other" id="option-repair"> <i id="option-repair" class="fas fa-wrench"></i> <span id="option-repair"> REPAIR </span> </li>
+            <li class="" id="option-install"> <i id="option-install" class="fas fa-home"></i> <span id="option-install"> INSTALL </span> </li>
+            <li class="" id="option-onsite"> <i id="option-onsite" class="fas fa-money-bill-alt"></i> <span id="option-onsite"> ONSITE </span> </li>
+            <li class="" id="option-relo"> <i id="option-relo" class="fas fa-boxes"></i> <span id="option-relo"> RELOCATION </span> </li>
+            <li class="other" id="option-static"> <i id="option-static" class="fas fa-gamepad"></i> <span id="option-static"> STATIC IP </span>  </li>
+            <li class="" id="option-key"> <i id="option-key" class="fas fa-key"></i> <span id="option-key"> KEY UPGRADE </span>  </li>
+            <li class="" id="option-voip"> <i id="option-voip" class="fas fa-phone"></i> <span id="option-voip"> VOIP </span> </li>
+            <li class="" id="option-mtl"> <i id="option-mtl" class="fas fa-building"></i> <span id="option-mtl"> MTL / MDU </span> </li>
+            <li class="" id="option-other"> <i id="option-other" class="fas fa-question"></i> <span id="option-mtl"> OTHER </span> </li>
+        </ul>
+    </div>
+
+<!-- SECTIONS -->
+
+    <!-- HOME -->
+    <section class="section-hidden" id="option-home">
+        <div class="title-header">
+            <h1 class="title">HOME</h1>
+        </div>
+
+        <div class="img-container">
+            <img src="../img/logo.png"/>
+        </div>
+
+        <div class="input-container">
+            <div class="input-block" id="input-block-log-in">
+                <p class="input-header" id="input-login-header-username"> Username </p>
+                <input class="input-login" id="input-login-username" type="text" name="username"/>
+                <div class="err-container">
+                    <p class="err-msg" id="err-username"></p>
+                </div>
+
+                <p class="input-header" id="input-login-header-password"> Password </p>
+                <input class="input-login" id="input-login-password" type="password" name="password"/>
+                <p class="err-msg" id="err-password"></p>
+
+                <div class="btn-container">
+                    <input type="button" class="btn" value="LOGIN" id="btn-home-login"/>
+                </div>
+                <div class="err-container">
+                    <p class="err-msg" id="err-login"></p>
+                </div>
+            </div>
+        <div class="input-block-hidden" id="input-block-logged-in">
+            <div class="info-container">
+                <h1 class="login-success"> </h1>
+             </div>
+        </div>
+        <!-- Changelog -->
+            <div class="input-block-hidden" id="input-block-changelog">
+                <div class="info-container">
+                    <div class="changelog-container">
+                        <div class="changelog-description"></div>
+                    </div>
+                </div>
+                <div class="btn-container" id="btn-container-tkt-submit">
+                    <input type="button" class="btn-tkt" value="BACK" id="btn-changelog-back"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-container">
+            <div id="update-ready"> <p> </p> </div>
+            <p class="version" id="version"> v1.1.1 </p>
+        </div>
+    </section>
+
+
+
+    <!-- STATIC IP REQUEST -->
+    <section class="section-hidden" id="option-static">
+        <div class="title-header">
+            <h1 class="title"> STATIC IP REQUEST </h1>
+        </div>
+        
+        <div class="bbtn-container-hidden" id="back-btn">
+            <i class="fas fa-chevron-circle-left fa-2x" id="back-btn-icon"></i>
+        </div>
+        
+        <div class="input-container">
+            <!-- SEARCH CUSTOMER -->
+            <div class="input-block" id="input-customer-search">
+                <div class="header-container" id="input-block-header-cst-info">
+                    <h1 class="input-block-header"> Search For Customer </h1>
+                </div>
+        
+                <p class="input-header" id="input-customer-header-id"> ID </p>
+                <input class="input-static" id="input-static-customer-id" type="text" name="customer-id"/>
+                <div class="err-container">
+                    <p class="err-msg" id="err-cst_id"></p>
+                </div>
+        
+                <div class="btn-container">
+                    <input type="button" class="btn" value="CHECK ACCOUNT" id="btn-static-customer-check"/>
+                </div>
+        
+                <div class="header-container">
+                    <p class="input-header"> OR </p>
+                </div>
+        
+                <div class="btn-container">
+                    <input type="button" class="btn" value="CREATE EMPTY TICKET" id="btn-static-create-ticket"/>
+                </div>
+            </div>
+            <!---->
+
+            <!-- CONFIRM CUSTOMER ACCOUNT -->
+            <div class="input-block-hidden" id="input-customer-confirm">
+                <div class="header-container" id="input-block-header-cst-confirm">
+                    <h1 class="input-block-header"> Confirm Account </h1>
+                </div>
+  
+                <div class="info-container">
+                    <p class="input-header" id="info-confirm-cst_id"> Account Found: </p>
+                </div>
+  
+                <div class="btn-container">
+                    <input type="button" class="btn-confirm" value="CONFIRM" id="btn-static-customer-confirm"/>
+                    <input type="button" class="btn-confirm" value="DENY" id="btn-static-customer-deny"/>
+                </div>
+            </div>
+          <!-- ALERT NO IP ASSIGNMENTS -->
+            <div class="input-block-hidden" id="input-customer-continue">
+                <div class="header-container" id="input-block-header-cst-continue">
+                    <h1 class="input-block-header"> Information Not Found </h1>
+                </div>
+
+                <div class="info-container">
+                    <p class="input-header" id="info-confirm-cst_id"> IP Assignments on the account were not found! </p>
+                </div>
+
+                <div class="btn-container">
+                    <input type="button" class="btn-confirm" value="CONTINUE" id="btn-static-customer-continue"/>
+                </div>
+            </div>
+
+        <div class="alert-blur"></div>
+
+        <!-- EMPTY TICKET FORM -->
+            <div class="input-block-hidden" id="input-ticket-template">
+            <!-- CUSTOMER INFO -->
+                <div class="input-block" id="customer-info-block">
+                    <h1 class="input-block-header"> Customer Information </h1>
+
+                    <p class="input-header" id="input-customer-header-id"> CUSTOMER ID </p>
+                    <input class="input-static" id="input-static-customer_id" type="text" name="customer-id"/>
+                    <div class="err-container">
+                        <p class="err-msg" id="err-customer_id"></p>
+                    </div>
+
+                    <p class="input-header" id="static-name-header"> CUSTOMER NAME </p>
+                    <input class="input-static" id="input-static-customer_name" type="text" name="customer-name"/>
+                    <div class="err-container">
+                        <p class="err-msg" id="err-customer_name"></p>
+                    </div>
+                </div>
+            <!---->
+
+            <!-- EQUIPMENT INFO -->
+                <div class="input-block" id="equipment-info-block">
+                    <h1 class="input-block-header"> Equipment Information </h1>
+                    <p class="input-header" id="static-radio_manage-header"> MANAGEMENT IP </p>
+                    <input class="input-static" id="input-static-radio_managed" type="text" name="radio_managed"/>
+                    <div class="err-container">
+                        <p class="err-msg" id="err-radio_managed"></p>
+                    </div>
+
+                    <p class="input-header" id="static-router_mac-header"> ROUTER MAC ADDRESS </p>
+                    <input class="input-static" id="input-static-router_mac" type="text" name="router_mac"/>
+                    <div class="err-container">
+                        <p class="err-msg" id="err-router_mac"></p>
+                    </div>
+                </div>
+            <!---->
+
+            <!-- TICKET INFO -->
+                <div class="input-block" id="ticket-info-block">
+                    <h1 class="input-block-header"> Ticket Information </h1>
+
+                    <p class="input-header" id="static-tkt_reason-header"> REASON FOR STATIC IP </p>
+                    <input class="input-static" id="input-static-tkt_reason" placeholder="Cameras, Gaming, VPN, etc."/ type="text" name="tkt_reason">
+                    <div class="err-container">
+                        <p class="err-msg" id="err-tkt_reason"></p>
+                    </div>
+
+                    <p class="input-header" id="static-notes-header"> NOTES / PROBLEM </p>
+                    <textarea class="input-static" id="input-static-tkt_notes" rows="6" placeholder="What was the problem the customer was reporting? What was done on the call? Include the customer's attitude."></textarea>
+                </div>
+            <!---->
+                
+                <div class="btn-container" id="btn-container-tkt-submit">
+                    <input type="button" class="btn-tkt" value="CLEAR" id="btn-static-tkt-clear"/>
+                    <input type="button" class="btn-tkt" value="SUBMIT" id="btn-static-tkt-submit"/>
+                </div>
+                    <br>
+                    <div class="err-container">
+                        <p class="err-msg" id="err-submit"></p>
+                    </div>
+                    <div class="err-container">
+                        <p class="success-msg" id="succ-submit"></p>
+                    </div>
+            </div>
+            
+                <div class="alert-block-hidden" id="alert-block-clear">
+                    <h1> Are you sure you want to clear the ticket? </h1>
+                    <div class="btn-container" id="btn-container-tkt-clear">
+                        <input type="button" class="btn-tkt" value="CLEAR" id="btn-clear-confirmation-clear"/>
+                        <input type="button" class="btn-tkt" value="CANCEL" id="btn-clear-confirmation-cancel"/>
+                    </div>
+                </div>
+        
+                <div class="alert-block-hidden" id="alert-block-submit">
+                    <h1 id="alert-submit-text"> Are you sure you want to submit the ticket?</h1>
+                    <br>
+                    <div class="btn-container" id="btn-container-tkt-clear">
+                        <input type="button" class="btn-tkt" value="SUBMIT" id="btn-submit-confirmation-submit"/>
+                        <input type="button" class="btn-tkt" value="CANCEL" id="btn-submit-confirmation-cancel"/>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+
+
+        <script>
+            require('../js/nav.js');      // Navigation handling.
+            require('../js/home.js');     // Handle home page.
+            require('../js/network.js');  // Handle network tickets / requests.
+            require('../js/formsStatic.js');    // Handle form error checking.
+        </script>
+    </body>
+      
+</html>

@@ -54,7 +54,7 @@ let Home = new function()
 
             // Authenticates and logs the user in if successful with username and password.
             this.Sonar.Login.Authenticate(this.user, this.pass, (data) => {
-
+                
                 if(data.error)
                 {
                     this.error = true;
@@ -87,7 +87,7 @@ let Home = new function()
             this.getName = function(username, data)
             {
                 for(let i = 0; i < data.data.length; i++)
-                    if(data.data[i].username == username)
+                    if(data.data[i].username.toLowerCase() == username.toLowerCase()) // Changed to compare when all lowercase to an 'undefined' name.
                         return data.data[i].public_name;
             }
         }
@@ -104,6 +104,10 @@ let Home = new function()
             sessionStorage.loggedIn = this.loggedIn;
         }
 
+        /**
+         * Welcome the user with their username when 
+         * the successfully login.
+         */
         this.welcomeUser = function()
         {
             $('#input-block-log-in').removeClass('input-block').addClass('input-block-hidden');
@@ -160,11 +164,11 @@ let Home = new function()
                 this.error = true;
                 this.errorMsg = 'Username contains invalid characters!';
             }
-            else if(this.username.match(/[A-Z]/))
+            /*else if(this.username.match(/[A-Z]/))
             {
                 this.error = true;
                 this.errorMsg = 'Username contains uppercase characters!';
-            }
+            }*/
             else
                 this.resetError('#err-username');
 
