@@ -3,6 +3,8 @@ const $other = $('.other');
 const $hidden = $('.section-hidden');
 const $blur = $('.alert-blur');
 
+let _Section = sessionStorage.section;
+
 /**
  * When the user selects a menu option update the page
  * based on sections.
@@ -18,7 +20,8 @@ $other.on('click', event => {
         $('#err-login').text('Please login before creating tickets!');
         return;
     }
-    else if(section != 'option-repair' && section != 'option-home') return; // For release with only repair tickets.
+    else if(section != 'option-repair' && section != 'option-home' && section != 'option-static') return; // For release with only repair tickets,
+                                                                                // and statics ip requests, and...
 
 
     if($(option).hasClass('active')) return; // Already selected.
@@ -28,13 +31,44 @@ $other.on('click', event => {
 
     $('li#'+section).removeClass('other').addClass('active');   // Set option that was not to active.
     $('section#'+section).removeClass('section-hidden').addClass('section-active'); // Show selected section.
+    
+    redirect(section);
 });
+
+/**
+ * Redirects html to appropriate section.
+ * @param {String} section 
+ */
+function redirect(section)
+{
+    console.log(_Section);
+    if(section === 'option-static' && _Section !== section) {
+        sessionStorage.section = section;
+        window.location.href = '../html/static.html';
+    }
+    else if(section === 'option-repair' && _Section !== section) {
+        sessionStorage.section = section;
+        window.location.href = '../html/index.html';
+    }
+}
 
 /**
  * When page loads, make home active option.
  */
 $window.on('load', () => {
-    $other.first().removeClass('other').addClass('active');
-    $hidden.first().removeClass('section-hidden').addClass('section-active');
-    $blur.hide();
-})
+
+    if(_Section) {
+        $('li#'+_Section).removeClass('other').addClass('active');   // Set option that was not to active.
+        $('section#'+_Section).removeClass('section-hidden').addClass('section-active'); // Show selected section.
+        $blur.hide();
+    }
+    else {
+        $other.first().removeClass('other').addClass('active');
+        $hidden.first().removeClass('section-hidden').addClass('section-active');
+        $blur.hide();
+    }
+});
+
+$window.on('beforeunload', () => {
+    sessionStorage = undefined;
+});

@@ -230,6 +230,13 @@ let Sonar = new function()
             this.postData(obj.customer_id, template, username, password, this.callback);
         }
 
+        this.SubmitAsTicket = function(obj, template, username, password, callback)
+        {
+            this.callback = callback;
+
+            this.postTicketData(obj.customer_id, template, 'Static IP Request', 1, 1, username, password, this.callback);
+        }
+
         this.UpdateCustomFields = function(obj, data, username, password, callback)
         {
             this.callback = callback;
@@ -263,6 +270,51 @@ let Sonar = new function()
 
             console.log(postData);
             console.log(options.path);
+
+            let req = https.request(options, (res) => {
+                let body = '';
+
+                res.on('data', (chunk) => {
+                    body += chunk;
+                });
+
+                res.on('end', () => {
+                    callback(JSON.parse(body));
+                });
+            });
+
+            req.on('error', (e) => {
+                console.log('ERROR w/ POST: ' + e.message);
+                callback('error');
+            });
+
+            req.write(postData);
+            req.end();
+        }
+
+        this.postTicketData = function(customer_id, template, subj, group_id, cat_id, username, password, callback)
+        {
+            let cat_array = [];
+            cat_array.push(cat_id);
+            let postData = JSON.stringify({
+                subject: subj,
+                type: "internal",
+                ticket_group_id: group_id,
+                assignee: "accounts",
+                assignee_id: customer_id,
+                category_ids: cat_array,
+                comment: template
+            });
+
+            options.path = '/api/v1/tickets';
+            options.headers = {
+                'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64'),
+                'Content-Type': 'application/json',
+                'Content-Length': postData.length
+            };
+            options.method = 'POST';
+
+            console.log(postData);
 
             let req = https.request(options, (res) => {
                 let body = '';

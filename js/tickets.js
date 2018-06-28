@@ -12,13 +12,11 @@
  */
 let Tickets = new function()
 {
+    console.log($('#input-customer-search'));
     this.Towers = require('../js/modules/Towers.js'); // Get the Towers module.
     /**
      * Repair deals with all functions of the repair
      * ticket process.
-     * 
-     * getCustomer(id)
-     * confirmAccountFound(obj)
      * 
      */
 /**/this.Repair = new function()
@@ -151,6 +149,7 @@ let Tickets = new function()
                         else
                         {
                             console.log(obj);
+                            this.getServices(); // Move on if there was an error getting Inventory Items
                         }
                     });
                 }
@@ -308,41 +307,48 @@ let Tickets = new function()
             _.radio_ap_count = $('#input-repair-radio_ap_count').val();
 
             // Create string template.
-            let template = 'Job Type: ' + _.tkt_type + '\r\r';
-            template += _.customer_name + '\r';
-            template += _.cst_package[0] + ' ' + _.cst_package[1] + '\n\n';
-            template += 'Tower: ' + _.tkt_tower + '\r';
-            template += 'Zone: ' + _.tkt_zone + '\r\r';
-            template += 'Managed IP:   ' + _.radio_managed + '\r';
-            template += 'Public IP:    ' + _.radio_public + '\r';
-            template += 'MAC Address:  ' + _.radio_mac + '\r';
-            template += 'Radio Type:   ' + _.radio_type + ' ' + _.radio_type_type + '\r';
+            let template = '<p>Job Type: ' + _.tkt_type + '</p>';
+            template += '<p>' + _.customer_name + '<br>';
+            template += _.cst_package[0] + ' ' + _.cst_package[1] + '</p>';
+            template += '<p>Tower: ' + _.tkt_tower + '<br>';
+            template += 'Zone: ' + _.tkt_zone + '</p>';
+            template += '<p>Managed IP:   ' + _.radio_managed + '<br>';
+            template += 'Public IP:    ' + _.radio_public + '<br>';
+            template += 'MAC Address:  ' + _.radio_mac + '<br>';
+            template += 'Radio Type:   ' + _.radio_type + ' ' + _.radio_type_type + '<br>';
             if(_.radio_ssid != '')
-                template += 'SSID:         ' + _.radio_ssid + '\r';
+                template += 'SSID:         ' + _.radio_ssid + '<br>';
 
             if(_.radio_ap_count != '')
-                template += 'AP CST Count: ' + _.radio_ap_count + '\r';
+                template += 'AP CST Count: ' + _.radio_ap_count + '<br>';
 
             if(_.radio_ccq != '')    
-                template += 'CCQ:          ' + _.radio_ccq + '\r';
+                template += 'CCQ:          ' + _.radio_ccq + '<br>';
             
             if(_.radio_qual != '')
-                template += 'Qual / Cap:   ' + _.radio_qual + '\r';
+                template += 'Qual / Cap:   ' + _.radio_qual + '<br>';
             
             if(_.radio_signal != '')
-                template += 'Radio Signal: ' + _.radio_signal + '\r';
+                template += 'Radio Signal: ' + _.radio_signal + '<br>';
 
             if(_.radio_last_signal != '')
-                template += 'Last Known Good Signal: ' + _.radio_last_signal + '\r';
+                template += 'Last Known Good Signal: ' + _.radio_last_signal + '<br>';
             
             if(_.radio_speedtest != '')
-                template += 'Radio Speed Test: ' + _.radio_speedtest + '\r\r';
+                template += 'Radio Speed Test: ' + _.radio_speedtest + '</p>';
             
             if(_.cst_torch != '')
-                template += 'Torch Results: ' + _.cst_torch + '\r';
+                template += '<p>Torch Results: ' + _.cst_torch + '<br>';
+            else
+                template += '<p>';
 
             if(_.cst_speedtest != '')
-                template += 'CST Speed Test Results: ' + _.cst_speedtest + '\r';
+                template += 'CST Speed Test Results: ' + _.cst_speedtest + '</p>';
+            else
+                template += '</p>';
+
+            if(_.tkt_notes != '')
+                template += '<p>Notes: ' + _.tkt_notes + '</p>';
 
             //console.log(_);
             //console.log(template);
@@ -561,13 +567,40 @@ let Tickets = new function()
          */
         this.selectZone = function()
         {
-            this.tower = $('#input-repair-tkt_tower option:selected')[0].value; // Get tower name.
-            let zone = Tickets.Towers.getZone(this.tower);  // Get zone of selected tower based on name.
-            console.log(this.tower);
+            let tower = $('#input-repair-tkt_tower option:selected')[0].value; // Get tower name.
+            let zone = Tickets.Towers.getZone(tower);  // Get zone of selected tower based on name.
+            console.log(tower);
             console.log(zone);
 
             // Select received zone value.
             $('#input-repair-tkt_zone').val(zone);
+        }
+
+        /**
+         * Set the tower options based on the zone selected.
+         */
+        this.setTowerOptions = function()
+        {
+            let zone = $('#input-repair-tkt_zone option:selected')[0].value; // Get zone selected.
+            let zoneTowers = [];
+            let allTowers = Tickets.Towers.towers;
+
+            $('#input-repair-tkt_tower').children().remove(); // Remove all options from dropdown.
+
+            if(zone == 0) Tickets.Towers.createOptions();
+            else 
+            {
+                for(let i = 0; i < allTowers.length; i++)
+                {
+                    if(zone == Tickets.Towers.getZone(allTowers[i].name))
+                    {
+                        $('#input-repair-tkt_tower').append($('<option>', {
+                            value: allTowers[i].name,
+                            text: allTowers[i].name
+                        }));
+                    }
+                }
+            }
         }
 
         /**
@@ -702,10 +735,7 @@ let Tickets = new function()
          */
         this.back = function()
         {
-            $('#input-customer-search').removeClass('input-block-hidden').addClass('input-block');
-            $(this.currentSection).removeClass('input-block').addClass('input-block-hidden');
-            $('#back-btn').removeClass('bbtn-container').addClass('bbtn-container-hidden');
-            this.currentSection = '#input-customer-search';
+            location.reload();
         }
     }
 
@@ -756,6 +786,7 @@ $('#btn-repair-customer-check').on('click', () => {
  * "CREATE TICKET" button clicked event.
  */
 $('#btn-repair-create-ticket').on('click', () => {
+    Tickets.Repair.clearTicketForm();
     Tickets.Repair.displayForm();
 });
 
@@ -845,6 +876,13 @@ $('#input-repair-radio_type').on('change', () => {
  */
 $('#input-repair-tkt_tower').on('change', () => {
     Tickets.Repair.selectZone();
+});
+
+/**
+ * Zone on selection event.
+ */
+$('#input-repair-tkt_zone').on('change', () => {
+    Tickets.Repair.setTowerOptions();
 });
 
 /**

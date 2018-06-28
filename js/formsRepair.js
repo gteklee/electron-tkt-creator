@@ -151,10 +151,10 @@ let Forms = new function()
                 // Error displayed.
                 Forms.error = true;
                 Forms.errors.push(id);
-                Forms.DisplayError(id, 'Field cannot be blank!');
+                Forms.DisplayError(id, '#btn-repair-tkt-submit', 'Field cannot be blank!');
             }
             else
-                Forms.ResetError(id);
+                Forms.ResetError(id, '#btn-repair-tkt-submit');
 
             //console.log(Forms.errors);
         }
@@ -164,7 +164,7 @@ let Forms = new function()
         {
             if(val.length < 1) 
             {
-                Forms.ResetError(id)
+                Forms.ResetError(id, '#btn-repair-tkt-submit')
                 return;
             }
 
@@ -174,18 +174,18 @@ let Forms = new function()
                 {
                     Forms.error = true;
                     Forms.errors.push(id);
-                    Forms.DisplayError(id, 'Field contains invalid characters!');
+                    Forms.DisplayError(id, '#btn-repair-tkt-submit', 'Field contains invalid characters!');
                     break;
                 }
                 else if(val[i].match(' '))
                 {
                     Forms.error = true;
                     Forms.errors.push(id);
-                    Forms.DisplayError(id, 'Field contains whitespace!');
+                    Forms.DisplayError(id, '#btn-repair-tkt-submit', 'Field contains whitespace!');
                     break;
                 }
 
-                Forms.ResetError(id);
+                Forms.ResetError(id, '#btn-repair-tkt-submit');
             }
         }
 
@@ -194,7 +194,7 @@ let Forms = new function()
         {
             if(val.length < 1) 
             {
-                Forms.ResetError(id)
+                Forms.ResetError(id, '#btn-repair-tkt-submit')
                 return;
             }
 
@@ -204,11 +204,11 @@ let Forms = new function()
                 {
                     Forms.error = true;
                     Forms.errors.push(id);
-                    Forms.DisplayError(id, 'Field contains invalid characters!');
+                    Forms.DisplayError(id, '#btn-repair-tkt-submit', 'Field contains invalid characters!');
                     break;
                 }
 
-                Forms.ResetError(id);
+                Forms.ResetError(id, '#btn-repair-tkt-submit');
             }
         }
 
@@ -217,7 +217,7 @@ let Forms = new function()
         {
             if(val.length < 1) 
             {
-                Forms.ResetError(id)
+                Forms.ResetError(id, '#btn-repair-tkt-submit')
                 return;
             }
 
@@ -227,18 +227,18 @@ let Forms = new function()
                 {
                     Forms.error = true;
                     Forms.errors.push(id);
-                    Forms.DisplayError(id, 'Field contains invalid characters!');
+                    Forms.DisplayError(id, '#btn-repair-tkt-submit', 'Field contains invalid characters!');
                     break;
                 }
                 else if(val[i].match(' '))
                 {
                     Forms.error = true;
                     Forms.errors.push(id);
-                    Forms.DisplayError(id, 'Field contains whitespace!');
+                    Forms.DisplayError(id, '#btn-repair-tkt-submit', 'Field contains whitespace!');
                     break;
                 }
 
-                Forms.ResetError(id);
+                Forms.ResetError(id, '#btn-repair-tkt-submit');
             }
         }
 
@@ -247,7 +247,7 @@ let Forms = new function()
         {
             if(val.length < 1) 
             {
-                Forms.ResetError(id)
+                Forms.ResetError(id, '#btn-repair-tkt-submit')
                 return;
             }
 
@@ -257,33 +257,33 @@ let Forms = new function()
                 {
                     Forms.error = true;
                     Forms.errors.push(id);
-                    Forms.DisplayError(id, 'Field contains invalid characters!');
+                    Forms.DisplayError(id, '#btn-repair-tkt-submit', 'Field contains invalid characters!');
                     break;
                 }
                 else if(val[i].match(' '))
                 {
                     Forms.error = true;
                     Forms.errors.push(id);
-                    Forms.DisplayError(id, 'Field contains whitespace!');
+                    Forms.DisplayError(id, '#btn-repair-tkt-submit', 'Field contains whitespace!');
                     break;
                 }
 
-                Forms.ResetError(id);
+                Forms.ResetError(id, '#btn-repair-tkt-submit');
             }
         }
 
         // Disable appropriate fields based on value selected
         // in job type.
         this.disableFields = function(val)
-        {
+        {   console.log(val);
             // Re-enable all possibly disabled fields.
-            $('#input-repair-cst_speed-test').prop('disabled', false);   // Disable cst_speed-test
-            $('#input-repair-cst_torch').prop('disabled', false);        // Disable cst_torch
-            $('#input-repair-radio_speed-test').prop('disabled', false); // Disable radio_speed-test
-            $('#input-repair-radio_ap_count').prop('disabled', false);   // Disable radio_ap_count
-            $('#input-repair-radio_ccq').prop('disabled', false);        // Disable radio_ccq
-            $('#input-repair-radio_qual').prop('disabled', false);       // Disable radio_qual
-            $('#input-repair-radio_signal').prop('disabled', false);     // Disable radio_signal
+            $('#input-repair-cst_speedtest').prop('disabled', false);       // Disable cst_speed-test
+            $('#input-repair-cst_torch').prop('disabled', false);           // Disable cst_torch
+            $('#input-repair-radio_speedtest').prop('disabled', false);     // Disable radio_speed-test
+            $('#input-repair-radio_ap_count').prop('disabled', false);      // Disable radio_ap_count
+            $('#input-repair-radio_ccq').prop('disabled', false);           // Disable radio_ccq
+            $('#input-repair-radio_qual').prop('disabled', false);          // Disable radio_qual
+            $('#input-repair-radio_signal').prop('disabled', false);        // Disable radio_signal
 
             if(val == 1) // Radio Down.
             {
@@ -303,23 +303,25 @@ let Forms = new function()
                 $('#input-repair-radio_signal').val('');
             }
             else if(val == 2) // No Connection
-            {
-                $('#input-repair-cst_speed-test').prop('disabled', true);   // Disable cst_speed-test
-                $('#input-repair-cst_speed-test').val('');
-                $('#input-repair-radio_speed-test').prop('disabled', true); // Disable radio_speed-test
-                $('#input-repair-radio_speed-test').val('');
+            {   console.log('No Connection selected');
+                $('#input-repair-cst_speedtest').prop('disabled', true);   // Disable cst_speed-test
+                $('#input-repair-cst_speedtest').val('');
+                $('#input-repair-radio_speedtest').prop('disabled', true); // Disable radio_speed-test
+                $('#input-repair-radio_speedtest').val('');
+                $('#input-repair-cst_torch').prop('disabled', true);        // Disable cst_torch
+                $('#input-repair-cst_torch').val('');
             }
             else if(val == 5) // Intermittent Connection
             {
-                $('#input-repair-cst_speed-test').prop('disabled', true); // Disable cst_speed-test
-                $('#input-repair-cst_speed-test').val('');
+                $('#input-repair-cst_speedtest').prop('disabled', true); // Disable cst_speed-test
+                $('#input-repair-cst_speedtest').val('');
             }
             else if(val == 6) // Conversion
             {
-                $('#input-repair-cst_speed-test').prop('disabled', true);   // Disable cst_speed-test
-                $('#input-repair-cst_speed-test').val('');
-                $('#input-repair-radio_speed-test').prop('disabled', true); // Disable radio_speed-test
-                $('#input-repair-radio_speed-test').val('');
+                $('#input-repair-cst_speedtest').prop('disabled', true);   // Disable cst_speed-test
+                $('#input-repair-cst_speedtest').val('');
+                $('#input-repair-radio_speedtest').prop('disabled', true); // Disable radio_speed-test
+                $('#input-repair-radio_speedtest').val('');
             }
         }
 
@@ -345,19 +347,19 @@ let Forms = new function()
     /**
      * Displays error message given id. 
      */
-/**/this.DisplayError = function(id, err)
+/**/this.DisplayError = function(id, btn, err)
     {
         if(this.error)
         {
             $(id).text(err); // Show text.
-            $('#btn-repair-tkt-submit').prop('disabled', true); // Disable submit button.
+            $(btn).prop('disabled', true); // Disable submit button.
         }
     }
 
     /**
      * Resets specified error message given id.
      */
-/**/this.ResetError = function(id)
+/**/this.ResetError = function(id, btn)
     {
         // Remove element from array of errors based on value.
         if(this.errors.includes(id))
@@ -369,7 +371,7 @@ let Forms = new function()
         if(this.errors.length < 1) // Check if there are still errors.
         {
             this.error = false;
-            $('#btn-repair-tkt-submit').prop('disabled', false); // Enable submit button.
+            $(btn).prop('disabled', false); // Enable submit button.
             Forms.Repair.checkSubmittable(); // Check if form is okay to submit.
         }
         
