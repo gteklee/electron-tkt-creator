@@ -1,6 +1,6 @@
 {
   "name": "electron-tkt-creator",
-  "version": "1.1.1",
+  "version": "1.4.0",
   "description": "A complete rewrite of the Gtek Ticket Creator program. This utilizes the electron framework and Sonar API.",
   "main": "main.js",
   "scripts": {
@@ -21,7 +21,8 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "~1.8.2",
-    "electron-builder": "^20.6.2"
+    "electron-builder": "^20.6.2",
+    "electron-reload": "^1.2.3"
   },
   "dependencies": {
     "electron-updater": "^2.21.3",

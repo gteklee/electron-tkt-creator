@@ -1,0 +1,107 @@
+section#option-key .input-block, section#option-key .input-block-left, section#option-key .input-block-right { 
+    padding: 0 50px 50px 50px;
+}
+
+section#option-key #input-ticket-template {
+    border: none;
+    background: none;
+}
+
+    section#option-key #customer-info-block {
+        margin-top: 50px;
+    }
+
+    section#option-key #equipment-info-block {
+        margin-top: 50px;
+    }
+
+    section#option-key #ticket-info-block {
+        margin-top: 50px;
+    }
+
+section#option-key #input-block-header-cst-info, section#option-key #input-block-header-cst-confirm {
+    color: #0094DE;
+}
+
+section#option-key #ticket-info-block .input-block-header, section#option-key #customer-info-block .input-block-header, section#option-key #equipment-info-block .input-block-header {
+    color: #0094DE;
+}
+
+section#option-key #input-customer-header-name {
+    margin-top: 25px;
+}
+
+/** key IP Ticket Form **/
+section#option-key #key-name-header { margin-top: 25px; }
+section#option-key #key-radio_manage-header { margin-top: 25px; }
+section#option-key #key-radio_mac-header { margin-top: 25px; }
+section#option-key #key-notes-header { margin-top: 25px; } 
+
+section#option-key #info-confirm-cst_id { margin-bottom: 50px; }
+
+
+section#option-key #btn-key-customer-check {
+    margin-top: 50px;
+    margin-bottom: 5px;
+}
+
+section#option-key #btn-key-create-ticket {
+    margin-top: 5px;
+}
+
+section#option-key #btn-key-customer-confirm {
+    margin-right: 10px;
+}
+
+section#option-key #btn-key-tkt-clear, section#option-key #btn-key-tkt-submit {
+    margin-top: 50px;
+} section#option-key #btn-key-tkt-submit {
+    margin-left: 25px;
+} section#option-key #btn-clear-confirmation-cancel, section#option-key #btn-submit-confirmation-cancel {
+    margin-left: 25px;
+}
+
+@media screen and (min-width: 1300px)
+{
+    /* Re-organize position of each input-block */
+    section#option-key .input-block#input-ticket-template {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    section#option-key .input-block#input-ticket-template #equipment-info-block {
+        margin-left: 50px;
+    }
+
+    section#option-key  #btn-container-tkt-submit {
+        width: 600px;
+    }
+}
+
+@media screen and (min-width: 1340px)
+{
+    section#option-key  #btn-container-tkt-submit {
+        width: 800px;
+    }
+}
+
+@media screen and (min-width: 1540px)
+{
+    section#option-key  #btn-container-tkt-submit {
+        width: 1100px;
+    }
+}
+
+@media screen and (min-width: 1755px)
+{
+    section#option-key  #btn-container-tkt-submit {
+        width: 1200px;
+    }
+
+    section#option-key .input-block#input-ticket-template #ticket-info-block {
+        margin-left: 50px;
+    }
+}

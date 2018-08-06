@@ -1,6 +1,6 @@
 $(() => {
     $('#btn-static-tkt-submit').prop('disabled', true);
-    $('#err-submit').text('Important fields ar blank!');
+    $('#err-submit').text('Important fields are blank!');
 });
 
 // --- TEXT FIELDS ---------------------------------------------------------------------------------
@@ -65,7 +65,6 @@ let Forms = new function()
         // Check if selection is blank.
         this.checkBlank = function(val, id)
         {
-
             if(val == 0 || val == '') // Can't be blank.
             {
                 // Error displayed.

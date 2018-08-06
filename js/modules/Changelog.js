@@ -1,4 +1,14 @@
 let Changelog = {
+    v140: {
+        name: 'v1.4.0',
+        description: [
+            'Key Upgrade Ticket Added!',
+            'VOIP / Nextiva Escalation Ticket Added!',
+            'MTL / MDU Escalation Ticket Added!',
+            'Code refactored.',
+            'Many bug fixes.'
+        ]
+    },
     v110: {
         name: 'v1.1.0',
         description: [

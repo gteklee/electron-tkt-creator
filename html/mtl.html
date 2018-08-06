@@ -8,7 +8,6 @@
         <link rel="stylesheet" type="text/css" href="../css/index.css"/>
         <link rel="stylesheet" type="text/css" href="../css/nav.css"/>
         <link rel="stylesheet" type="text/css" href="../css/home.css"/>
-        <!--<link rel="stylesheet" type="text/css" href="../css/static.css"/>-->
         <link rel="stylesheet" type="text/css" href="../css/fontawesome-all.min.css" />
 
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -100,43 +99,40 @@
         </div>
     </section>
 
-    <!-- STATIC IP REQUEST -->
-    <section class="section-hidden" id="option-static">
+    <section class="section-hidden" id="option-mtl">
         <div class="input-container">
         </div>
     </section>
 
-    <script>
+    <script> 
         const builder = new FormBuilder();
 
-        builder.Title('STATIC IP REQUEST', 'option-static');
-        builder.Create('Search-Customer', 'option-static', '.input-container');
+        builder.Title('MTL / MDU ESCALATION', 'option-mtl');
+        //builder.Create('Search-Customer', 'option-mtl', '.input-container');
         builder.CreateForm([{
                 title: 'Customer Information',
                 fields: [
                     'cst_id',
-                    'cst_name'
-                ]
-            },{
-                title: 'Equipment Information',
-                fields: [
-                    'radio_management',
-                    'router_mac'
+                    'cst_name',
+                    'cst_phone',
+                    'cst_unit',
+                    'cst_status'
                 ]
             },{
                 title: 'Ticket Information',
                 fields: [
-                    'tkt_reason_static',
-                    'tkt_notes'
+                    'mtl_id', 
+                    'tkt_reason'
                 ]
             }
-        ], 'option-static', '.input-container');
+        ], 'option-mtl', '.input-container');
+
     </script>
 
         <script>
-            require('../js/nav.js');      // Navigation handling.
-            require('../js/home.js');     // Handle home page.
-            require('../js/ticket-handler-static.js');  // Handle network tickets / requests.
+            require('../js/nav.js');                    // Navigation handling.
+            require('../js/home.js');                   // Handle home page.
+            require('../js/ticket-handler-mtl.js');     // Handle network tickets / requests.
             require('../js/ticket-handler-errors.js');  // Handle form input errors.
         </script>
     </body>

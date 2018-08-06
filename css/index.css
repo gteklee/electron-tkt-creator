@@ -16,15 +16,24 @@ html { background-color: #F5F5F5; }
 input[type="text"], input[type="password"], input[type="button"] { font-family: 'Montserrat', sans-serif; font-size: 16px; width: 376px; height: 40px; }
 textarea { font-family: 'Montserrat', sans-serif; resize: none; width: 376px; }
 select { font-family: 'Montserrat', sans-serif; font-size: 16px; width: 376px; height: 40px; }
+    #input-radio_type { width: 120px; margin: 10px 0 10px 10px; }
+    #input-radio_type_type { width: 232px; margin: 0 0 0 5px; }
+    #input-cst_package { width: 276px; margin: 10px 0 10px 10px; }
+
     input:focus { outline: none; border: 2px solid #4286f4; }
     textarea:focus { outline: none; border: 2px solid #4286f4; }
     select:focus { outline: none; border: 2px solid #4286f4; } 
 section { margin-left: 53px; font-family:'Montserrat', sans-serif; overflow: auto; }
 
+    .loading-show { display: flex; justify-content: center; align-items: center; position: fixed; background-color: rgba(0, 0, 0, .65); z-index: 1; width: 100%; height: 100%; top: 0; left: 0; }
+    .loading-hidden { display: none; }
+    #loading-screen {}
+    #loading-img { animation: rotation 1.5s infinite linear; color: white; }
+
     .title-header { text-align: left; padding: 0; margin: 0; margin-bottom: 20px; text-decoration: underline; }
         .title { padding: 0; margin: 0; }
 
-    .header-container { display: flex; justify-content: center; }
+    .header-container { display: flex; justify-content: center; color: #0094DE; }
 
     .img-container { text-align: center; }
 
@@ -35,6 +44,7 @@ section { margin-left: 53px; font-family:'Montserrat', sans-serif; overflow: aut
         border-width: 1px;
         border-radius: 10px;
         border-color: #BEBEBE;
+        text-align: center;
     }
 
     .input-container {
@@ -42,17 +52,20 @@ section { margin-left: 53px; font-family:'Montserrat', sans-serif; overflow: aut
         align-items: center;
         justify-content: center;
     }
-        .input-block {
-            background-color: #FFF;
+        .input-block, .input-block-container {
+            padding: 0 50px 50px 50px;
 
+            background-color: #FFF;
             border: solid;
             border-width: 1px;
             border-radius: 10px;
             border-color: #BEBEBE;
-        }
-        .input-block-hidden {
-            display: none;
-        }
+        } #input-ticket-template { border: none; background: none; }
+        
+        .input-block:nth-child(n+2) { margin-top: 50px; }
+        .input-block-header { color: #0094DE; }
+        .input-block-hidden { display: none; }
+
             .input-group { 
                 border: solid;
                 border-width: 1px;
@@ -61,6 +74,8 @@ section { margin-left: 53px; font-family:'Montserrat', sans-serif; overflow: aut
              }
 
             .input-header { padding: 0; margin: 0; font-weight: bold; }
+            #input-ticket-template .input-header:nth-child(n+1) { margin-top: 25px; }
+            #info-confirm-cst_id { margin-bottom: 40px; }
             .input-login { padding: 0; margin: 0; }
 
             .btn-container { display: flex; padding: 0; margin: 0; justify-content: center; }
@@ -81,7 +96,9 @@ section { margin-left: 53px; font-family:'Montserrat', sans-serif; overflow: aut
                     font-size: 16px;
                     width: 100px !important;
                     height: 40px;
-                }
+                } #btn-container-tkt-submit { margin-top: 50px; } 
+                  #btn-tkt-submit, #btn-clear-confirmation-cancel, #btn-submit-confirmation-cancel { margin-left: 25px; }
+                  #btn-cst-confirm { margin-right: 10px; }
                     .btn:hover, .btn-confirm:hover, .btn-tkt:hover { border-color: grey; cursor:  pointer;}
                     .btn:active, .btn-confirm:active, .btn-tkt:active {
                         border-color: #05618F;
@@ -108,6 +125,25 @@ section { margin-left: 53px; font-family:'Montserrat', sans-serif; overflow: aut
     .info-container { display: flex; align-content: center; justify-content: center; }
     .changelog-container { display: block; text-align: center; }
 
+/**
+ * Re-orginize ticket template as screen dimensions change.
+ */
+@media screen and (min-width: 1300px) {
+    /* Re-orginize position of each input-block */
+    .input-block-container#input-ticket-template {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .input-block { margin-top: 50px; }
+
+    .input-block:nth-child(n+2) { margin-left: 50px; }
+
+    #btn-container-tkt-submit { width: 600px; }
+}
 
 @media screen and (min-height: 540px)
 {
@@ -122,4 +158,14 @@ section { margin-left: 53px; font-family:'Montserrat', sans-serif; overflow: aut
 @media screen and (min-height: 825px)
 {
     section { margin-left: 125px; }
+}
+
+/** Rotation Positive **/
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
 }

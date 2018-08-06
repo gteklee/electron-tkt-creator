@@ -18,6 +18,8 @@
     <script src="../js/jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
     <script src="../js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../js/jquery-ui-1.12.1.custom/jquery-ui.css" />
+
+    <script src="../js/modules/FormBuilder.js"></script>
   </head>
 
   <body>
@@ -35,7 +37,6 @@
     <p class="pre-release-version" id="version"> v0.9.9 </p>
   </div>
 </div> -->
-
     
     <!-- Navbar -->
     <div class="navbar">
@@ -46,11 +47,16 @@
         <li class="" id="option-onsite"> <i id="option-onsite" class="fas fa-money-bill-alt"></i> <span id="option-onsite"> ONSITE </span> </li>
         <li class="" id="option-relo"> <i id="option-relo" class="fas fa-boxes"></i> <span id="option-relo"> RELOCATION </span> </li>
         <li class="other" id="option-static"> <i id="option-static" class="fas fa-gamepad"></i> <span id="option-static"> STATIC IP </span>  </li>
-        <li class="" id="option-key"> <i id="option-key" class="fas fa-key"></i> <span id="option-key"> KEY UPGRADE </span>  </li>
-        <li class="" id="option-voip"> <i id="option-voip" class="fas fa-phone"></i> <span id="option-voip"> VOIP </span> </li>
-        <li class="" id="option-mtl"> <i id="option-mtl" class="fas fa-building"></i> <span id="option-mtl"> MTL / MDU </span> </li>
+        <li class="other" id="option-key"> <i id="option-key" class="fas fa-key"></i> <span id="option-key"> KEY UPGRADE </span>  </li>
+        <li class="other" id="option-voip"> <i id="option-voip" class="fas fa-phone"></i> <span id="option-voip"> VOIP </span> </li>
+        <li class="other" id="option-mtl"> <i id="option-mtl" class="fas fa-building"></i> <span id="option-mtl"> MTL / MDU </span> </li>
         <li class="" id="option-other"> <i id="option-other" class="fas fa-question"></i> <span id="option-mtl"> OTHER </span> </li>
       </ul>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-hidden" id="loading-screen"> 
+      <i id="loading-img" class="fas fa-circle-notch fa-5x"></i>
     </div>
 
 <!-- SECTIONS -->
@@ -104,285 +110,63 @@
 
       <div class="footer-container">
         <div id="update-ready"> <p> </p> </div>
-        <p class="version" id="version"> v1.1.1 </p>
+        <p class="version" id="version"> v1.4.0 </p>
       </div>
     </section>
 
-    <!-- REPAIR TICKET -->
     <section class="section-hidden" id="option-repair">
-      <div class="title-header">
-        <h1 class="title"> REPAIR JOB </h1>
-      </div>
-
-      <div class="bbtn-container-hidden" id="back-btn">
-        <i class="fas fa-chevron-circle-left fa-2x" id="back-btn-icon"></i>
-      </div>
-
-      <div class="input-container">
-  
-  <!-- SEARCH CUSTOMER -->
-        <div class="input-block" id="input-customer-search">
-          <div class="header-container" id="input-block-header-cst-info">
-            <h1 class="input-block-header"> Search For Customer </h1>
-          </div>
-
-          <p class="input-header" id="input-customer-header-id"> ID </p>
-          <input class="input-repair" id="input-repair-customer-id" type="text" name="customer-id"/>
-          <div class="err-container">
-            <p class="err-msg" id="err-cst_id"></p>
-          </div>
-
-          <div class="btn-container">
-              <input type="button" class="btn" value="CHECK ACCOUNT" id="btn-repair-customer-check"/>
-          </div>
-
-          <div class="header-container">
-              <p class="input-header"> OR </p>
-          </div>
-
-          <div class="btn-container">
-              <input type="button" class="btn" value="CREATE EMPTY TICKET" id="btn-repair-create-ticket"/>
-          </div>
+        <div class="input-container">
         </div>
-    <!---->
-
-  <!-- CONFIRM CUSTOMER ACCOUNT -->
-        <div class="input-block-hidden" id="input-customer-confirm">
-          <div class="header-container" id="input-block-header-cst-confirm">
-            <h1 class="input-block-header"> Confirm Account </h1>
-          </div>
-
-          <div class="info-container">
-            <p class="input-header" id="info-confirm-cst_id"> Account Found: </p>
-          </div>
-
-          <div class="btn-container">
-            <input type="button" class="btn-confirm" value="CONFIRM" id="btn-repair-customer-confirm"/>
-            <input type="button" class="btn-confirm" value="DENY" id="btn-repair-customer-deny"/>
-          </div>
-
-        </div>
-        <!-- ALERT NO IP ASSIGNMENTS -->
-        <div class="input-block-hidden" id="input-customer-continue">
-          <div class="header-container" id="input-block-header-cst-continue">
-            <h1 class="input-block-header"> Information Not Found </h1>
-          </div>
-
-          <div class="info-container">
-            <p class="input-header" id="info-confirm-cst_id"> IP Assignments on the account were not found! </p>
-          </div>
-
-          <div class="btn-container">
-            <input type="button" class="btn-confirm" value="CONTINUE" id="btn-repair-customer-continue"/>
-          </div>
-        </div>
-
-        <div class="alert-blur"></div>
-  <!-- EMPTY TICKET FORM -->
-        <div class="input-block-hidden" id="input-ticket-template">
-    <!-- TICKET INFO-->
-          <div class="input-block" id="ticket-info-block">
-            <h1 class="input-block-header"> Job Information </h1>
-
-            <p class="input-header" id="repair-tkt_type-header"> JOB TYPE </p>
-            <select class="input-repair" id="input-repair-tkt_type">
-              <option value="0">  </option>
-              <option value="1"> Radio down </option>
-              <option value="2"> No connection </option>
-              <option value="3"> Intermittent connection </option>
-              <option value="4"> Slow/Interm Speeds </option>
-              <option value="5"> Poor Signal </option>
-              <option value="6"> Conversion </option>
-              <option value="7"> Onsite </option>
-              <option value="8"> Misc. </option>
-            </select>
-            <div class="err-container">
-              <p class="err-msg" id="err-tkt_type"></p>
-            </div>
-
-            <p class="input-header" id="repair-tower-header"> NEAREST TOWER </p>
-            <select class="input-repair" id="input-repair-tkt_tower">
-            </select>
-            <div class="err-container">
-              <p class="err-msg" id="err-tkt_tower"></p>
-            </div>
-
-            <p class="input-header" id="repair-zone-header"> ZONE </p>
-            <select class="input-repair" id="input-repair-tkt_zone">
-                <option value="0">   </option>
-                <option value="1"> 1 </option>
-                <option value="2"> 2 </option>
-                <option value="3"> 3 </option>
-                <option value="4"> 4 </option>
-                <option value="5"> 5 </option>
-                <option value="6"> 6 </option>
-                <option value="7"> 7 </option>
-                <option value="8"> 8 </option>
-            </select>
-            <div class="err-container">
-              <p class="err-msg" id="err-tkt_zone"></p>
-            </div>
-
-            <p class="input-header" id="repair-notes-header"> NOTES / PROBLEM </p>
-            <textarea class="input-repair" id="input-repair-tkt_notes" rows="6" placeholder="What was the problem the customer was reporting? What was done on the call? Include the customer's attitude."></textarea>
-          </div>
-    <!---->
-
-    <!-- CUSTOMER INFO -->
-          <div class="input-block" id="customer-info-block">
-              <h1 class="input-block-header"> Customer Information </h1>
-
-              <p class="input-header" id="input-customer-header-id"> CUSTOMER ID </p>
-              <input class="input-repair" id="input-repair-customer_id" type="text" name="customer-id"/>
-              <div class="err-container">
-                <p class="err-msg" id="err-customer_id"></p>
-              </div>
-
-              <p class="input-header" id="repair-name-header"> CUSTOMER NAME </p>
-              <input class="input-repair" id="input-repair-customer_name" type="text" name="customer-name"/>
-              <div class="err-container">
-                <p class="err-msg" id="err-customer_name"></p>
-              </div>
-
-              <p class="input-header" id="repair-package-header"> SERVICE PACKAGE </p>
-              <div class="input-group" id="input-group-package">
-                <input id="input-cst_package-residential" type="radio" name="package" value="Residential"> Residential <br>
-                <input id="input-cst_package-business" type="radio" name="package" value="Business"> Business <br>
-                <input id="input-cst_package-other" type="radio" name="package" value="Other"> Other <br>
-                <select class="input-repair" id="input-repair-cst_package">
-                </select>
-              </div>
-
-              <p class="input-header" id="repair-tower_height-header"> 40-50 FOOT TOWER </p>
-              <input id="input-cst_tower_height-yes" type="radio" name="height" value="Yes"> Yes <br>
-              <input id="input-cst_tower_height-no" type="radio" name="height" value="No"> No
-
-              <p class="input-header" id="repair-speedtest-header"> SPEED TEST RESULTS </p>
-              <input class="input-repair" id="input-repair-cst_speedtest" type="text" name="cst_speed-test"/>
-
-              <p class="input-header" id="repair-torch-header"> TORCH RESULTS </p>
-              <input class="input-repair" id="input-repair-cst_torch" type="text" name="cst_torch"/> 
-          </div>
-    <!---->
-
-    <!-- RADIO INFO-->
-          <div class="input-block" id="radio-info-block">
-            <h1 class="input-block-header"> Radio Information </h1>
-
-            <p class="input-header" id="repair-radio_manage-header"> MANAGEMENT IP </p>
-            <input class="input-repair" id="input-repair-radio_managed" type="text" name="radio_managed"/>
-            <div class="err-container">
-              <p class="err-msg" id="err-radio_managed"></p>
-            </div>
-
-            <p class="input-header" id="repair-radio_public-header"> PUBLIC IP </p>
-            <input class="input-repair" id="input-repair-radio_public" type="text" name="radio_public"/>
-            <div class="err-container">
-              <p class="err-msg" id="err-radio_public"></p>
-            </div>
-
-            <p class="input-header" id="repair-radio_mac-header"> MAC ADDRESS </p>
-            <input class="input-repair" id="input-repair-radio_mac" type="text" name="radio_mac"/>
-            <div class="err-container">
-              <p class="err-msg" id="err-radio_mac"></p>
-            </div>
-
-            <p class="input-header" id="repair-radio_test-header"> SPEED TEST </p>
-            <input class="input-repair" id="input-repair-radio_speedtest" type="text" name="radio_speed-test"/>
-
-            <p class="input-header" id="repair-radio_type-header"> RADIO TYPE </p>
-            <div class="input-group" id="input-group-radio_type">
-              <select class="input-repair" id="input-repair-radio_type">
-                <option value=""></option>
-                <option value="UBNT"> UBNT </option>
-                <option value="EPMP"> ePMP </option>
-                <option value="CANOPY"> Canopy </option>
-                <option value="TELRAD"> LTE - Telrad </option>
-              </select>
-              <select class="input-repair" id="input-repair-radio_type_type">
-              </select>
-            </div>
-            <div class="err-container">
-              <p class="err-msg" id="err-radio_type"></p>
-            </div>
-
-            <p class="input-header" id="repair-radio_signal-header"> SIGNAL STRENGTH </p>
-            <input class="input-repair" id="input-repair-radio_signal" type="text" name="radio_signal"/>
-            <div class="err-container">
-              <p class="err-msg" id="err-radio_signal"></p>
-            </div>
-
-            <p class="input-header" id="repair-radio_last_signal-header"> LAST KNOWN SIGNAL STRENGTH </p>
-            <input class="input-repair" id="input-repair-radio_last_signal" type="text" name="radio_last_signal"/>
-
-            <p class="input-header" id="repair-radio_ccq-header"> CCQ </p>
-            <input class="input-repair" id="input-repair-radio_ccq" type="text" name="radio_ccq"/>
-
-            <p class="input-header" id="repair-radio_qual_cap-header"> QUALITY / CAPACITY </p>
-            <input class="input-repair" id="input-repair-radio_qual" type="text" name="radio_qual"/>
-
-            <p class="input-header" id="repair-radio_ssid-header"> AP SSID </p>
-            <input class="input-repair" id="input-repair-radio_ssid" type="text" name="radio_ssid"/>
-
-            <p class="input-header" id="repair-radio_ap_count-header"> AP CUSTOMER COUNT </p>
-            <input class="input-repair" id="input-repair-radio_ap_count" type="text" name="radio_ap_count"/>
-          </div>
-    <!---->
-
-          <div class="btn-container" id="btn-container-tkt-submit">
-            <input type="button" class="btn-tkt" value="CLEAR" id="btn-repair-tkt-clear"/>
-            <input type="button" class="btn-tkt" value="SUBMIT" id="btn-repair-tkt-submit"/>
-          </div>
-          <br>
-          <div class="err-container">
-            <p class="err-msg" id="err-submit"></p>
-          </div>
-          <div class="err-container">
-            <p class="success-msg" id="succ-submit"></p>
-          </div>
-        </div>
-
-        <div class="alert-block-hidden" id="alert-block-clear">
-          <h1> Are you sure you want to clear the ticket? </h1>
-          <div class="btn-container" id="btn-container-tkt-clear">
-            <input type="button" class="btn-tkt" value="CLEAR" id="btn-clear-confirmation-clear"/>
-            <input type="button" class="btn-tkt" value="CANCEL" id="btn-clear-confirmation-cancel"/>
-          </div>
-        </div>
-
-        <div class="alert-block-hidden" id="alert-block-submit">
-          <h1> Are you sure you want to submit the ticket?</h1>
-          <p> Make sure you have completed the following: </p>
-          <ul>
-            <li> Confirmation call was explained. </li>
-            <li> Possible $25 absent fee was explained. </li>
-            <li> Possible $65 trip fee was explained. </li>
-            <li> Due date is correct in Sonar ticket. </li>
-            <li> Pet disclosure has been read to the customer. </li>
-          </ul>
-          <br>
-          <div class="btn-container" id="btn-container-tkt-clear">
-            <input type="button" class="btn-tkt" value="SUBMIT" id="btn-submit-confirmation-submit"/>
-            <input type="button" class="btn-tkt" value="CANCEL" id="btn-submit-confirmation-cancel"/>
-          </div>
-        </div>
-
-      </div>
     </section>
-    <!-- INSTALL TICKET -->
-    <!-- ONSITE TICKET -->
-    <!-- RELOCATION TICKET -->
-    <!-- KEY UPGRADE REQUEST -->
-    <!-- VOIP ESCALATION -->
-    <!-- MTL / MDU ESCALATION -->
-    <!-- OTHER ESCALATION -->
+
+    <script>
+      const builder = new FormBuilder();
+
+      builder.Title('REPAIR TICKET', 'option-repair');
+      builder.Create('Search-Customer', 'option-repair', '.input-container');
+      builder.CreateForm([{
+            title: 'Job Information',
+            fields: [
+              'job_type',
+              'job_tower',
+              'job_zone',
+              'job_tower_height',
+              'tkt_notes'
+            ]
+        },{
+            title: 'Customer Information',
+            fields: [
+              'cst_id',
+              'cst_name',
+              'cst_package',
+              'cst_speedtest',
+              'cst_torch'
+            ]
+        },{
+            title: 'Equipment Information',
+            fields: [
+              'radio_management',
+              'radio_public',
+              'radio_mac',
+              'radio_speedtest',
+              'radio_type',
+              'radio_signal',
+              'radio_signal_last',
+              'radio_ccq',
+              'radio_quality',
+              'radio_ssid',
+              'radio_ap_count'
+            ]
+        }
+      ], 'option-repair', '.input-container');
+
+    </script>
 
     <script>
       require('../js/nav.js');      // Navigation handling.
       require('../js/home.js');     // Handle home page.
-      require('../js/tickets.js');  // Handle tickets.
-      require('../js/network.js');  // Handle network tickets / requests.
-      require('../js/formsRepair.js');    // Handle form error checking.
+      require('../js/ticket-handler-repair.js');     // Handle network tickets / requests.
+      require('../js/ticket-handler-errors.js');  // Handle form input errors.
     </script>
   </body>
 

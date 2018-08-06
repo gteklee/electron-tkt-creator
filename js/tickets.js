@@ -12,7 +12,6 @@
  */
 let Tickets = new function()
 {
-    console.log($('#input-customer-search'));
     this.Towers = require('../js/modules/Towers.js'); // Get the Towers module.
     /**
      * Repair deals with all functions of the repair
@@ -352,7 +351,7 @@ let Tickets = new function()
 
             //console.log(_);
             //console.log(template);
-            this.Sonar.Ticket.Submit(_, template, sessionStorage.username, sessionStorage.password, (data) => {
+            this.Sonar.Ticket.Submit(_.customer_id, template, sessionStorage.username, sessionStorage.password, (data) => {
 
                 if(data.error)
                 {

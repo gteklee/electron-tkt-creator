@@ -223,18 +223,18 @@ let Sonar = new function()
         /**
          * Submit ticket to Sonar by creating a new job on the given account.
          */
-        this.Submit = function(obj, template, username, password, callback)
+        this.Submit = function(id, template, username, password, callback)
         {
             this.callback = callback;
 
-            this.postData(obj.customer_id, template, username, password, this.callback);
+            this.postData(id, template, username, password, this.callback);
         }
 
-        this.SubmitAsTicket = function(obj, template, username, password, callback)
+        this.SubmitAsTicket = function(id, template, subject, username, password, callback)
         {
             this.callback = callback;
 
-            this.postTicketData(obj.customer_id, template, 'Static IP Request', 1, 1, username, password, this.callback);
+            this.postTicketData(id, template, subject, 1, 1, username, password, this.callback);
         }
 
         this.UpdateCustomFields = function(obj, data, username, password, callback)
@@ -296,15 +296,26 @@ let Sonar = new function()
         {
             let cat_array = [];
             cat_array.push(cat_id);
-            let postData = JSON.stringify({
-                subject: subj,
-                type: "internal",
-                ticket_group_id: group_id,
-                assignee: "accounts",
-                assignee_id: customer_id,
-                category_ids: cat_array,
-                comment: template
-            });
+            let postData;
+            if(customer_id) {
+                postData = JSON.stringify({
+                    subject: subj,
+                    type: "internal",
+                    ticket_group_id: group_id,
+                    assignee: "accounts",
+                    assignee_id: customer_id,
+                    category_ids: cat_array,
+                    comment: template
+                });
+            } else {
+                postData = JSON.stringify({
+                    subject: subj,
+                    type: "internal",
+                    ticket_group_id: group_id,
+                    category_ids: cat_array,
+                    comment: template
+                });
+            }
 
             options.path = '/api/v1/tickets';
             options.headers = {
