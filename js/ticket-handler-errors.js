@@ -66,6 +66,24 @@ $('#input-cst_name').on('change', () => {
 });
 
 /**
+ * Customer Phone Number (cst_phone)
+ * REQUIRED
+ */
+$('#input-cst_phone').on('change', () => {
+    Forms.checkBlank($('#input-cst_phone').val(), '#err-cst_phone');
+    Forms.checkSubmittable();
+});
+
+/**
+ * Customer Unit Number (cst_unit)
+ * REQUIRED
+ */
+$('#input-cst_unit').on('change', () => {
+    Forms.checkBlank($('#input-cst_unit').val(), '#err-cst_unit');
+    Forms.checkSubmittable();
+});
+
+/**
  * Customer Package (cst_package)
  * REQUIRED
  */
@@ -165,6 +183,26 @@ $('#input-voip_public').keyup(event => {
 });
 
 /**
+ * VOIP Caller ID
+ * Limit 15 characters
+ */
+$('#input-voip_callid').keyup(event => {
+    Forms.checkCharacters15Limit($('#input-voip_callid').val(), '#err-voip_callid');
+});
+
+/**
+ * MTL / MDU Sonar ID (mtl_id)
+ */
+$('#input-mtl_id').on('change', () => {
+    Forms.checkBlank($('#input-mtl_id').val(), '#err-mtl_id');
+    Forms.checkSubmittable();
+});
+// Check for common errors
+$('#input-mtl_id').keyup(event => {
+    Forms.checkCharactersForNumeric($('#input-mtl_id').val(), '#err-mtl_id');
+});
+
+/**
  * Ticket Reason (tkt_reason) -- Static IP Escalation Specific
  * REQUIRED
  */
@@ -228,6 +266,32 @@ let Forms = new function()
                 err = true;
                 break;
             }
+        }
+
+        if(!err) {
+            this.resetError(id, 'field');
+            this.checkSubmittable();
+        }
+    }
+
+    /**
+     * 
+     * @param {*} val 
+     * @param {String} id 
+     */
+    this.checkCharacters15Limit = function(val, id)
+    {
+        if(val.length < 1) {
+            Forms.resetError(id, 'field');
+            return;
+        }
+        let err = false;
+        // Check length of caller id
+        if(val.length > 15) {
+            this.setError(true);
+            this.addError(id);
+            this.showError(id, 'Caller ID is too long!');
+            err = true;
         }
 
         if(!err) {

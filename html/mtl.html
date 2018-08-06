@@ -99,7 +99,7 @@
         </div>
     </section>
 
-    <section class="section-hidden" id="option-voip">
+    <section class="section-hidden" id="option-mtl">
         <div class="input-container">
         </div>
     </section>
@@ -107,50 +107,33 @@
     <script> 
         const builder = new FormBuilder();
 
-        builder.Title('VOIP / NEXTIVA ESCALATION', 'option-voip');
-        builder.Create('Search-Customer', 'option-voip', '.input-container');
+        builder.Title('MTL / MDU ESCALATION', 'option-mtl');
+        //builder.Create('Search-Customer', 'option-mtl', '.input-container');
         builder.CreateForm([{
                 title: 'Customer Information',
                 fields: [
-                    'cst_status',
                     'cst_id',
                     'cst_name',
-                ]
-            },{
-                title: 'Equipment Information',
-                fields: [
-                    'voip_mac',
-                    'voip_public',
-                ]
-            },{
-                title: 'Current Customer Information',
-                fields: [
-                    'voip_first',
-                    'voip_registered',
-                    'voip_line',
-                ]
-            },{
-                title: 'New Customer Information',
-                fields: [
-                    'voip_paid',
-                    'voip_assignment',
-                    'voip_callid'
+                    'cst_phone',
+                    'cst_unit',
+                    'cst_status'
                 ]
             },{
                 title: 'Ticket Information',
                 fields: [
+                    'mtl_id', 
                     'tkt_reason'
                 ]
             }
-        ], 'option-voip', '.input-container');
+        ], 'option-mtl', '.input-container');
 
     </script>
 
         <script>
-            require('../js/nav.js');                    // Navigation handling
-            require('../js/home.js');                   // Handle home page
-            require('../js/ticket-handler-voip.js');    // Handle network tickets / requests
-            require('../js/ticket-handler-errors.js');  // Handle form input errors
+            require('../js/nav.js');                    // Navigation handling.
+            require('../js/home.js');                   // Handle home page.
+            require('../js/ticket-handler-mtl.js');     // Handle network tickets / requests.
+            require('../js/ticket-handler-errors.js');  // Handle form input errors.
         </script>
     </body>
       

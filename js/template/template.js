@@ -61,7 +61,8 @@ let Tickets = new function() // All form specific processes.
             *       voip_mac
             *       voip_public
             * 
-            *       escalation_reason
+            *       mtl_id
+            *       tkt_reason
             *       
             *       cst_status = current:
             *           voip_first[bool]

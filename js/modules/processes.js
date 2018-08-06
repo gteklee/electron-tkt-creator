@@ -91,8 +91,13 @@ module.exports = {
             );
             subject = 'VOIP / Nextiva Escalation';
         } else if(data.tkt_type === 'mtl_mdu') {
-            subject = 'MTL / MDU Escalation'
-            return;
+            // Get ticket template to submit
+            template = Tickets.templates.escalations.mtl_mdu(
+                data.cst_id, data.cst_name, 
+                data.cst_phone, data.cst_unit, 
+                data.cst_status, data.tkt_reason
+            );
+            subject = 'MTL / MDU Escalation';
         } else if(data.tkt_type === 'other') {
             return;
         } else {
@@ -118,7 +123,25 @@ module.exports = {
                 }
             });
         } // Create ticket applied to network team
-        else if(data.tkt_type === 'static' || data.tkt_type === 'key_upgrade' || data.tkt_type === 'voip' || data.tkt_type === 'mtl_mdu') {
+        else if(data.tkt_type === 'mtl_mdu') {
+            console.log('Ticket created!');
+            Sonar.Ticket.SubmitAsTicket(data.mtl_id, template, subject, sessionStorage.username, sessionStorage.password, (data) => {
+                if(data.error) {
+                    console.error(data.error);
+                    // Show alert for error while submitting
+                    if(data.error.status_code === 404 || 422) { // Can't be found / problem with ID
+                        this.alert.submission.show('Customer ID does not exist!', true);
+                    } 
+                    else {
+                        this.alert.submission.show('Error: ' + data.error.status_code, true);
+                    }
+                }
+                else {
+                    this.alert.submission.show('', false); // Show alert for successful submission
+                }
+            });
+        }
+        else if(data.tkt_type === 'static' || data.tkt_type === 'key_upgrade' || data.tkt_type === 'voip') {
             console.log('Ticket created!');
             Sonar.Ticket.SubmitAsTicket(data.cst_id, template, subject, sessionStorage.username, sessionStorage.password, (data) => {
                 if(data.error) {

@@ -20,10 +20,8 @@ $other.on('click', event => {
         $('#err-login').text('Please login before creating tickets!');
         return;
     }
-    else if(section != 'option-repair' && section != 'option-home' && section != 'option-static' && section != 'option-key' && section != 'option-voip') return; // For release with only repair tickets,
+    else if(section != 'option-repair' && section != 'option-home' && section != 'option-static' && section != 'option-key' && section != 'option-voip' && section != 'option-mtl') return; // For release with only repair tickets,
                                                                                 // and statics ip requests, and...
-
-
     if($(option).hasClass('active')) return; // Already selected.
 
     $('.active').removeClass('active').addClass('other');      // Set option that was active to not.
@@ -57,6 +55,10 @@ function redirect(section)
     else if(section === 'option-voip' && _Section !== section) {
         sessionStorage.section = section;
         window.location.href = '../html/voip.html';
+    }
+    else if(section === 'option-mtl' && _Section !== section) {
+        sessionStorage.section = section;
+        window.location.href = '../html/mtl.html';
     }
 }
 

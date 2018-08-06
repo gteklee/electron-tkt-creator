@@ -265,6 +265,20 @@ function FormBuilder()
                             '   <p class="err-msg" id="err-cst_name"></p>'+
                             '</div>';
                 }
+                else if(objArray[i].fields[j] === 'cst_phone') {
+                    form += '<p class="input-header" id="input-header-cst_phone"> CUSTOMER PHONE NUMBER </p>'+
+                            '<input id="input-cst_phone" type="text" name="cst_phone"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-cst_phone"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'cst_unit') {
+                    form += '<p class="input-header" id="input-header-cst_unit"> CUSTOMER UNIT NUMBER </p>'+
+                            '<input id="input-cst_unit" type="text" name="cst_unit"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-cst_unit"></p>'+
+                            '</div>';
+                }
                 else if(objArray[i].fields[j] === 'cst_status') {
                     form += '<p class="input-header" id="input-header-cst_status"> CUSTOMER STATUS </p>'+
                             '<input id="input-cst_status-current" type="radio" name="status" value="current"> Current Customer <br>'+
@@ -431,6 +445,13 @@ function FormBuilder()
                                 '<p class="err-msg" id="err-tkt_reason_static"></p>'+
                             '</div>'
                 }
+                else if(objArray[i].fields[j] === 'mtl_id') {
+                    form += '<p class="input-header" id="input-header-mtl_id"> MTL OR MDU SONAR ID </p>'+
+                            '<input id="input-mtl_id" type="text" name="mtl_id"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-mtl_id"></p>'+
+                            '</div>';
+                }
                 else if(objArray[i].fields[j] === 'tkt_reason') {
                     form += '<p class="input-header" id="input-header-tkt_reason"> REASON FOR ESCALATION </p>'+
                             '<textarea id="input-tkt_reason" rows="6" placeholder="Why are you creating this ticket? Please provide specific details!"></textarea>'+
@@ -491,6 +512,9 @@ function FormBuilder()
 
         // Append generated form
         $('section#'+section+' '+identifier).append(form);
+        if(!this._customer_search) {
+            $('#input-ticket-template').removeClass('input-block-hidden').addClass('input-block-container');
+        }
     }
 
     /**

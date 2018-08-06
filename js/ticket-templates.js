@@ -161,6 +161,30 @@ module.exports = {
                 }
 
                 return template;
+            },
+
+            /**
+             * MTL / MDU Escalation.
+             * 
+             * @param {Number} cst_id
+             * @param {String} cst_name
+             * @param {String} cst_phone
+             * @param {Number} cst_unit
+             * @param {String} cst_status
+             * @param {String} tkt_reason
+             */
+            mtl_mdu: function(cst_id, cst_name, cst_phone, cst_unit, cst_status, tkt_reason)
+            {
+                let template = '<p> Escalating Reason: MTL / MDU <br>';
+                template += 'Date: ' + (new Date().toLocaleDateString()) + '</p>';
+                template += '<p> Customer ID: ' + cst_id + '<br>';
+                template += 'Customer Name: ' + cst_name + '<br>';
+                template += 'Customer Number: ' + cst_phone + '<br>';
+                template += 'Customer Unit: ' + cst_unit + '</p>';
+                template += '<p> Customer Status: ' + cst_status + '<br>';
+                template += 'Reason For Escalation: ' + tkt_reason + '</p>';
+                
+                return template;
             }
         }
     }

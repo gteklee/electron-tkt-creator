@@ -13,63 +13,15 @@ let Tickets = new function() // All form specific processes.
 
             cst_id:     '',
             cst_name:   '',
-            cst_unit:   '',
             cst_phone:  '',
+            cst_unit:   '',
             cst_status: '',
 
-            tkt_notes:  '',
+            mtl_id: '',
+            tkt_reason:  '',
 
             tkt_type: 'mtl_mdu'
-        }; /**
-            * The ticketData object is all that needs to be
-            * updated per ticket form.
-            * 
-            * POSSIBLE FIELDS:
-            * job_type
-            * job_tower
-            * job_zone
-            * job_tower_height[bool]
-            * tkt_notes
-            * 
-            * cst_id
-            * cst_name
-            * cst_package []
-            *       [0] = Res, Bus, or Other
-            *       [1] = Package
-            * cst_speedtest
-            * cst_torch
-            * 
-            * radio_management
-            * radio_public
-            * radio_mac
-            * radio_speedtest
-            * radio_type
-            * radio_type_type
-            * radio_signal
-            * radio_ccq
-            * radio_quality
-            * radio_ssid
-            * radio_ap_count
-            * 
-            * SPECIFIC NETWORK ESCALATION FIELDS:
-            *       cst_unit
-            *       cst_phone
-            *       cst_status
-            * 
-            *       voip_firmware
-            *       voip_mac
-            *       voip_public
-            *       
-            *       cst_status = current:
-            *           voip_power[bool]
-            *           voip_registered[bool]
-            *           voip_line1[bool]
-            *           
-            *       cst_status = new:
-            *           voip_paid[bool]
-            *           voip_assignment
-            *           voip_callid
-            */
+        };
 
         /**
          * Ticket Form handler
@@ -112,7 +64,19 @@ let Tickets = new function() // All form specific processes.
                 Processes.alert.submit.close();
                 // Update ticket data with user input
                 for(let prop in this.that.getTicketData()) {
-                    if(this.that.getTicketDataProperty(prop) === '') {
+                    // Skip these fields
+                    if(prop === 'acct_obj' || prop === 'tkt_type') {
+                        continue;
+                    } 
+                    else if(prop === 'cst_status') {
+                        if($('#input-cst_status-new').is(':checked')) {
+                            this.that.setTicketDataProperty(prop, 'New Customer');
+                        }
+                        else if($('#input-cst_status-current').is(':checked')) {
+                            this.that.setTicketDataProperty(prop, 'Current Customer');
+                        }
+                    }
+                    else {
                         this.that.setTicketDataProperty(prop, $('#input-' + prop).val());
                     }
                 }
