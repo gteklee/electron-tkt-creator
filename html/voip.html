@@ -8,7 +8,6 @@
         <link rel="stylesheet" type="text/css" href="../css/index.css"/>
         <link rel="stylesheet" type="text/css" href="../css/nav.css"/>
         <link rel="stylesheet" type="text/css" href="../css/home.css"/>
-        <!--<link rel="stylesheet" type="text/css" href="../css/static.css"/>-->
         <link rel="stylesheet" type="text/css" href="../css/fontawesome-all.min.css" />
 
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -100,44 +99,58 @@
         </div>
     </section>
 
-    <!-- STATIC IP REQUEST -->
-    <section class="section-hidden" id="option-static">
+    <section class="section-hidden" id="option-voip">
         <div class="input-container">
         </div>
     </section>
 
-    <script>
+    <script> 
         const builder = new FormBuilder();
 
-        builder.Title('STATIC IP REQUEST', 'option-static');
-        builder.Create('Search-Customer', 'option-static', '.input-container');
+        builder.Title('VOIP / NEXTIVA ESCALATION', 'option-voip');
+        builder.Create('Search-Customer', 'option-voip', '.input-container');
         builder.CreateForm([{
                 title: 'Customer Information',
                 fields: [
+                    'cst_status',
                     'cst_id',
-                    'cst_name'
+                    'cst_name',
                 ]
             },{
                 title: 'Equipment Information',
                 fields: [
-                    'radio_management',
-                    'router_mac'
+                    'voip_mac',
+                    'voip_public',
+                ]
+            },{
+                title: 'Current Customer Information',
+                fields: [
+                    'voip_first',
+                    'voip_registered',
+                    'voip_line',
+                ]
+            },{
+                title: 'New Customer Information',
+                fields: [
+                    'voip_paid',
+                    'voip_assignment',
+                    'voip_callid'
                 ]
             },{
                 title: 'Ticket Information',
                 fields: [
-                    'tkt_reason_static',
-                    'tkt_notes'
+                    'tkt_reason'
                 ]
             }
-        ], 'option-static', '.input-container');
+        ], 'option-voip', '.input-container');
+
     </script>
 
         <script>
-            require('../js/nav.js');      // Navigation handling.
-            require('../js/home.js');     // Handle home page.
-            require('../js/ticket-handler-static.js');  // Handle network tickets / requests.
-            require('../js/ticket-handler-errors.js');  // Handle form input errors.
+            require('../js/nav.js');                    // Navigation handling
+            require('../js/home.js');                   // Handle home page
+            require('../js/ticket-handler-voip.js');    // Handle network tickets / requests
+            require('../js/ticket-handler-errors.js');  // Handle form input errors
         </script>
     </body>
       

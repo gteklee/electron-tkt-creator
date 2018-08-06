@@ -20,7 +20,7 @@ $other.on('click', event => {
         $('#err-login').text('Please login before creating tickets!');
         return;
     }
-    else if(section != 'option-repair' && section != 'option-home' && section != 'option-static') return; // For release with only repair tickets,
+    else if(section != 'option-repair' && section != 'option-home' && section != 'option-static' && section != 'option-key' && section != 'option-voip') return; // For release with only repair tickets,
                                                                                 // and statics ip requests, and...
 
 
@@ -49,6 +49,14 @@ function redirect(section)
     else if(section === 'option-repair' && _Section !== section) {
         sessionStorage.section = section;
         window.location.href = '../html/index.html';
+    }
+    else if(section === 'option-key' && _Section !== section) {
+        sessionStorage.section = section;
+        window.location.href = '../html/key.html';
+    }
+    else if(section === 'option-voip' && _Section !== section) {
+        sessionStorage.section = section;
+        window.location.href = '../html/voip.html';
     }
 }
 

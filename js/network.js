@@ -252,7 +252,7 @@ let Escalations = new function()
                 });
             }
             else {
-                this.Sonar.Ticket.SubmitAsTicket(_, template, sessionStorage.username, sessionStorage.password, (data) => {
+                this.Sonar.Ticket.SubmitAsTicket(_.customer_id, template, 'Static IP Request', sessionStorage.username, sessionStorage.password, (data) => {
 
                     if(data.error)
                     {
@@ -448,29 +448,9 @@ let Escalations = new function()
         }
     }
 
-/**/this.Key = new function()
-    {
-
-    }
-
-/**/this.Voip = new function()
-    {
-
-    }
-
-/**/this.Multi = new function()
-    {
-
-    }
-
-/**/this.Other = new function()
-    {
-
-    }
-
 }
 
-/** Event listeners */
+/** STATIC Event listeners */
 
 /**
  * "CHECK ACCOUNT" button clicked event.

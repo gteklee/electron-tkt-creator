@@ -8,7 +8,6 @@
         <link rel="stylesheet" type="text/css" href="../css/index.css"/>
         <link rel="stylesheet" type="text/css" href="../css/nav.css"/>
         <link rel="stylesheet" type="text/css" href="../css/home.css"/>
-        <!--<link rel="stylesheet" type="text/css" href="../css/static.css"/>-->
         <link rel="stylesheet" type="text/css" href="../css/fontawesome-all.min.css" />
 
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -100,17 +99,16 @@
         </div>
     </section>
 
-    <!-- STATIC IP REQUEST -->
-    <section class="section-hidden" id="option-static">
+    <section class="section-hidden" id="option-key">
         <div class="input-container">
         </div>
     </section>
 
-    <script>
+    <script> 
         const builder = new FormBuilder();
 
-        builder.Title('STATIC IP REQUEST', 'option-static');
-        builder.Create('Search-Customer', 'option-static', '.input-container');
+        builder.Title('KEY UPGRADE REQUEST', 'option-key');
+        builder.Create('Search-Customer', 'option-key', '.input-container');
         builder.CreateForm([{
                 title: 'Customer Information',
                 fields: [
@@ -121,22 +119,23 @@
                 title: 'Equipment Information',
                 fields: [
                     'radio_management',
-                    'router_mac'
+                    'radio_mac',
+                    'radio_aggregate'
                 ]
             },{
                 title: 'Ticket Information',
                 fields: [
-                    'tkt_reason_static',
                     'tkt_notes'
                 ]
             }
-        ], 'option-static', '.input-container');
+        ], 'option-key', '.input-container');
+
     </script>
 
         <script>
-            require('../js/nav.js');      // Navigation handling.
-            require('../js/home.js');     // Handle home page.
-            require('../js/ticket-handler-static.js');  // Handle network tickets / requests.
+            require('../js/nav.js');                    // Navigation handling.
+            require('../js/home.js');                   // Handle home page.
+            require('../js/ticket-handler-key.js');     // Handle network tickets / requests.
             require('../js/ticket-handler-errors.js');  // Handle form input errors.
         </script>
     </body>
