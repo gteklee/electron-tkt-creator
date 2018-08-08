@@ -335,9 +335,9 @@ module.exports = {
      * 
      * @param {Number} zone
      */
-    setTowerOptions: function(zone)
+    setTowerOptions: function(zone, cb)
     {
-        let zoneTowers = [];
+        let selectedTower = $('#input-job_tower option:selected')[0].value || '';
         let allTowers = Towers.towers;
 
         $('#input-job_tower').children().remove(); // Remove all options
@@ -354,6 +354,7 @@ module.exports = {
                 }
             }
         }
+        cb(selectedTower); // Reset originally selected tower
     },
 
     /**

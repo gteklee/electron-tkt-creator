@@ -55,6 +55,9 @@ let Tickets = new function() // All form specific processes.
                         $('#input-radio_type_type').val(''); // type field
                     }
                 }
+                Processes.setTowerOptions(0, (tower) => {
+                    $('#input-job_tower').val(tower);
+                });
             },
 
             /**
@@ -421,7 +424,7 @@ $('#input-job_type').on('change', () => {
  * appropriate zone.
  */
 $('#input-job_tower').on('change', () => {
-    Processes.selectZone($('#input-job_tower option:selected')[0].value)
+    Processes.selectZone($('#input-job_tower option:selected')[0].value);
 });
 
 /**
@@ -429,7 +432,9 @@ $('#input-job_tower').on('change', () => {
  * tower options.
  */
 $('#input-job_zone').on('change', () => {
-    Processes.setTowerOptions($('#input-job_zone option:selected')[0].value);
+    Processes.setTowerOptions($('#input-job_zone option:selected')[0].value, (tower) => {
+        $('#input-job_tower').val(tower);
+    });
 });
 
 /**
