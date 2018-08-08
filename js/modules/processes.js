@@ -340,11 +340,10 @@ module.exports = {
         let selectedTower = $('#input-job_tower option:selected')[0].value || '';
         let allTowers = Towers.towers;
 
-        $('#input-job_tower').children().remove(); // Remove all options
-
         if(zone == 0) {
-            Towers.createOptions();
+            this.createTowerOptions();
         } else {
+            $('#input-job_tower').children().remove(); // Remove all options
             for(let i = 0; i < allTowers.length; i++) {
                 if(zone == Towers.getZone(allTowers[i].name)) {
                     $('#input-job_tower').append($('<option>', {
@@ -355,6 +354,16 @@ module.exports = {
             }
         }
         cb(selectedTower); // Reset originally selected tower
+    },
+
+    /**
+     * Create tower options on new instance 
+     * of ticket.
+     */
+    createTowerOptions: function()
+    {
+        $('#input-job_tower').children().remove(); // Remove all options
+        Towers.createOptions();
     },
 
     /**

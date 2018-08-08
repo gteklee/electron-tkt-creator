@@ -55,9 +55,7 @@ let Tickets = new function() // All form specific processes.
                         $('#input-radio_type_type').val(''); // type field
                     }
                 }
-                Processes.setTowerOptions(0, (tower) => {
-                    $('#input-job_tower').val(tower);
-                });
+                Processes.createTowerOptions();
             },
 
             /**
