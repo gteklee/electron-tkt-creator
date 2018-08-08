@@ -10,7 +10,29 @@ module.exports = {
          */
         repair: function(tkt_data)
         {   // Template of required fields
-            let template = '<p> Job Type: ' + tkt_data.job_type + '</p>';
+            let job_type_string = ''; // Init job type string
+            if(tkt_data.job_type === '1') {
+                job_type_string = 'Radio Down';
+            } else if(tkt_data.job_type === '2') {
+                job_type_string = 'No Connection';
+            } else if(tkt_data.job_type === '3') {
+                job_type_string = 'Intermittent connection';
+            } else if(tkt_data.job_type === '4') {
+                job_type_string = 'Slow/Interm Speeds';
+            } else if(tkt_data.job_type === '5') {
+                job_type_string = 'Poor Signal';
+            } else if(tkt_data.job_type === '6') {
+                job_type_string = 'Conversion';
+            } else if(tkt_data.job_type === '7') {
+                job_type_string = 'Onsite';
+            } else if(tkt_data.job_type === '8') {
+                job_type_string = 'Misc';
+            } else {
+                console.error('Unable to determine job type string ' + tkt_data.job_type);
+                job_type_string = 'ERROR';
+            }
+
+            let template = '<p> Job Type: ' + job_type_string + '</p>';
             template += '<p>' + tkt_data.cst_name + '<br>';
             template += tkt_data.cst_package[0] + ' ' + tkt_data.cst_package[1] + '</p>';
             template += '<p> Tower: ' + tkt_data.job_tower + '<br>';
