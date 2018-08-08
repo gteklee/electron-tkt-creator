@@ -48,6 +48,10 @@ $('#input-job_zone').on('change', () => {
  * REQUIRED
  */
 $('#input-cst_id').on('change', () => {
+    if($('#input-cst_status-new').is(':checked')) {
+        return;
+    }
+
     Forms.checkBlank($('#input-cst_id').val(), '#err-cst_id');
     Forms.checkSubmittable();
 });
@@ -191,6 +195,20 @@ $('#input-voip_callid').keyup(event => {
 });
 
 /**
+ * VOIP Current Customer Radio Buttons
+ */
+$('#input-cst_status-current').on('change', () => {
+    if($('#input-cst_status-current').is(':checked')) { // Fail safe
+        Forms.checkSubmittable();
+    }
+});
+$('#input-cst_status-new').on('change', () => {
+    if($('#input-cst_status-new').is(':checked')) { // Fail safe
+        Forms.checkSubmittable();
+    }
+});
+
+/**
  * MTL / MDU Sonar ID (mtl_id)
  */
 $('#input-mtl_id').on('change', () => {
@@ -247,7 +265,7 @@ let Forms = new function()
     {
         let blanks = this.getBlanks();
         let errors = this.getErrors();
-        if(val.length < 1) {
+        if(val.length < 1 && !($('#input-cst_status-new').is(':checked'))) {
             this.checkBlank(val, id);
             return;
         }
@@ -415,7 +433,7 @@ let Forms = new function()
         // If no erros exist, check anyway
         let blank = false;
         ids.forEach(element => {
-            if(element === 'tkt_notes' || element === 'voip_callid' || element === 'radio_ap_count' || element === 'radio_ssid' || element === 'radio_quality' || element === 'radio_ccq' || element === 'radio_signal_last' || element === 'radio_signal' || element === 'radio_speedtest' || element === 'cst_torch' || element === 'cst_speedtest') {} // Skip
+            if((element === 'cst_id' && $('#input-cst_status-new').is(':checked')) || element === 'tkt_notes' || element === 'voip_callid' || element === 'radio_ap_count' || element === 'radio_ssid' || element === 'radio_quality' || element === 'radio_ccq' || element === 'radio_signal_last' || element === 'radio_signal' || element === 'radio_speedtest' || element === 'cst_torch' || element === 'cst_speedtest') {} // Skip
             else { 
                 //console.log($('#input-' + element).val() == '' && !($('#input-' + element).is(':disabled')));
                 if($('#input-' + element).val() == '' && !($('#input-' + element).is(':disabled'))) { // Blank

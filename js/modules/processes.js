@@ -488,10 +488,6 @@ module.exports = {
             $('#input-radio_speedtest').val('');
             $('#input-radio_ccq').prop('disabled', true); // Disable radio_ccq
             $('#input-radio_ccq').val('');
-        } else if(type === 'voip-new') {
-            $('#input-cst_id').prop('disabled', true); // Disable cst_id
-            $('#input-cst_id').val(1).change(); // If blank error
-            $('#input-cst_id').val('');
         }
     },
 

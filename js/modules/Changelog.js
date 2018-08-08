@@ -1,4 +1,10 @@
 let Changelog = {
+    v141: {
+        name: 'v1.4.1',
+        description:[ 
+            'VOIP / Nextiva Ticket Submission Bug Fix.'
+        ]
+    },
     v140: {
         name: 'v1.4.0',
         description: [
