@@ -1,10 +1,13 @@
 let Changelog = {
-    v143: {
-        name: 'v1.4.3',
-        description:[ 
+    v144: {
+        name: 'v1.4.4',
+        description:[
             'VOIP / Nextiva Ticket Submission Bug Fix.',
             'Repair Ticket Job Type Bug Fix.',
-            'Tower Selection Bug Fix.'
+            'Tower Selection Bug Fix.',
+            'Sonar Rejection For Degree Symbol Bug Fix.',
+            'Old Data From Previously Searched Customer Returning Bug Fix.',
+            'Other Minor Bug Fixes.'
         ]
     },
     v140: {
