@@ -88,7 +88,7 @@ let Towers = new function()
         let i = 0;
         while(i < this.towers.length)
         {
-            if(this.towers[i].id == 59 || this.towers[i].id == 60 || this.towers[i].id == 61 || this.towers[i].id == 66 || this.towers[i].id == 75 || this.towers[i].id > 85 && this.towers[i].id < 88)
+            if(this.towers[i].id == 59 || this.towers[i].id == 60 || this.towers[i].id == 66)
             {
                 this.towers.splice(i, 1);
                 i--;
@@ -129,8 +129,8 @@ let Towers = new function()
         for(let i = 0; i < this.towers.length; i++)
         {
             // Zone 1
-            // 7, 8, 16, 25, 26 31, 33, 39, 40, 41, 42, 45, 48, 55, 59, 65, 68, 70, 76, 78, 79, 84
-            if(this.towers[i].id == 7 || this.towers[i].id == 8 || this.towers[i].id == 16 || this.towers[i].id == 25 || this.towers[i].id == 26 || this.towers[i].id == 31 || this.towers[i].id == 33 || this.towers[i].id == 39 || this.towers[i].id == 40 || this.towers[i].id == 41 || this.towers[i].id == 42 || this.towers[i].id == 45 || this.towers[i].id == 48 || this.towers[i].id == 55 || this.towers[i].id == 59 || this.towers[i].id == 65 || this.towers[i].id == 68 || this.towers[i].id == 70 || this.towers[i].id == 76 || this.towers[i].id == 78 || this.towers[i].id == 79 || this.towers[i].id == 84)
+            // 7, 8, 16, 25, 26 31, 33, 39, 40, 41, 42, 45, 48, 55, 59, 65, 68, 70, 75, 76, 78, 79, 84
+            if(this.towers[i].id == 7 || this.towers[i].id == 8 || this.towers[i].id == 16 || this.towers[i].id == 25 || this.towers[i].id == 26 || this.towers[i].id == 31 || this.towers[i].id == 33 || this.towers[i].id == 39 || this.towers[i].id == 40 || this.towers[i].id == 41 || this.towers[i].id == 42 || this.towers[i].id == 45 || this.towers[i].id == 48 || this.towers[i].id == 55 || this.towers[i].id == 59 || this.towers[i].id == 65 || this.towers[i].id == 68 || this.towers[i].id == 70 || this.towers[i].id == 75 || this.towers[i].id == 76 || this.towers[i].id == 78 || this.towers[i].id == 79 || this.towers[i].id == 84)
             {
                 this.Zones.zone_1.push(this.towers[i]);
             }
@@ -144,9 +144,9 @@ let Towers = new function()
               // 9, 24, 32, 52, 53, 62, 63, 64, 72, 81, 89, 90
                 this.Zones.zone_3.push(this.towers[i]);
             }
-            else if(this.towers[i].id == 5 || this.towers[i].id == 6 || this.towers[i].id == 13 || this.towers[i].id == 15 || this.towers[i].id == 22 || this.towers[i].id == 27 || this.towers[i].id == 30 || this.towers[i].id == 36 || this.towers[i].id == 37 || this.towers[i].id == 44 || this.towers[i].id == 57 || this.towers[i].id == 71 || this.towers[i].id == 73 || this.towers[i].id == 85)
+            else if(this.towers[i].id == 5 || this.towers[i].id == 6 || this.towers[i].id == 13 || this.towers[i].id == 15 || this.towers[i].id == 22 || this.towers[i].id == 27 || this.towers[i].id == 30 || this.towers[i].id == 36 || this.towers[i].id == 37 || this.towers[i].id == 44 || this.towers[i].id == 57 || this.towers[i].id == 71 || this.towers[i].id == 73 || this.towers[i].id == 85 || this.towers[i].id == 86 || this.towers[i].id == 87)
             { // Zone 4
-              // 5, 6, 13, 15, 22, 27, 30, 36, 37, 44, 57, 71, 73, 85
+              // 5, 6, 13, 15, 22, 27, 30, 36, 37, 44, 57, 71, 73, 85, 86, 87
                 this.Zones.zone_4.push(this.towers[i]);
             }
             else if(this.towers[i].id >= 1 && this.towers[i].id <= 4 || this.towers[i].id == 10 || this.towers[i].id == 11 || this.towers[i].id == 23 || this.towers[i].id == 43 || this.towers[i].id == 49 || this.towers[i].id == 69)

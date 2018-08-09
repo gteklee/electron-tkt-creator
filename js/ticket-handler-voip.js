@@ -142,6 +142,7 @@ let Tickets = new function() // All form specific processes.
                 }
                 console.log(Tickets.Handler.getTicketData());
                 Processes.submitTicket(Tickets.Handler.getTicketData());
+                this.that.clearTicketData();
             }
 
         }
@@ -265,6 +266,19 @@ let Tickets = new function() // All form specific processes.
                 }
                 else {
                     console.error('Property "' + prop + '" does not exist!');
+                }
+            }
+        }
+        /**
+         * Clear all properties of the Ticket Data object.
+         */
+        this.clearTicketData = function()
+        {
+            for(let prop in this.getTicketData()) {
+                if(prop === 'acct_obj' || prop === 'tkt_type' || prop === 'radio_type' || prop === 'cst_package') {
+                    continue; // Skip these properties
+                } else {
+                    this.setTicketDataProperty(prop, '');
                 }
             }
         }

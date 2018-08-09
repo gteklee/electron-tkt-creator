@@ -141,6 +141,10 @@ $('#input-radio_type').on('change', () => {
     Forms.checkSubmittable();
 });
 
+$('#input-radio_ssid').on('change', () => {
+    Forms.checkCharactersForBreakingChar($('#input-radio_ssid').val(), '#input-radio_ssid');
+});
+
 /**
  * Router MAC Address (router_mac)
  * REQUIRED
@@ -391,6 +395,26 @@ let Forms = new function()
     }
 
     /**
+     * Removes any character that causes a problem when submitting
+     * the form to Sonar. There are some characters Sonar will 
+     * reject: 
+     * '°' (degree symbol)
+     * 
+     * @param {String} val 
+     * @param {String} id 
+     */
+    this.checkCharactersForBreakingChar = function(val, id)
+    {
+        if(val.includes('°')) { // Check if includes degree symbol
+            let fix = val;
+            do {
+                fix = fix.replace('°', ''); // Remove degree symbol
+            } while(fix.includes('°'));
+            $(id).val(fix); // Set new fixed value
+        }
+    }
+
+    /**
      * Field cannot be left blank.
      * Require field.
      * 
@@ -433,7 +457,7 @@ let Forms = new function()
         // If no erros exist, check anyway
         let blank = false;
         ids.forEach(element => {
-            if((element === 'cst_id' && $('#input-cst_status-new').is(':checked')) || element === 'tkt_notes' || element === 'voip_callid' || element === 'radio_ap_count' || element === 'radio_ssid' || element === 'radio_quality' || element === 'radio_ccq' || element === 'radio_signal_last' || element === 'radio_signal' || element === 'radio_speedtest' || element === 'cst_torch' || element === 'cst_speedtest') {} // Skip
+            if((element === 'cst_id' && $('#input-cst_status-new').is(':checked')) || element === 'tkt_notes' || element === 'tkt_reason_static' || element === 'voip_callid' || element === 'radio_ap_count' || element === 'radio_ssid' || element === 'radio_quality' || element === 'radio_ccq' || element === 'radio_signal_last' || element === 'radio_signal' || element === 'radio_speedtest' || element === 'cst_torch' || element === 'cst_speedtest') {} // Skip
             else { 
                 //console.log($('#input-' + element).val() == '' && !($('#input-' + element).is(':disabled')));
                 if($('#input-' + element).val() == '' && !($('#input-' + element).is(':disabled'))) { // Blank
