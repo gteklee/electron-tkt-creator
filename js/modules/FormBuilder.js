@@ -251,6 +251,20 @@ function FormBuilder()
                                 '<p class="err-msg" id="err-job_zone"></p>'+
                             '</div>';
                 }
+                else if(objArray[i].fields[j] === 'job_reason') {
+                    form += '<p class="input-header" id="input-header-job_reason"> REASON FOR JOB </p>'+
+                            '<textarea id="input-job_reason" rows="6" placeholder="Why are you creating this ticket? Please provide specific details!"></textarea>'+
+                            '<div class="err-container">'+
+                                '<p class="err-msg" id="err-job_reason"></p>'+
+                            '</div>'
+                }
+                else if(objArray[i].fields[j] === 'job_expectations') {
+                    form += '<p class="input-header" id="input-header-job_expectations"> EXPECTED WORK TO BE DONE </p>'+
+                            '<textarea id="input-job_expectations" rows="6" placeholder="What is the customer wanting the technician to accomplish while on site?"></textarea>'+
+                            '<div class="err-container">'+
+                                '<p class="err-msg" id="err-job_expectations"></p>'+
+                            '</div>'
+                }
                 else if(objArray[i].fields[j] === 'cst_id') {
                     form += '<p class="input-header" id="input-header-cst_id"> CUSTOMER ID </p>'+
                             '<input id="input-cst_id" type="text" name="cst_id"/>'+
@@ -451,6 +465,13 @@ function FormBuilder()
                             '<div class="err-container">'+
                             '   <p class="err-msg" id="err-mtl_id"></p>'+
                             '</div>';
+                }
+                else if(objArray[i].fields[j] === 'special_equipment') {
+                    form += '<p class="input-header" id="input-header-special_equipment"> SPECIAL EQUIPMENT NEEDED </p>'+
+                            '<textarea id="input-special_equipment" rows="6" placeholder="Does the technician need specific Gtek equipment, for example, a managed router? Leave blank if not required."></textarea>'+
+                            '<div class="err-container">'+
+                                '<p class="err-msg" id="err-special_equipment"></p>'+
+                            '</div>'
                 }
                 else if(objArray[i].fields[j] === 'tkt_reason') {
                     form += '<p class="input-header" id="input-header-tkt_reason"> REASON FOR ESCALATION </p>'+
