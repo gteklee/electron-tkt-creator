@@ -59,9 +59,11 @@ module.exports = {
             // Get ticket template to submit
             template = Tickets.templates.repair(data);
         } else if(data.tkt_type === 'install') {
-            return;
+            template = Tickets.templates.install(data);
+            subject = 'Zone ' + data.job_zone + ' - ' + data.job_tower + ' - ' + data.job_time + ' Install - ' + data.cst_name;
         } else if(data.tkt_type === 'onsite') {
-            return;
+            // Get ticket template to submit
+            template = Tickets.templates.onsite(data);
         } else if(data.tkt_type === 'relocation') {
             return;
         } else if(data.tkt_type === 'static') {
@@ -104,16 +106,16 @@ module.exports = {
             console.error('Ticket type is not recognized "' + data.tkt_type + '"!');
         }
         // Create job on account
-        if(data.tkt_type === 'repair' || data.tkt_type === 'install' || data.tkt_type === 'onsite' || data.tkt_type === 'relocation') {
+        if(data.tkt_type === 'repair' || data.tkt_type === 'onsite' || data.tkt_type === 'relocation') {
             console.log('Job created!');
-            Sonar.Ticket.Submit(data.cst_id, template, sessionStorage.username, sessionStorage.password, (data) => {
+            Sonar.Ticket.Submit(data.cst_id, template, null, sessionStorage.username, sessionStorage.password, (data) => {
                 if(data.error) {
                     console.error(data.error);
                     // Show alert for error while submitting
                     if(data.error.status_code === 404 || 422) { // Can't be found / problem with ID
                         this.alert.submission.show('Customer ID does not exist!', true);
                     } 
-                    else {
+                    else { 
                         this.alert.submission.show('Error: ' + data.error.status_code, true);
                     }
                 } 
@@ -125,7 +127,7 @@ module.exports = {
         } // Create ticket applied to network team
         else if(data.tkt_type === 'mtl_mdu') {
             console.log('Ticket created!');
-            Sonar.Ticket.SubmitAsTicket(data.mtl_id, template, subject, sessionStorage.username, sessionStorage.password, (data) => {
+            Sonar.Ticket.SubmitAsTicket(data.mtl_id, template, subject, 1, 16, sessionStorage.username, sessionStorage.password, (data) => {
                 if(data.error) {
                     console.error(data.error);
                     // Show alert for error while submitting
@@ -143,7 +145,7 @@ module.exports = {
         }
         else if(data.tkt_type === 'static' || data.tkt_type === 'key_upgrade' || data.tkt_type === 'voip') {
             console.log('Ticket created!');
-            Sonar.Ticket.SubmitAsTicket(data.cst_id, template, subject, sessionStorage.username, sessionStorage.password, (data) => {
+            Sonar.Ticket.SubmitAsTicket(data.cst_id, template, subject, 1, 1, sessionStorage.username, sessionStorage.password, (data) => {
                 if(data.error) {
                     console.error(data.error);
                     // Show alert for error while submitting
@@ -156,6 +158,57 @@ module.exports = {
                 }
                 else {
                     this.alert.submission.show('', false); // Show alert for successful submission
+                }
+            });
+        }
+        else if(data.tkt_type === 'install') {
+            Sonar.Ticket.SubmitAsTicket(data.cst_id, template, subject, 2, 8, sessionStorage.username, sessionStorage.password, (json) => {
+                if(json.error) {
+                    console.error(json.error);
+                    // Show alert for error while submitting
+                    if(json.error.status_code === 404 || 422) { // Can't be found / problem with ID
+                        this.alert.submission.show('Customer ID does not exist!', true);
+                    } 
+                    else {
+                        this.alert.submission.show('Error: ' + json.error.status_code, true);
+                    }
+                }
+                else {
+                    if(json.data.id) {
+                        Sonar.Ticket.Submit(json.data.assignee_id, template, json.data.id, sessionStorage.username, sessionStorage.password, (json) => {
+                            if(json.error) {
+                                console.error(json.error);
+                                // Show alert for error while submitting
+                                if(json.error.status_code === 404 || 422) { // Can't be found / problem with ID
+                                    this.alert.submission.show('Customer ID does not exist!', true);
+                                } 
+                                else {
+                                    this.alert.submission.show('Error: ' + json.error.status_code, true);
+                                }
+                            }
+                            else {
+                                this.alert.submission.show('', false);
+                            }
+                        });
+                    }
+                    else {
+                        console.error('ERROR WITH TICKET ID!');
+                        Sonar.Ticket.Submit(json.data.assignee_id, template, null, sessionStorage.username, sessionStorage.password, (json) => {
+                            if(json.error) {
+                                console.log(json.error);
+                                // Show alert for error while submitting
+                                if(json.error.status_code === 404 || 422) { // Can't be found / problem with ID
+                                    this.alert.submission.show('Ticket Created -- Error Creating Job...', true);
+                                } 
+                                else {
+                                    this.alert.submission.show('Ticket Created -- Error Creating Job...' + json.error.status_code, true);
+                                }
+                            }
+                            else {
+                                this.alert.submission.show('Unable to link Job to Ticket!', false);
+                            }
+                        });
+                    }
                 }
             });
         }
@@ -558,7 +611,8 @@ module.exports = {
                 else {
                     $('#alert-submission-text').text('Submission was successful!');
                     $('#alert-submission-text').css('color', 'black');
-                    $('#alert-submission-err').text('');
+                    $('#alert-submission-err').text(text);
+                    $('#alert-submission-err').css('color', 'red');
                 }
             },
             

@@ -1,8 +1,9 @@
 let Changelog = {
     v150: {
-        name: 'v1.5.0',
+        name: 'v1.6.0',
         description:[
-            'Onsite Ticket Added!'
+            'Onsite Ticket Added!',
+            'Installatoin Ticket Added!'
         ]
     },
     v140: {

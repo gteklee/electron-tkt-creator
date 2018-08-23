@@ -11,22 +11,25 @@ let Tickets = new function() // All form specific processes.
         this._ticketData = {    // PRIVATE OBJECT
             acct_obj: null,
 
-            job_tower:          '',
-            job_zone:           '',
-            job_reason:         '',
-            job_expectations:   '',
-            tkt_notes:          '',
-
             cst_id:             '',
             cst_name:           '',
             cst_package:        [],
+            cst_contract:       [],
+            cst_contract_voip:  '',
+            cst_managed:        '',
+            cst_maint:          '',
+            cst_statements:     '',
+            cst_attic:          '',
 
-            radio_management:   '',
-            radio_public:       '',
-            radio_type:         [], // type and type_type
-            special_equipment:  '',
+            job_tower:              '',
+            job_zone:               '',
+            job_building_type:      '',
+            job_building_roof:      '',
+            job_building_floors:    '',
+            job_time:               '',
+            tkt_notes:              '',
 
-            tkt_type: 'onsite'
+            tkt_type: 'install'
         }; 
 
         /**
@@ -43,8 +46,8 @@ let Tickets = new function() // All form specific processes.
                 for(let i = 0; i < this.input_ids.length; i++) {
                     $('#input-' + this.input_ids[i]).val('');
 
-                    if(this.input_ids[i] === 'radio_type') { // Clear second radio
-                        $('#input-radio_type_type').val(''); // type field
+                    if(this.input_ids[i] === 'cst_contract') { // Clear second radio
+                        $('#input-cst_contract_price').val(''); // type field
                     }
                 }
                 Processes.createTowerOptions();
@@ -62,9 +65,6 @@ let Tickets = new function() // All form specific processes.
                         $('input[type=radio][name=package][value=' + this.that.getTicketDataProperty(this.input_ids[i])[0] + ']').prop('checked', true).change();
                         $('#input-cst_package').val(this.that.getTicketDataProperty(this.input_ids[i])[1]);
                     } 
-                    else if(this.input_ids[i] === 'radio_type') { // Set radio type
-                        $('#input-' + this.input_ids[i]).val(this.that.getTicketDataProperty(this.input_ids[i]).toUpperCase()).change();
-                    }
                     else {
                         $('#input-' + this.input_ids[i]).val(this.that.getTicketDataProperty(this.input_ids[i]));
                     }
@@ -101,12 +101,12 @@ let Tickets = new function() // All form specific processes.
                         }
                         package[1] = $('#input-cst_package').val();
                         this.that.setTicketDataProperty(prop, package);
-                    } // Radio type
-                    else if(prop === 'radio_type') {
-                        let type = [];
-                        type[0] = $('#input-radio_type').val();
-                        type[1] = $('#input-radio_type_type').val();
-                        this.that.setTicketDataProperty(prop, type);
+                    } // Customer contract
+                    else if(prop === 'cst_contract') {
+                        let contract = [];
+                        contract[0] = $('#input-cst_contract').val();
+                        contract[1] = $('#input-cst_contract_price').val();
+                        this.that.setTicketDataProperty(prop, contract);
                     } // Normal field
                     else {
                         this.that.setTicketDataProperty(prop, $('#input-' + prop).val());

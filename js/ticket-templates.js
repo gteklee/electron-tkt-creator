@@ -82,6 +82,61 @@ module.exports = {
         },
 
         /**
+         * Install ticket data
+         * @param {Object} tkt_data
+         */
+        install: function(tkt_data) {
+            let template = '<p> Zone ' + tkt_data.job_zone + ' - ' + tkt_data.job_tower + ' - ' + tkt_data.job_time  + ' Install - ' + tkt_data.cst_name +  '</p>';
+            template += '<p>Installation Time Period: ' + tkt_data.job_time + '</p>';
+            template += '<p>' + tkt_data.cst_name + '<br>';
+            template += 'Building Type: ' + tkt_data.job_building_type + '<br>';
+            template += 'Roof Type: ' + tkt_data.job_building_roof + '<br>';
+            template += 'Number of Floors: ' + tkt_data.job_building_floors + '<br>';
+            template += 'Attic Run: ' + tkt_data.cst_attic + '</p>';
+            template += '<p>Installation Agreement: ' + tkt_data.cst_contract[0] + ' (' + tkt_data.cst_contract[1] + ')<br>';
+            template += 'Internet Service: ' + tkt_data.cst_package[0] + ' ' + tkt_data.cst_package[1] + '<br>';
+            template += 'Service Maintenance Plan: ' + tkt_data.cst_maint + '<br>';
+            template += 'Statements: ' + tkt_data.cst_statements + '<br>';
+            template += 'VOIP Terms: ' + tkt_data.cst_contract_voip + '<br>';
+            template += 'Router Terms: ' + tkt_data.cst_managed + '</p>';
+            
+            if(tkt_data.tkt_notes !== '') {
+                template += '<p> Notes: ' + tkt_data.tkt_notes + '</p>';
+            }
+
+            return template;
+        },
+
+        /**
+         * Onsite ticket data
+         * @param {Object} tkt_data
+         */
+        onsite: function(tkt_data) {
+            let template = '<p> Job Type: Onsite </p>';
+            template += '<p>' + tkt_data.cst_name + '<br>';
+            template += tkt_data.cst_package[0] + ' ' + tkt_data.cst_package[1] + '</p>';
+            template += '<p> Tower: ' + tkt_data.job_tower + '<br>';
+            template += 'Zone: ' + tkt_data.job_zone + '</p>';
+            template += '<p> Management IP: ' + tkt_data.radio_management + '<br>';
+            template += 'Public IP: ' + tkt_data.radio_public + '<br>';
+            template += 'Radio Type: ' + tkt_data.radio_type[0] + ' ' + tkt_data.radio_type[1] + '</p>';
+            template += '<p> Reason For Onsite: ' + tkt_data.job_reason + '<br>';
+            template += 'Expected Work: ' + tkt_data.job_expectations + '<br>';
+
+            if(tkt_data.special_equipment !== '') {
+                template += 'Special Equipment: ' + tkt_data.special_equipment + '</p>';
+            } else {
+                template += '</p>';
+            }
+            
+            if(tkt_data.tkt_notes !== '') {
+                template += '<p> Notes: ' + tkt_data.tkt_notes + '</p>';
+            }
+
+            return template;
+        },
+
+        /**
          * All Network Escalation tickets.
          */
         escalations: {
