@@ -108,7 +108,7 @@ module.exports = {
         // Create job on account
         if(data.tkt_type === 'repair' || data.tkt_type === 'onsite' || data.tkt_type === 'relocation') {
             console.log('Job created!');
-            Sonar.Ticket.Submit(data.cst_id, template, null, sessionStorage.username, sessionStorage.password, (data) => {
+            Sonar.Ticket.Submit(data.cst_id, template, null, 2, sessionStorage.username, sessionStorage.password, (data) => {
                 if(data.error) {
                     console.error(data.error);
                     // Show alert for error while submitting
@@ -175,7 +175,7 @@ module.exports = {
                 }
                 else {
                     if(json.data.id) {
-                        Sonar.Ticket.Submit(json.data.assignee_id, template, json.data.id, sessionStorage.username, sessionStorage.password, (json) => {
+                        Sonar.Ticket.Submit(json.data.assignee_id, template, json.data.id, 1, sessionStorage.username, sessionStorage.password, (json) => {
                             if(json.error) {
                                 console.error(json.error);
                                 // Show alert for error while submitting

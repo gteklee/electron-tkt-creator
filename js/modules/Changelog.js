@@ -1,9 +1,10 @@
 let Changelog = {
-    v160: {
-        name: 'v1.6.0',
+    v161: {
+        name: 'v1.6.1',
         description:[
             'Onsite Ticket Added!',
-            'Installation Ticket Added!'
+            'Installation Ticket Added!',
+            'Install Ticket Now Creates "Installation" job type instead of "Service Call".'
         ]
     },
     v140: {
