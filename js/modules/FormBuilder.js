@@ -359,7 +359,7 @@ function FormBuilder()
                                     '<option value="$75"> $75 </option>'+
                                     '<option value="$150"> $150 </option>'+
                                     '<option value="$300"> $300 </option>'+
-                                    '<option value="Free"> Free </option>'+
+                                    '<option value="Waived"> Waived </option>'+
                                 '</select>'+
                                 '<div class="err-container">'+
                                 '   <p class="err-msg" id="err-cst_contract"></p>'+
@@ -590,8 +590,19 @@ function FormBuilder()
                             '</div>'
                 }
                 else if(objArray[i].fields[j] === 'tkt_notes') {
-                    form += '<p class="input-header" id="repair-notes-header"> NOTES / PROBLEM </p>'+
+                    form += '<p class="input-header" id="input-notes-header"> NOTES / PROBLEM </p>'+
                             '<textarea id="input-tkt_notes" rows="6" placeholder="What was the problem the customer was reporting? What was done on the call? Include the customer\'s attitude."></textarea>';
+                }
+                else if(objArray[i].fields[j] === 'info_confirm_install') {
+                    form += '<p class="input-header" id="input-header-info_confirm_install"> MAKE SURE ALL IS COMPLETED: </p><br>'+
+                            '<p class="input-info"> Advised customer the Static IP is <br> recommended when gaming or using <br> cameras. </p>'+
+                            '<p class="input-info"> Standard installation process explained. </p>'+
+                            '<p class="input-info"> Confirmed that the account holder will be <br> onsite for the install. </p>'+
+                            '<p class="input-info"> Customer is informed that we need a <br> confirmation before a tech is dispatched. </p>'+
+                            '<p class="input-info"> Advised that any animals onsite must be <br> contained. </p>'+
+                            '<p class="input-info"> Advised that the only forms of payment <br> accepted are Money Order, Credit Card, and <br> Debit Card at the time of installation. </p><br>'+
+                            '<label class="checkbox-container"><input id="input-info_confirm_install" type="checkbox" name="info_confirm" value="CONFIRMED"/> Done </label>';
+
                 }
                 else
                     console.error('Specified field id not found!');

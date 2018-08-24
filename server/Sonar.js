@@ -223,11 +223,11 @@ let Sonar = new function()
         /**
          * Submit ticket to Sonar by creating a new job on the given account.
          */
-        this.Submit = function(id, template, tkt_id, username, password, callback)
+        this.Submit = function(id, template, tkt_id, job_type_id, username, password, callback)
         {
             this.callback = callback;
 
-            this.postData(id, template, tkt_id, username, password, this.callback);
+            this.postData(id, template, tkt_id, job_type_id, username, password, this.callback);
         }
 
         this.SubmitAsTicket = function(id, template, subject, group_id, cat_id, username, password, callback)
@@ -348,11 +348,11 @@ let Sonar = new function()
             req.end();
         }
 
-        this.postData = function(customer_id, template, tkt_id, username, password, callback)
+        this.postData = function(customer_id, template, tkt_id, job_type_id, username, password, callback)
         {
             let postData = JSON.stringify(
                 {
-                    job_type_id: 2,
+                    job_type_id: job_type_id,
                     assigned_id: customer_id,
                     assigned_type: 'accounts',
                     notes: template,
