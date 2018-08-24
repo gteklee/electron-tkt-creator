@@ -3,7 +3,7 @@ let Changelog = {
         name: 'v1.6.0',
         description:[
             'Onsite Ticket Added!',
-            'Installatoin Ticket Added!'
+            'Installation Ticket Added!'
         ]
     },
     v140: {
