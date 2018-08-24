@@ -1,7 +1,7 @@
 const Sonar = require('../../server/Sonar.js');
-const Towers = require('../modules/Towers.js');
-const Radios = require('../modules/Radios.js');
-const Packages = require('../modules/Packages');
+const Towers = require('./Towers.js');
+const Radios = require('./Radios.js');
+const Packages = require('./Packages.js');
 const Tickets = require('../ticket-templates.js');
 module.exports = {
 
