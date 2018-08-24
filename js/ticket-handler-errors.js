@@ -44,6 +44,64 @@ $('#input-job_zone').on('change', () => {
 });
 
 /**
+ * Job Reason (job_reason)
+ * REQUIRED
+ */
+$('#input-job_reason').on('change', () => {
+    Forms.checkBlank($('#input-job_reason').val(), '#err-job_reason');
+    Forms.checkSubmittable();
+});
+
+/**
+ * Job Expectations (job_expectations)
+ * REQUIRED
+ */
+$('#input-job_expectations').on('change', () => {
+    Forms.checkBlank($('#input-job_expectations').val(), '#err-job_expectations');
+    Forms.checkSubmittable();
+});
+
+/**
+ * Job Building Type (job_building_type)
+ * REQUIRED
+ */
+$('#input-job_building_type').on('change', () => {
+    Forms.checkBlank($('#input-job_building_type').val(), '#err-job_building_type');
+    Forms.checkSubmittable();
+});
+
+/**
+ * Job Building Roof Type (job_building_roof)
+ * REQUIRED
+ */
+$('#input-job_building_roof').on('change', () => {
+    Forms.checkBlank($('#input-job_building_roof').val(), '#err-job_building_roof');
+    Forms.checkSubmittable();
+});
+
+/**
+ * Job Building Floor Count (job_building_floors)
+ * REQUIRED
+ */
+$('#input-job_building_floors').on('change', () => {
+    Forms.checkBlank($('#input-job_building_floors').val(), '#err-job_building_floors');
+    Forms.checkSubmittable();
+});
+// Check for common errors
+$('#input-job_building_floors').keyup(event => {
+    Forms.checkCharactersForNumeric($('#input-job_building_floors').val(), '#err-job_building_floors');
+});
+
+/**
+ * Job Time Period (job_time)
+ * REQUIRED
+ */
+$('#input-job_time').on('change', () => {
+    Forms.checkBlank($('#input-job_time').val(), '#err-job_time');
+    Forms.checkSubmittable();
+});
+
+/**
  * Customer ID (cst_id)
  * REQUIRED
  */
@@ -93,6 +151,69 @@ $('#input-cst_unit').on('change', () => {
  */
 $('#input-cst_package').on('change', () => {
     Forms.checkBlank($('#input-cst_package').val(), '#err-cst_package');
+    Forms.checkSubmittable();
+});
+
+/**
+ * Customer Contract Agreement (cst_contract)
+ * REQUIRED
+ */
+$('#input-cst_contract').on('change', () => {
+    Forms.checkBlank($('#input-cst_contract').val(), '#err-cst_contract');
+    Forms.checkSubmittable();
+});
+
+/**
+ * Customer Contract Price (cst_contract_price)
+ * REQUIRED
+ */
+$('#input-cst_contract_price').on('change', () => {
+    Forms.checkBlank($('#input-cst_contract_price').val(), '#err-cst_contract');
+    Forms.checkSubmittable();
+});
+
+/**
+ * Customer VOIP Contract Agreement (cst_contract_voip)
+ * REQUIRED
+ */
+$('#input-cst_contract_voip').on('change', () => {
+    Forms.checkBlank($('#input-cst_contract_voip').val(), '#err-cst_contract_voip');
+    Forms.checkSubmittable();
+});
+
+/**
+ * Customer Router Options (cst_managed)
+ * REQUIRED
+ */
+$('#input-cst_managed').on('change', () => {
+    Forms.checkBlank($('#input-cst_managed').val(), '#err-cst_managed');
+    Forms.checkSubmittable();
+});
+
+/**
+ * Customer Maintenance Plan (cst_maint)
+ * REQUIRED)
+ */
+$('#input-cst_maint').on('change', () => {
+    Forms.checkBlank($('#input-cst_maint').val(), '#err-cst_maint');
+    Forms.checkSubmittable();
+});
+
+/**
+ * Customer Statements (cst_statements)
+ * REQUIRED)
+ */
+$('#input-cst_statements').on('change', () => {
+    Forms.checkBlank($('#input-cst_statements').val(), '#err-cst_statements');
+    Forms.checkSubmittable();
+});
+
+/**
+ * Customer Attic Run (cst_attic)
+ * REQUIRED)
+ */
+$('#input-cst_attic').on('change', () => {
+    Forms.checkBlank($('#input-cst_attic').val(), '#err-cst_attic');
     Forms.checkSubmittable();
 });
 
@@ -457,7 +578,7 @@ let Forms = new function()
         // If no erros exist, check anyway
         let blank = false;
         ids.forEach(element => {
-            if((element === 'cst_id' && $('#input-cst_status-new').is(':checked')) || element === 'tkt_notes' || element === 'tkt_reason_static' || element === 'voip_callid' || element === 'radio_ap_count' || element === 'radio_ssid' || element === 'radio_quality' || element === 'radio_ccq' || element === 'radio_signal_last' || element === 'radio_signal' || element === 'radio_speedtest' || element === 'cst_torch' || element === 'cst_speedtest') {} // Skip
+            if((element === 'cst_id' && $('#input-cst_status-new').is(':checked')) || element === 'tkt_notes' || element === 'tkt_reason_static' || element === 'voip_callid' || element === 'radio_ap_count' || element === 'radio_ssid' || element === 'radio_quality' || element === 'radio_ccq' || element === 'radio_signal_last' || element === 'radio_signal' || element === 'radio_speedtest' || element === 'cst_torch' || element === 'cst_speedtest' || element === 'special_equipment') {} // Skip
             else { 
                 //console.log($('#input-' + element).val() == '' && !($('#input-' + element).is(':disabled')));
                 if($('#input-' + element).val() == '' && !($('#input-' + element).is(':disabled'))) { // Blank

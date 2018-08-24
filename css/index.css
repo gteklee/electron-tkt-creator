@@ -19,6 +19,8 @@ select { font-family: 'Montserrat', sans-serif; font-size: 16px; width: 376px; h
     #input-radio_type { width: 120px; margin: 10px 0 10px 10px; }
     #input-radio_type_type { width: 232px; margin: 0 0 0 5px; }
     #input-cst_package { width: 276px; margin: 10px 0 10px 10px; }
+    #input-cst_contract { width: 232px; margin: 0 0 0 5px; }
+    #input-cst_contract_price { width: 120px; margin: 10px 0 10px 10px; }
 
     input:focus { outline: none; border: 2px solid #4286f4; }
     textarea:focus { outline: none; border: 2px solid #4286f4; }

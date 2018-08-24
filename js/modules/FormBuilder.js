@@ -251,6 +251,51 @@ function FormBuilder()
                                 '<p class="err-msg" id="err-job_zone"></p>'+
                             '</div>';
                 }
+                else if(objArray[i].fields[j] === 'job_reason') {
+                    form += '<p class="input-header" id="input-header-job_reason"> REASON FOR JOB </p>'+
+                            '<textarea id="input-job_reason" rows="6" placeholder="Why are you creating this ticket? Please provide specific details!"></textarea>'+
+                            '<div class="err-container">'+
+                                '<p class="err-msg" id="err-job_reason"></p>'+
+                            '</div>'
+                }
+                else if(objArray[i].fields[j] === 'job_expectations') {
+                    form += '<p class="input-header" id="input-header-job_expectations"> EXPECTED WORK TO BE DONE </p>'+
+                            '<textarea id="input-job_expectations" rows="6" placeholder="What is the customer wanting the technician to accomplish while on site?"></textarea>'+
+                            '<div class="err-container">'+
+                                '<p class="err-msg" id="err-job_expectations"></p>'+
+                            '</div>'
+                }
+                else if(objArray[i].fields[j] === 'job_building_type') {
+                    form += '<p class="input-header" id="input-header-job_building_type"> BUILDING TYPE </p>'+
+                            '<input id="input-job_building_type" type="text" name="job_building_type"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-job_building_type"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'job_building_roof') {
+                    form += '<p class="input-header" id="input-header-job_building_roof"> BUILDING ROOF TYPE </p>'+
+                            '<input id="input-job_building_roof" type="text" name="job_building_roof"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-job_building_roof"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'job_building_floors') {
+                    form += '<p class="input-header" id="input-header-job_building_floors"> BUILDING FLOOR COUNT </p>'+
+                            '<input id="input-job_building_floors" type="text" name="job_building_floors"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-job_building_floors"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'job_time') {
+                    form += '<p class="input-header" id="input-header-job_time"> TIME PERIOD </p>'+
+                            '<select id="input-job_time">'+
+                                '<option value="AM"> A.M. </option>'+
+                                '<option value="AM"> P.M. </option>'+
+                            '</select>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-job_time"></p>'+
+                            '</div>';
+                }
                 else if(objArray[i].fields[j] === 'cst_id') {
                     form += '<p class="input-header" id="input-header-cst_id"> CUSTOMER ID </p>'+
                             '<input id="input-cst_id" type="text" name="cst_id"/>'+
@@ -298,6 +343,84 @@ function FormBuilder()
                             '</div>'+
                             '<div class="err-container">'+
                             '   <p class="err-msg" id="err-cst_package"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'cst_contract') {
+                    form += '<p class="input-header" id="input-header-cst_contract"> CONTRACT AGREEMENT </p>'+
+                            '<div class="input-group" id="input-group-cst_contract">'+
+                                '<select id="input-cst_contract">'+
+                                    '<option value=""></option>'+
+                                    '<option value="1 Year Agreement"> 1 Year Agreement </option>'+
+                                    '<option value="2 Year Agreement"> 2 Year Agreement </option>'+
+                                    '<option value="No Contract"> No Contract </option>'+
+                                '</select>'+
+                                '<select id="input-cst_contract_price">'+
+                                    '<option value=""></option>'+
+                                    '<option value="$75"> $75 </option>'+
+                                    '<option value="$150"> $150 </option>'+
+                                    '<option value="$300"> $300 </option>'+
+                                    '<option value="Free"> Free </option>'+
+                                '</select>'+
+                                '<div class="err-container">'+
+                                '   <p class="err-msg" id="err-cst_contract"></p>'+
+                                '</div>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'cst_contract_voip') {
+                    form += '<p class="input-header" id="input-header-cst_contract_voip"> VOIP CONTRACT AGREEMENT </p>'+
+                            '<select id="input-cst_contract_voip">'+
+                                '<option value=""></option>'+
+                                '<option value="Not Interested"> Not Interested </option>'+
+                                '<option value="1 Year Agreement"> 1 Year Agreement </option>'+
+                                '<option value="No Contract"> No Contract </option>'+
+                            '</select>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-cst_contract_voip"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'cst_managed') {
+                    form += '<p class="input-header" id="input-header-cst_managed"> ROUTER OPTIONS </p>'+
+                            '<select id="input-cst_managed">'+
+                                '<option value=""></option>'+
+                                '<option value="Managed Router"> Managed Router </option>'+
+                                '<option value="Purchase Router"> Purchase Router </option>'+
+                                '<option value="Provide Their Own"> Provide Their Own </option>'+
+                            '</select>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-cst_managed"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'cst_maint') {
+                    form += '<p class="input-header" id="input-header-cst_maint"> SERVICE MAINTENANCE PLAN </p>'+
+                            '<select id="input-cst_maint">'+
+                                '<option value=""></option>'+
+                                '<option value="Not Interested"> Not Interested </option>'+
+                                '<option value="Interested"> Interested </option>'+
+                            '</select>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-cst_maint"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'cst_statements') {
+                    form += '<p class="input-header" id="input-header-cst_statements"> STATEMENT OPTIONS </p>'+
+                            '<select id="input-cst_statements">'+
+                                '<option value=""></option>'+
+                                '<option value="Email"> Email </option>'+
+                                '<option value="Paper ($3 Monthly Fee)"> Paper ($3 Monthly Fee) </option>'+
+                            '</select>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-cst_statements"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'cst_attic') {
+                    form += '<p class="input-header" id="input-header-cst_attic"> ATTIC RUN ($95 / HOUR FEE) </p>'+
+                            '<select id="input-cst_attic">'+
+                                '<option value=""></option>'+
+                                '<option value="No"> No </option>'+
+                                '<option value="Yes"> Yes </option>'+
+                            '</select>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-cst_attic"></p>'+
                             '</div>';
                 }
                 else if(objArray[i].fields[j] === 'cst_speedtest') {
@@ -451,6 +574,13 @@ function FormBuilder()
                             '<div class="err-container">'+
                             '   <p class="err-msg" id="err-mtl_id"></p>'+
                             '</div>';
+                }
+                else if(objArray[i].fields[j] === 'special_equipment') {
+                    form += '<p class="input-header" id="input-header-special_equipment"> SPECIAL EQUIPMENT NEEDED </p>'+
+                            '<textarea id="input-special_equipment" rows="6" placeholder="Does the technician need specific Gtek equipment, for example, a managed router? Leave blank if not required."></textarea>'+
+                            '<div class="err-container">'+
+                                '<p class="err-msg" id="err-special_equipment"></p>'+
+                            '</div>'
                 }
                 else if(objArray[i].fields[j] === 'tkt_reason') {
                     form += '<p class="input-header" id="input-header-tkt_reason"> REASON FOR ESCALATION </p>'+
