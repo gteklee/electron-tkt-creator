@@ -290,7 +290,7 @@ function FormBuilder()
                     form += '<p class="input-header" id="input-header-job_time"> TIME PERIOD </p>'+
                             '<select id="input-job_time">'+
                                 '<option value="AM"> A.M. </option>'+
-                                '<option value="AM"> P.M. </option>'+
+                                '<option value="PM"> P.M. </option>'+
                             '</select>'+
                             '<div class="err-container">'+
                             '   <p class="err-msg" id="err-job_time"></p>'+
