@@ -109,7 +109,6 @@ let Tickets = new function() // All form specific processes.
                         this.that.setTicketDataProperty(prop, contract);
                     } // Normal field
                     else {
-                        console.log(prop);
                         this.that.setTicketDataProperty(prop, $('#input-' + prop).val());
                     }
                 }
