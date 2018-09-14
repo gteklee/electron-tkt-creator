@@ -1,10 +1,6 @@
 {
   "name": "electron-tkt-creator",
-<<<<<<< HEAD
-  "version": "1.6.2",
-=======
   "version": "1.7.0",
->>>>>>> 2d853f922fa66f784079b7e6d25b08adfdf7c238
   "description": "A complete rewrite of the Gtek Ticket Creator program. This utilizes the electron framework and Sonar API.",
   "main": "main.js",
   "scripts": {
