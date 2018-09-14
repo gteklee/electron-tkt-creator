@@ -53,6 +53,8 @@ module.exports = {
     submitTicket: function(data)
     {   
         let template = ''; // Ticket template to submit
+        let template_disco = ''; // Ticket template for relo disco
+        let template_inst = ''; // Ticket template for relo install
         let subject = ''; // Subject of ticket for network escalations
         // Submit ticket based on ticket type
         if(data.tkt_type === 'repair') {
@@ -64,8 +66,11 @@ module.exports = {
         } else if(data.tkt_type === 'onsite') {
             // Get ticket template to submit
             template = Tickets.templates.onsite(data);
-        } else if(data.tkt_type === 'relocation') {
-            return;
+        } else if(data.tkt_type === 'relo') {
+            template_disco = Tickets.templates.relo.disco(data, false);
+            template_inst = Tickets.templates.relo.install(data, true);
+            template = template_disco + template_inst;
+            subject = 'Zone ' + data.job_zone + ' - ' + data.job_tower + ' - ' + data.job_time + ' Install - ' + data.cst_name;
         } else if(data.tkt_type === 'static') {
             // Get ticket template to submit
             template = Tickets.templates.escalations.static(
@@ -106,7 +111,7 @@ module.exports = {
             console.error('Ticket type is not recognized "' + data.tkt_type + '"!');
         }
         // Create job on account
-        if(data.tkt_type === 'repair' || data.tkt_type === 'onsite' || data.tkt_type === 'relocation') {
+        if(data.tkt_type === 'repair' || data.tkt_type === 'onsite') {
             console.log('Job created!');
             Sonar.Ticket.Submit(data.cst_id, template, null, 2, sessionStorage.username, sessionStorage.password, (data) => {
                 if(data.error) {
@@ -209,6 +214,41 @@ module.exports = {
                             }
                         });
                     }
+                }
+            });
+        }
+        else if(data.tkt_type === 'relo') {
+            // Create Relo Install job
+            let id = data.cst_id;
+            Sonar.Ticket.Submit(id, template, null, 9, sessionStorage.username, sessionStorage.password, (json) => {
+                if(json.error) {
+                    console.error(json.error);
+                    // Show alert for error while submitting
+                    if(json.error.status_code === 404 || 422) { // Can't be found / problem with ID
+                        this.alert.submission.show('Customer ID does not exist!', true);
+                    } 
+                    else {
+                        this.alert.submission.show('Error: ' + json.error.status_code, true);
+                    }
+                }
+                else {
+                    console.log(id);
+                    // Create Relo Disco Job
+                    Sonar.Ticket.Submit(id, template, null, 15, sessionStorage.username, sessionStorage.password, (json) => {
+                        if(json.error) {
+                            console.error(json.error);
+                            // Show alert for error while submitting
+                            if(json.error.status_code === 404 || 422) { // Can't be found / problem with ID
+                                this.alert.submission.show('Customer ID does not exist!', true);
+                            } 
+                            else {
+                                this.alert.submission.show('Error: ' + json.error.status_code, true);
+                            }
+                        }
+                        else {
+                            this.alert.submission.show('', false); // Show alert for successful submission
+                        }
+                    });
                 }
             });
         }

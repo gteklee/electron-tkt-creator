@@ -107,6 +107,44 @@ module.exports = {
             return template;
         },
 
+        // Relocation templates for each job
+        relo: {
+            /**
+             * Relocation disconnect ticket data.
+             * @param {Object} tkt_data
+             * @param {Boolean} include_notes
+             */
+            disco: function(tkt_data, include_notes) {
+                let template = '<p> Disconnect Info: <br>';
+                template += 'Disconnect Zone: ' + tkt_data.job_zone + '<br>';
+                template += 'Physical Address: ' + tkt_data.job_address_disco + '<br>';
+                template += 'City, State Zip: ' + tkt_data.job_city_disco + '</p>';
+                if(tkt_data.tkt_notes !== '' && include_notes) {
+                    template += '<p> Notes: ' + tkt_data.tkt_notes + '</p>';
+                }
+                
+                return template;
+            },
+
+            /**
+             * Relocation installation ticket data.
+             * @param {Object} tkt_data
+             * @param {Boolean} include_notes
+             */
+            install: function(tkt_data, include_notes) {
+                let template = '<p> Install Info: <br>';
+                template += 'Time Period: ' + tkt_data.job_time + '<br>';
+                template += 'Physical Address: ' + tkt_data.job_address_inst + '<br>';
+                template += 'City, State Zip: ' + tkt_data.job_city_inst + '<br>';
+                template += '<p> Immediate Tower: ' + tkt_data.job_tower + '</p>';
+                if(tkt_data.tkt_notes !== '' && include_notes) {
+                    template += '<p> Notes: ' + tkt_data.tkt_notes + '</p>';
+                }
+
+                return template;
+            }
+        },
+
         /**
          * Onsite ticket data
          * @param {Object} tkt_data
