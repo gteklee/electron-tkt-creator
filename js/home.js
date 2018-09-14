@@ -7,6 +7,14 @@
  * 
  * Login() :: void
  */
+let changelog = require('./modules/Changelog');
+$(() => { // Set version on load
+    for(let obj in changelog) {
+        $('#version').text(changelog[obj].name);
+        break;
+    } // End after first object
+});
+
 let Home = new function()
 {
     /**
@@ -216,7 +224,6 @@ let Home = new function()
 };
 let update = false;
 let displayed = false;
-let changelog = require('./modules/Changelog');
 
 /**
  * Login button-clicked listener

@@ -13,17 +13,13 @@ $other.on('click', event => {
     let option = event.target;          // Get target that was clicked on.
     let section = $(option).attr('id'); // Get what section to make visible.
 
-    console.log(section);
-
     if(!sessionStorage.loggedIn)
     {
         $('#err-login').text('Please login before creating tickets!');
         return;
     }
-    else if(section != 'option-repair' && section != 'option-home' && section != 'option-static') return; // For release with only repair tickets,
+    else if(section === 'option-other') return; // For release with only repair tickets,
                                                                                 // and statics ip requests, and...
-
-
     if($(option).hasClass('active')) return; // Already selected.
 
     $('.active').removeClass('active').addClass('other');      // Set option that was active to not.
@@ -41,7 +37,6 @@ $other.on('click', event => {
  */
 function redirect(section)
 {
-    console.log(_Section);
     if(section === 'option-static' && _Section !== section) {
         sessionStorage.section = section;
         window.location.href = '../html/static.html';
@@ -49,6 +44,30 @@ function redirect(section)
     else if(section === 'option-repair' && _Section !== section) {
         sessionStorage.section = section;
         window.location.href = '../html/index.html';
+    }
+    else if(section === 'option-install' && _Section !== section) {
+        sessionStorage.section = section;
+        window.location.href = '../html/install.html';
+    }
+    else if(section === 'option-onsite' && _Section !== section) {
+        sessionStorage.section = section;
+        window.location.href = '../html/onsite.html';
+    }
+    else if(section === 'option-relo' && _Section !== section) {
+        sessionStorage.section = section;
+        window.location.href = '../html/relo.html';
+    }
+    else if(section === 'option-key' && _Section !== section) {
+        sessionStorage.section = section;
+        window.location.href = '../html/key.html';
+    }
+    else if(section === 'option-voip' && _Section !== section) {
+        sessionStorage.section = section;
+        window.location.href = '../html/voip.html';
+    }
+    else if(section === 'option-mtl' && _Section !== section) {
+        sessionStorage.section = section;
+        window.location.href = '../html/mtl.html';
     }
 }
 
