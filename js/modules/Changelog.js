@@ -5,7 +5,7 @@ let Changelog = {
             'Relocation Ticket Added!'
         ]
     },
-    v161: {
+    v162: {
         name: 'v1.6.0',
         description: [
             'Onsite Ticket Added!',
