@@ -296,6 +296,34 @@ function FormBuilder()
                             '   <p class="err-msg" id="err-job_time"></p>'+
                             '</div>';
                 }
+                else if(objArray[i].fields[j] === 'job_address_disco') {
+                    form += '<p class="input-header" id="input-header-job_address_disco"> PHYSICAL ADDRESS OF DISCONNECT </p>'+
+                            '<input id="input-job_address_disco" type="text" name="job_address_disco"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-job_address_disco"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'job_city_disco') {
+                    form += '<p class="input-header" id="input-header-job_city_disco"> CITY, STATE ZIP OF DISCONNECT </p>'+
+                            '<input id="input-job_city_disco" type="text" name="job_city_disco"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-job_city_disco"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'job_address_inst') {
+                    form += '<p class="input-header" id="input-header-job_address_inst"> PHYSICAL ADDRESS OF INSTALL </p>'+
+                            '<input id="input-job_address_inst" type="text" name="job_address_inst"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-job_address_inst"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'job_city_inst') {
+                    form += '<p class="input-header" id="input-header-job_city_inst"> CITY, STATE ZIP OF INSTALL </p>'+
+                            '<input id="input-job_city_inst" type="text" name="job_city_inst"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-job_city_inst"></p>'+
+                            '</div>';
+                }
                 else if(objArray[i].fields[j] === 'cst_id') {
                     form += '<p class="input-header" id="input-header-cst_id"> CUSTOMER ID </p>'+
                             '<input id="input-cst_id" type="text" name="cst_id"/>'+
@@ -601,7 +629,17 @@ function FormBuilder()
                             '<p class="input-info"> Customer is informed that we need a <br> confirmation before a tech is dispatched. </p>'+
                             '<p class="input-info"> Advised that any animals onsite must be <br> contained. </p>'+
                             '<p class="input-info"> Advised that the only forms of payment <br> accepted are Money Order, Credit Card, and <br> Debit Card at the time of installation. </p><br>'+
-                            '<label class="checkbox-container"><input id="input-info_confirm_install" type="checkbox" name="info_confirm" value="CONFIRMED"/> Done </label>';
+                            '<label class="checkbox-container"><input id="input-info_confirm_install" type="checkbox" name="info_confirm_install" value="CONFIRMED"/> Done </label>';
+
+                }
+                else if(objArray[i].fields[j] === 'info_confirm_relo') {
+                    form += '<p class="input-header" id="input-header-info_confirm_relo"> MAKE SURE ALL IS COMPLETED: </p><br>'+
+                            '<p class="input-info"> Confirmed that the account holder will be <br> onsite for the job. </p>'+
+                            '<p class="input-info"> Customer is informed that we need a <br> confirmation before a tech is dispatched. </p>'+
+                            '<p class="input-info"> Advised that any animals onsite must be <br> contained. </p>'+
+                            '<p class="input-info"> Date will be set on the disconnect job <br> created once submitted. </p>'+
+                            '<p class="input-info"> Date will be set on the installation job <br> created once submitted. </p>'+
+                            '<label class="checkbox-container"><input id="input-info_confirm_relo" type="checkbox" name="info_confirm_relo" value="CONFIRMED"/> Done </label>';
 
                 }
                 else

@@ -100,7 +100,7 @@
       </div>
     </section>
 
-    <section class="section-hidden" id="option-onsite">
+    <section class="section-hidden" id="option-relo">
         <div class="input-container">
         </div>
     </section>
@@ -108,43 +108,48 @@
     <script>
       const builder = new FormBuilder();
 
-      builder.Title('ONSITE TICKET', 'option-onsite');
-      builder.Create('Search-Customer', 'option-onsite', '.input-container');
+      builder.Title('RELOCATION TICKET', 'option-relo');
       builder.CreateForm([{
-            title: 'Job Information',
-            fields: [
-              'job_tower',
-              'job_zone',
-              'job_reason',
-              'job_expectations',
-              'tkt_notes'
-            ]
-        },{
             title: 'Customer Information',
             fields: [
               'cst_id',
-              'cst_name',
-              'cst_package',
+              'cst_name'
             ]
         },{
-            title: 'Equipment Information',
+            title: 'Disconnect Information',
             fields: [
-              'radio_management',
-              'radio_public',
-              'radio_type',
-              'special_equipment'
+              'job_address_disco',
+              'job_city_disco',
+              'job_zone'
             ]
+        },{
+            title: 'Reinstall Information',
+            fields: [
+              'job_address_inst',
+              'job_city_inst',
+              'job_tower'
+            ]
+        },{
+            title: 'Job Information',
+            fields: [
+              'job_time',
+              'tkt_notes'
+            ]
+        },{
+          title: 'Important Information',
+          fields: [
+            'info_confirm_relo'
+          ]
         }
-      ], 'option-onsite', '.input-container');
+      ], 'option-relo', '.input-container');
 
     </script>
 
     <script>
       require('../js/nav.js');      // Navigation handling.
       require('../js/home.js');     // Handle home page.
-      require('../js/ticket-handler-onsite.js');  // Handle network tickets / requests.
+      require('../js/ticket-handler-relo.js');  // Handle network tickets / requests.
       require('../js/ticket-handler-errors.js');  // Handle form input errors.
-      require('../renderer.js');
     </script>
   </body>
 

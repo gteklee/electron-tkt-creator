@@ -13,14 +13,12 @@ $other.on('click', event => {
     let option = event.target;          // Get target that was clicked on.
     let section = $(option).attr('id'); // Get what section to make visible.
 
-    console.log(section);
-
     if(!sessionStorage.loggedIn)
     {
         $('#err-login').text('Please login before creating tickets!');
         return;
     }
-    else if(section != 'option-repair' && section != 'option-install' && section != 'option-onsite' && section != 'option-home' && section != 'option-static' && section != 'option-key' && section != 'option-voip' && section != 'option-mtl') return; // For release with only repair tickets,
+    else if(section === 'option-other') return; // For release with only repair tickets,
                                                                                 // and statics ip requests, and...
     if($(option).hasClass('active')) return; // Already selected.
 
@@ -39,7 +37,6 @@ $other.on('click', event => {
  */
 function redirect(section)
 {
-    console.log(_Section);
     if(section === 'option-static' && _Section !== section) {
         sessionStorage.section = section;
         window.location.href = '../html/static.html';
@@ -55,6 +52,10 @@ function redirect(section)
     else if(section === 'option-onsite' && _Section !== section) {
         sessionStorage.section = section;
         window.location.href = '../html/onsite.html';
+    }
+    else if(section === 'option-relo' && _Section !== section) {
+        sessionStorage.section = section;
+        window.location.href = '../html/relo.html';
     }
     else if(section === 'option-key' && _Section !== section) {
         sessionStorage.section = section;
