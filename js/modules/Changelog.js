@@ -1,4 +1,11 @@
 let Changelog = {
+    v171: {
+        name: 'v1.7.1',
+        description: [
+            'Updated Zones & Towers!',
+            'Fixed position for back button!'
+        ]
+    },
     v170: {
         name: 'v1.7.0',
         description: [
