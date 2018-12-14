@@ -286,6 +286,13 @@ function FormBuilder()
                             '   <p class="err-msg" id="err-job_building_floors"></p>'+
                             '</div>';
                 }
+                else if(objArray[i].fields[j] === 'job_date') {
+                    form += '<p class="input-header" id="input-header-job_time"> DATE (mm/dd/YYYY) </p>'+
+                            '<input id="input-job_date" type="text" name="job_date"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-job_building_floors"></p>'+
+                            '</div>';
+                }
                 else if(objArray[i].fields[j] === 'job_time') {
                     form += '<p class="input-header" id="input-header-job_time"> TIME PERIOD </p>'+
                             '<select id="input-job_time">'+

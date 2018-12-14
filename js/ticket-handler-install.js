@@ -26,6 +26,7 @@ let Tickets = new function() // All form specific processes.
             job_building_type:      '',
             job_building_roof:      '',
             job_building_floors:    '',
+            job_date:               '',
             job_time:               '',
             tkt_notes:              '',
 

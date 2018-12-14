@@ -1,14 +1,15 @@
 let Changelog = {
-    v171: {
-        name: 'v1.7.1',
+    v172: {
+        name: 'v1.7.2',
         description: [
-            'Updated Zones & Towers!',
-            'Fixed position for back button!'
+            'Added Date to Install Ticket!'
         ]
     },
     v170: {
         name: 'v1.7.0',
         description: [
+            'Updated Zones & Towers!',
+            'Fixed position for back button!',
             'Relocation Ticket Added!'
         ]
     },

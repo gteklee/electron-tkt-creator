@@ -87,7 +87,7 @@ module.exports = {
          */
         install: function(tkt_data) {
             let template = '<p> Zone ' + tkt_data.job_zone + ' - ' + tkt_data.job_tower + ' - ' + tkt_data.job_time  + ' Install - ' + tkt_data.cst_name +  '</p>';
-            template += '<p>Installation Time Period: ' + tkt_data.job_time + '</p>';
+            template += '<p>Installation Date: ' + tkt_data.job_date + ' ' + tkt_data.job_time + '</p>';
             template += '<p>' + tkt_data.cst_name + '<br>';
             template += 'Building Type: ' + tkt_data.job_building_type + '<br>';
             template += 'Roof Type: ' + tkt_data.job_building_roof + '<br>';
