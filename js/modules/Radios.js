@@ -18,6 +18,7 @@ let Radios = {
         '3.6GHz MIMO OFDM',
         '5.4GHz MIMO OFDM',
         '5.4/5.7GHz MIMO OFDM',
+        '4.9/5.9GHz MIMO OFDM',
         '2.4 Omni',
         '5.7 Omni',
         '3692',
