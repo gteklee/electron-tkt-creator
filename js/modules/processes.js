@@ -132,7 +132,7 @@ module.exports = {
         } // Create ticket applied to network team
         else if(data.tkt_type === 'mtl_mdu') {
             console.log('Ticket created!');
-            Sonar.Ticket.SubmitAsTicket(data.mtl_id, template, subject, 1, 16, sessionStorage.username, sessionStorage.password, (data) => {
+            Sonar.Ticket.SubmitAsTicket(data.mtl_id, template, subject, 13, 16, sessionStorage.username, sessionStorage.password, (data) => {
                 if(data.error) {
                     console.error(data.error);
                     // Show alert for error while submitting

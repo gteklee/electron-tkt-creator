@@ -80,8 +80,8 @@ let Tickets = new function() // All form specific processes.
                         this.that.setTicketDataProperty(prop, $('#input-' + prop).val());
                     }
                 }
-                console.log(Tickets.Handler.getTicketData());
-                Processes.submitTicket(Tickets.Handler.getTicketData());
+                console.log(this.that.getTicketData());
+                Processes.submitTicket(this.that.getTicketData());
             }
 
         }

@@ -1,13 +1,14 @@
 let Changelog = {
-    v173: {
-        name: 'v1.7.3',
+    v174: {
+        name: 'v1.7.4',
         description: [
-            'Updated radio options.'
+            'MTL / MDU tickets now assigned to correct group.'
         ]
     },
     v170: {
         name: 'v1.7.0',
         description: [
+            'Updated radio options.',
             'Added Date to Install Ticket!',
             'Updated Zones & Towers!',
             'Fixed position for back button!',
