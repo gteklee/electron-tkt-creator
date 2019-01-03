@@ -430,7 +430,8 @@ module.exports = {
      */
     setTowerOptions: function(zone, cb)
     {
-        let selectedTower = $('#input-job_tower option:selected')[0].value || '';
+        let selectedTower = $('#input-job_tower option:selected').val() || '';
+        
         let allTowers = Towers.towers;
 
         if(zone == 0) {

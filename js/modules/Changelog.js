@@ -1,13 +1,16 @@
 let Changelog = {
-    v174: {
-        name: 'v1.7.4',
+    v175: {
+        name: 'v1.7.5',
         description: [
-            'MTL / MDU tickets now assigned to correct group.'
+            'Updated radio options.',
+            'Updated tower zones.',
+            'Bug fixes.'
         ]
     },
     v170: {
-        name: 'v1.7.0',
+        name: 'v1.7',
         description: [
+            'MTL / MDU tickets now assigned to correct group.',
             'Updated radio options.',
             'Added Date to Install Ticket!',
             'Updated Zones & Towers!',
@@ -16,14 +19,14 @@ let Changelog = {
         ]
     },
     v162: {
-        name: 'v1.6.0',
+        name: 'v1.6',
         description: [
             'Onsite Ticket Added!',
             'Installation Ticket Added!'
         ]
     },
     v140: {
-        name: 'v1.4.0',
+        name: 'v1.4',
         description: [
             'Key Upgrade Ticket Added!',
             'VOIP / Nextiva Escalation Ticket Added!',
@@ -33,7 +36,7 @@ let Changelog = {
         ]
     },
     v110: {
-        name: 'v1.1.0',
+        name: 'v1.1',
         description: [
             'Static IP Escalation Ticket Added!',
             'Fixed text formatting on jobs and tickets.'
@@ -57,7 +60,7 @@ let Changelog = {
         ]
     },*/
     v100: {
-        name: 'v1.0.0',
+        name: 'v1.0',
         description: [
             'Better UI!',
             'Automatic Updates!',

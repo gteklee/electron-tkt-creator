@@ -15,6 +15,8 @@ let Radios = {
     ],
 
     CANOPY: [
+        'PMP Generic',
+        'PMP 450b 5093HH',
         '3.6GHz MIMO OFDM',
         '5.4GHz MIMO OFDM',
         '5.4/5.7GHz MIMO OFDM',
