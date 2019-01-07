@@ -2,7 +2,8 @@ let Changelog = {
     v176: {
         name: 'v1.7.6',
         description: [
-            'Moved Zone Selection & Tower Selection.'
+            'Moved Zone Selection & Tower Selection.',
+            'Updated VOIP functionality.'
         ]
     },
     v170: {

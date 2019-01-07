@@ -257,11 +257,10 @@ module.exports = {
                 template += '<p> Customer Status: ' + cst_status + '<br>';
                 template += 'Reason For Escalation: ' + tkt_reason + '</p>';
 
-                template += '<p> VOIP MAC Address:  ' + voip_mac + '<br>';
-                template += 'Adapter IP Address: ' + voip_public + '</p>';
-
-
                 if(cst_status === 'Current Customer') {
+                    template += '<p> VOIP MAC Address:  ' + voip_mac + '<br>';
+                    template += 'Adapter IP Address: ' + voip_public + '</p>';
+
                     template += '<p> VOIP plugged in first?: ' + voip_first + '<br>';
                     template += 'VOIP in a registered state?: ' + voip_registered + '<br>';
                     template += 'Phone plugged into line 1?: ' + voip_line + '</p>'; 

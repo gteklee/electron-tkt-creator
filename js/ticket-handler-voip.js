@@ -470,6 +470,7 @@ $('#input-radio_type').on('change', () => {
 $('#input-cst_status-new').on('change', () => {
     if($('#input-cst_status-new').is(':checked')) { // Fail safe
         Processes.disableFields('voip-new');
+        $('#input-block-equipment-information').hide();
         $('#input-block-current-customer-information').hide();
         $('#input-block-new-customer-information').show();
     }
@@ -480,6 +481,7 @@ $('#input-cst_status-current').on('change', () => {
         Processes.enableFields();
         $('#input-block-new-customer-information').hide();
         $('#input-block-current-customer-information').show();
+        $('#input-block-equipment-information').show();
     }
 });
 
