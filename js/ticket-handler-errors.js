@@ -328,7 +328,7 @@ $('#input-radio_aggregate').on('change', () => {
  * REQUIRED
  */
 $('#input-voip_mac').on('change', () => {
-    Forms.checkBlank($('#input-voip_mac').val(), '#err-voip_mac');
+    // Forms.checkBlank($('#input-voip_mac').val(), '#err-voip_mac');
     Forms.checkSubmittable();
 });
 $('#input-voip_mac').keyup(event => {
@@ -628,7 +628,7 @@ let Forms = new function()
         // If no erros exist, check anyway
         let blank = false;
         ids.forEach(element => {
-            if((element === 'info_confirm_install' && $('#input-info_confirm_install').is(':checked')) || (element === 'info_confirm_relo' && $('#input-info_confirm_relo').is(':checked')) || (element === 'cst_id' && $('#input-cst_status-new').is(':checked')) || (element === 'voip_mac' && $('#input-cst_status-new').is(':checked')) || (element === 'voip_public' && $('#input-cst_status-new').is(':checked')) || element === 'tkt_notes' || element === 'tkt_reason_static' || element === 'voip_callid' || element === 'radio_ap_count' || element === 'radio_ssid' || element === 'radio_quality' || element === 'radio_ccq' || element === 'radio_signal_last' || element === 'radio_signal' || element === 'radio_speedtest' || element === 'cst_torch' || element === 'cst_speedtest' || element === 'special_equipment') {} // Skip
+            if((element === 'info_confirm_install' && $('#input-info_confirm_install').is(':checked')) || (element === 'info_confirm_relo' && $('#input-info_confirm_relo').is(':checked')) || (element === 'cst_id' && $('#input-cst_status-new').is(':checked')) || element === 'voip_mac' || element === 'voip_public' || element === 'tkt_notes' || element === 'tkt_reason_static' || element === 'voip_callid' || element === 'radio_ap_count' || element === 'radio_ssid' || element === 'radio_quality' || element === 'radio_ccq' || element === 'radio_signal_last' || element === 'radio_signal' || element === 'radio_speedtest' || element === 'cst_torch' || element === 'cst_speedtest' || element === 'special_equipment') {} // Skip
             else { 
                 //console.log($('#input-' + element).val() == '' && !($('#input-' + element).is(':disabled')));
                 if($('#input-' + element).val() == '' && !($('#input-' + element).is(':disabled'))) { // Blank

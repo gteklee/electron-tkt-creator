@@ -1,15 +1,17 @@
 let Changelog = {
     v176: {
-        name: 'v1.7.6',
+        name: 'v1.7.7',
         description: [
-            'Moved Zone Selection & Tower Selection.',
-            'Updated VOIP functionality.'
+            'Bug fixes.',
+            'Updated VoIP ticket!'
         ]
     },
     v170: {
         name: 'v1.7',
         description: [
             'Bug fixes.',
+            'Moved Zone Selection & Tower Selection.',
+            'Updated VOIP functionality.',
             'MTL / MDU tickets now assigned to correct group.',
             'Updated radio options.',
             'Updated tower zones.',
