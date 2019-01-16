@@ -340,7 +340,7 @@ $('#input-voip_mac').keyup(event => {
  * REQUIRED
  */
 $('#input-voip_public').on('change', () => {
-    Forms.checkBlank($('#input-voip_public').val(), '#err-voip_public');
+    // Forms.checkBlank($('#input-voip_public').val(), '#err-voip_public');
     Forms.checkSubmittable();
 });
 $('#input-voip_public').keyup(event => {

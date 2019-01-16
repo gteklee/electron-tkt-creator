@@ -1,6 +1,6 @@
 let Changelog = {
     v176: {
-        name: 'v1.7.7',
+        name: 'v1.7.8',
         description: [
             'Bug fixes.',
             'Updated VoIP ticket!'
