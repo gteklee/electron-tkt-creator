@@ -138,6 +138,24 @@ $('#input-job_city_inst').on('change', () => {
 });
 
 /**
+ * Job Installation Address (job_address_inst)
+ * REQUIRED
+ */
+$('#input-job_address_survey').on('change', () => {
+    Forms.checkBlank($('#input-job_address_survey').val(), '#err-job_address_survey');
+    Forms.checkSubmittable();
+});
+
+/**
+ * Job Installation City (job_address_inst)
+ * REQUIRED
+ */
+$('#input-job_city_survey').on('change', () => {
+    Forms.checkBlank($('#input-job_city_survey').val(), '#err-job_city_survey');
+    Forms.checkSubmittable();
+});
+
+/**
  * Customer ID (cst_id)
  * REQUIRED
  */
@@ -406,6 +424,13 @@ $('#input-info_confirm_install').on('change', () => {
 $('#input-info_confirm_relo').on('change', () => {
     Forms.checkSubmittable();
 });
+
+/**
+ * Important Information Confirmation for Site Survey (info_confirm_survey)
+ */
+$('#input-info_confirm_survey').on('change', () => {
+    Forms.checkSubmittable();
+});
 // --------------------------------------------------------
 
 /**
@@ -628,7 +653,7 @@ let Forms = new function()
         // If no erros exist, check anyway
         let blank = false;
         ids.forEach(element => {
-            if((element === 'info_confirm_install' && $('#input-info_confirm_install').is(':checked')) || (element === 'info_confirm_relo' && $('#input-info_confirm_relo').is(':checked')) || (element === 'cst_id' && $('#input-cst_status-new').is(':checked')) || element === 'voip_mac' || element === 'voip_public' || element === 'tkt_notes' || element === 'tkt_reason_static' || element === 'voip_callid' || element === 'radio_ap_count' || element === 'radio_ssid' || element === 'radio_quality' || element === 'radio_ccq' || element === 'radio_signal_last' || element === 'radio_signal' || element === 'radio_speedtest' || element === 'cst_torch' || element === 'cst_speedtest' || element === 'special_equipment') {} // Skip
+            if((element === 'info_confirm_survey' && $('#input-info_confirm_survey').is(':checked')) || (element === 'info_confirm_install' && $('#input-info_confirm_install').is(':checked')) || (element === 'info_confirm_relo' && $('#input-info_confirm_relo').is(':checked')) || (element === 'cst_id' && $('#input-cst_status-new').is(':checked')) || element === 'voip_mac' || element === 'voip_public' || element === 'job_occupancy' || element === 'job_population' || element === 'job_reason_survey' || element === 'tkt_notes' || element === 'tkt_reason_static' || element === 'voip_callid' || element === 'radio_ap_count' || element === 'radio_ssid' || element === 'radio_quality' || element === 'radio_ccq' || element === 'radio_signal_last' || element === 'radio_signal' || element === 'radio_speedtest' || element === 'cst_torch' || element === 'cst_speedtest' || element === 'special_equipment') {} // Skip
             else { 
                 //console.log($('#input-' + element).val() == '' && !($('#input-' + element).is(':disabled')));
                 if($('#input-' + element).val() == '' && !($('#input-' + element).is(':disabled'))) { // Blank

@@ -331,6 +331,62 @@ function FormBuilder()
                             '   <p class="err-msg" id="err-job_city_inst"></p>'+
                             '</div>';
                 }
+                else if(objArray[i].fields[j] === 'job_address_survey') {
+                    form += '<p class="input-header" id="input-header-job_address_survey"> PHYSICAL ADDRESS OF SITE </p>'+
+                            '<input id="input-job_address_survey" type="text" name="job_address_survey"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-job_address_survey"></p>'+
+                            '</div>'; 
+                }
+                else if(objArray[i].fields[j] === 'job_city_survey') {
+                    form += '<p class="input-header" id="input-header-job_city_survey"> CITY, STATE ZIP OF SITE </p>'+
+                            '<input id="input-job_city_survey" type="text" name="job_city_survey"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-job_city_survey"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'job_property') {
+                    form += '<p class="input-header" id="input-header-job_property"> TYPE OF PROPERTY </p>'+
+                            '<select id="input-job_property">'+
+                                '<option value="Residence"> Residence </option>'+
+                                '<option value="Business"> Business </option>'+
+                                '<option value="RV Park"> RV Park </option>'+
+                                '<option value="Apartment"> Apartment </option>'+
+                            '</select>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-job_property"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'job_occupancy') {
+                    form += '<p class="input-header" id="input-header-job_occupancy"> OCCUPANCY (RV SPOTS, APARTMENTS, </br> SQUARE FOOTAGE, ETC.) </p>'+
+                            '<input id="input-job_occupancy" type="text" name="job_occupancy"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-job_occupancy"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'job_population') {
+                    form += '<p class="input-header" id="input-header-job_population"> POPULATION AT SITE </p>'+
+                            '<input id="input-job_population" type="text" name="job_population"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-job_population"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'job_reason_survey') {
+                    form += '<p class="input-header" id="input-header-job_reason_survey"> REASON FOR SITE SURVEY </p>'+
+                            '<textarea id="input-job_reason_survey" rows="6" placeholder="Why are you creating this site survey? Utility pole location, business, etc."></textarea>'+
+                            '<div class="err-container">'+
+                                '<p class="err-msg" id="err-job_reason_survey"></p>'+
+                            '</div>'
+                }
+                else if(objArray[i].fields[j] === 'job_wifi') {
+                    form += '<p class="input-header" id="input-header-job_wifi"> DOES THE CUSTOMER WANT TO PROVIDE </br> FREE WIFI TO PEOPLE ONSITE? </p>'+
+                            '<input id="input-job_wifi-yes" type="radio" name="job_wifi" value="Yes"> Yes <br>'+
+                            '<input id="input-job_wifi-no" type="radio" name="job_wifi" value="No"> No <br>'+
+                            '<div>'+ 
+                                '<input id="input-job_wifi-other" type="radio" name="job_wifi" value="Other"> Other <br>'+
+                                '<input style="margin-top:10px;" disabled="false" id="input-job_wifi-text" type="text" name="job_wifi-other"/>'+
+                            '</div>';
+                }
                 else if(objArray[i].fields[j] === 'cst_id') {
                     form += '<p class="input-header" id="input-header-cst_id"> CUSTOMER ID </p>'+
                             '<input id="input-cst_id" type="text" name="cst_id"/>'+
@@ -648,6 +704,12 @@ function FormBuilder()
                             '<p class="input-info"> Date will be set on the installation job <br> created once submitted. </p>'+
                             '<label class="checkbox-container"><input id="input-info_confirm_relo" type="checkbox" name="info_confirm_relo" value="CONFIRMED"/> Done </label>';
 
+                }
+                else if(objArray[i].fields[j] === 'info_confirm_survey') {
+                    form += '<p class="input-header" id="input-header-info_confirm_survey"> MAKE SURE ALL IS COMPLETED: </p><br>'+
+                            '<p class="input-info"> Site Survey is approved by supervisor. </p>'+
+                            '<p class="input-info"> Advised that any animals onsite must be <br> contained. </p>'+
+                            '<label class="checkbox-container"><input id="input-info_confirm_survey" type="checkbox" name="info_confirm_relo" value="CONFIRMED"/> Done </label>';
                 }
                 else
                     console.error('Specified field id not found!');

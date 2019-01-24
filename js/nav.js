@@ -18,7 +18,7 @@ $other.on('click', event => {
         $('#err-login').text('Please login before creating tickets!');
         return;
     }
-    else if(section === 'option-other') return; // For release with only repair tickets,
+    //else if(section === 'option-other') return; // For release with only repair tickets,
                                                                                 // and statics ip requests, and...
     if($(option).hasClass('active')) return; // Already selected.
 
@@ -68,6 +68,10 @@ function redirect(section)
     else if(section === 'option-mtl' && _Section !== section) {
         sessionStorage.section = section;
         window.location.href = '../html/mtl.html';
+    }
+    else if(section === 'option-survey' && _Section !== section) {
+        sessionStorage.section = section;
+        window.location.href = '../html/survey.html';
     }
 }
 

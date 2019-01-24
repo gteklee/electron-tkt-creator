@@ -1,17 +1,16 @@
 let Changelog = {
-    v176: {
-        name: 'v1.7.8',
+    v180: {
+        name: 'v1.8.0',
         description: [
-            'Bug fixes.',
-            'Updated VoIP ticket!'
+            'Site Survey Added!'
         ]
     },
-    v170: {
-        name: 'v1.7',
+    v178: {
+        name: 'v1.7.x',
         description: [
             'Bug fixes.',
             'Moved Zone Selection & Tower Selection.',
-            'Updated VOIP functionality.',
+            'Updated VOIP ticket!',
             'MTL / MDU tickets now assigned to correct group.',
             'Updated radio options.',
             'Updated tower zones.',
@@ -22,14 +21,14 @@ let Changelog = {
         ]
     },
     v162: {
-        name: 'v1.6',
+        name: 'v1.6.x',
         description: [
             'Onsite Ticket Added!',
             'Installation Ticket Added!'
         ]
     },
     v140: {
-        name: 'v1.4',
+        name: 'v1.4.x',
         description: [
             'Key Upgrade Ticket Added!',
             'VOIP / Nextiva Escalation Ticket Added!',
@@ -39,7 +38,7 @@ let Changelog = {
         ]
     },
     v110: {
-        name: 'v1.1',
+        name: 'v1.1.x',
         description: [
             'Static IP Escalation Ticket Added!',
             'Fixed text formatting on jobs and tickets.'
@@ -63,14 +62,14 @@ let Changelog = {
         ]
     },*/
     v100: {
-        name: 'v1.0',
+        name: 'v1.0.x',
         description: [
             'Better UI!',
             'Automatic Updates!',
             'Sonar API Integration!'
         ]
     }
-}
+};
 module.exports = Changelog;
 
 /* Template:
