@@ -107,6 +107,22 @@ module.exports = {
             return template;
         },
 
+        /**
+         * Site survey ticket data
+         * @param {Object} tkt_data 
+         */
+        survey: function(tkt_data) {
+            let template = '<p> Zone ' + tkt_data.job_zone + ' Site Survey - ' + tkt_data.cst_name + ' </p>';
+            template += '<p> Customer Name: ' + tkt_data.cst_name + ' ' + tkt_data.cst_id + ' <br>';
+            template += '<p> Type of Property: ' + tkt_data.job_property + ' <br>';
+            template += 'Occupancy: ' + tkt_data.job_occupancy + ' <br>';
+            template += 'Current Number of People at Location: ' + tkt_data.job_population + ' <br>';
+            template += 'Does the Customer Want to Provide Free Wifi to People Onsite? ' + tkt_data.job_wifi + ' </p>';
+            template += '<p> Reason for Site Survey: ' + tkt_data.job_reason_survey + ' </p>';
+            template += '<p> Notes: ' + tkt_data.tkt_notes + ' </p>'
+            return template;
+        },
+
         // Relocation templates for each job
         relo: {
             /**

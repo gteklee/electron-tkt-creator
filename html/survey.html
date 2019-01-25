@@ -23,20 +23,6 @@
   </head>
 
   <body>
-
-<!-- OVERLAY IF SOFTWARE NEEDS TO BE LOCKED
-<div class="pre-release">
-  <div class="img-container" id="pre-release-img">
-    <img src="../img/logo.png"/>
-  </div>
-  <div class="pre-release-container">
-    <p class="pre-release-info"> The new ticketing system is not ready yet </p>
-    <p class="pre-release-info"> An update will be released to allow full access </p>
-    <p> You will click the version below when it turns red to update </p>
-    <div class="pre-release-version" id="update-ready"> <p> </p> </div>
-    <p class="pre-release-version" id="version"> v0.9.9 </p>
-  </div>
-</div> -->
     
     <!-- Navbar -->
     <div class="navbar">
@@ -114,7 +100,7 @@
       </div>
     </section>
 
-    <section class="section-hidden" id="option-repair">
+    <section class="section-hidden" id="option-survey">
         <div class="input-container">
         </div>
     </section>
@@ -122,51 +108,42 @@
     <script>
       const builder = new FormBuilder();
 
-      builder.Title('REPAIR TICKET', 'option-repair');
-      builder.Create('Search-Customer', 'option-repair', '.input-container');
+      builder.Title('SITE SURVEY', 'option-survey');
+      builder.Create('Search-Customer', 'option-survey', '.input-container');
       builder.CreateForm([{
-            title: 'Job Information',
-            fields: [
-              'job_type',
-              'job_zone',
-              'job_tower',
-              'job_tower_height',
-              'tkt_notes'
-            ]
-        },{
             title: 'Customer Information',
             fields: [
               'cst_id',
-              'cst_name',
-              'cst_package',
-              'cst_speedtest',
-              'cst_torch'
+              'cst_name'
+              // 'cst_phone',
+              // 'job_address_survey',
+              // 'job_city_survey'
             ]
         },{
-            title: 'Equipment Information',
+            title: 'Job Information',
             fields: [
-              'radio_management',
-              'radio_public',
-              'radio_mac',
-              'radio_speedtest',
-              'radio_type',
-              'radio_signal',
-              'radio_signal_last',
-              'radio_ccq',
-              'radio_quality',
-              'radio_ssid',
-              'radio_ap_count'
+              'job_zone',
+              'job_property',
+              'job_occupancy',
+              'job_population',
+              'job_wifi',
+              'job_reason_survey',
+              'tkt_notes'
             ]
+        },{
+          title: 'Important Information',
+          fields: [
+            'info_confirm_survey'
+          ]
         }
-      ], 'option-repair', '.input-container');
+      ], 'option-survey', '.input-container');
 
     </script>
 
     <script>
-      require('../renderer.js');
       require('../js/nav.js');      // Navigation handling.
       require('../js/home.js');     // Handle home page.
-      require('../js/ticket-handler-repair.js');  // Handle network tickets / requests.
+      require('../js/ticket-handler-survey.js');  // Handle network tickets / requests.
       require('../js/ticket-handler-errors.js');  // Handle form input errors.
     </script>
   </body>

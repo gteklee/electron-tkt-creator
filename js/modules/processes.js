@@ -105,8 +105,9 @@ module.exports = {
                 data.cst_status, data.tkt_reason
             );
             subject = 'MTL / MDU Escalation';
-        } else if(data.tkt_type === 'other') {
-            return;
+        } else if(data.tkt_type === 'survey') {
+            template = Tickets.templates.survey(data);
+            console.log(template);
         } else {
             console.error('Ticket type is not recognized "' + data.tkt_type + '"!');
         }
@@ -114,6 +115,25 @@ module.exports = {
         if(data.tkt_type === 'repair' || data.tkt_type === 'onsite') {
             console.log('Job created!');
             Sonar.Ticket.Submit(data.cst_id, template, null, 2, sessionStorage.username, sessionStorage.password, (data) => {
+                if(data.error) {
+                    console.error(data.error);
+                    // Show alert for error while submitting
+                    if(data.error.status_code === 404 || 422) { // Can't be found / problem with ID
+                        this.alert.submission.show('Customer ID does not exist!', true);
+                    } 
+                    else { 
+                        this.alert.submission.show('Error: ' + data.error.status_code, true);
+                    }
+                } 
+                else {
+                    // Show alert for successful submission
+                    this.alert.submission.show('', false);
+                }
+            });
+        }
+        else if(data.tkt_type === 'survey') {
+            console.log('Job created!');
+            Sonar.Ticket.Submit(data.cst_id, template, null, 8, sessionStorage.username, sessionStorage.password, data => {
                 if(data.error) {
                     console.error(data.error);
                     // Show alert for error while submitting
