@@ -161,7 +161,6 @@ let Tickets = new function() // All form specific processes.
         {   // Set customer info
             data.cst_id = this.getTicketDataProperty('acct_obj').data.id;
             data.cst_name = this.getTicketDataProperty('acct_obj').data.name;
-
             this.setTicketData(data); // Set ticket data pulled from Sonar
             console.log(data);
             this.form.fill();

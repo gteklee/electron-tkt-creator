@@ -18,6 +18,7 @@ module.exports = {
         //$('#input-ticket-submit').removeClass('input-block-hidden').addClass('input-block');
         $('#back-btn').removeClass('bbtn-container-hidden').addClass('bbtn-container');
         //this.currentSection = '#input-ticket-template';
+        $('#input-cst_name').change();
         cb('#input-ticket-template');
     },
 

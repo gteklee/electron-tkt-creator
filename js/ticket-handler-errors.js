@@ -178,6 +178,7 @@ $('#input-cst_id').keyup(event => {
  */
 $('#input-cst_name').on('change', () => {
     Forms.checkBlank($('#input-cst_name').val(), '#err-cst_name');
+    Forms.checkCharactersForBreakingChar($('#input-cst_name').val(), '#input-cst_name');
     Forms.checkSubmittable();
 });
 
@@ -606,6 +607,12 @@ let Forms = new function()
             do {
                 fix = fix.replace('°', ''); // Remove degree symbol
             } while(fix.includes('°'));
+            $(id).val(fix); // Set new fixed value
+        } else if(val.includes('​')) { // Zero width whitespace char (\u200b)
+            let fix = val;
+            do {
+                fix = fix.replace('​', ''); // Remove \u200b
+            } while(fix.includes('​'));
             $(id).val(fix); // Set new fixed value
         }
     }
