@@ -1,4 +1,10 @@
 let Changelog = {
+    v181: {
+        name: 'v1.8.1',
+        description: [
+            'Bug fix for invalid JSON on ticket submission.'
+        ]
+    },
     v180: {
         name: 'v1.8.0',
         description: [
