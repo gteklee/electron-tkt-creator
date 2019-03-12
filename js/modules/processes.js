@@ -100,11 +100,7 @@ module.exports = {
             subject = 'VOIP / Nextiva Escalation';
         } else if(data.tkt_type === 'mtl_mdu') {
             // Get ticket template to submit
-            template = Tickets.templates.escalations.mtl_mdu(
-                data.cst_id, data.cst_name, 
-                data.cst_phone, data.cst_unit, 
-                data.cst_status, data.tkt_reason
-            );
+            template = Tickets.templates.escalations.mtl_mdu(data);
             subject = 'MTL / MDU Escalation';
         } else if(data.tkt_type === 'survey') {
             template = Tickets.templates.survey(data);

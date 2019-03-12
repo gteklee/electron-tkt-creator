@@ -1,13 +1,15 @@
 let Changelog = {
-    v181: {
-        name: 'v1.8.1',
+    v182: {
+        name: 'v1.8.2',
         description: [
-            'Bug fix for invalid JSON on ticket submission.'
+            'Updated MTL / MDU Escalation Ticket Format!',
+            'Updated Tower Zones!'
         ]
     },
     v180: {
         name: 'v1.8.0',
         description: [
+            'Bug fix for invalid JSON on ticket submission.',
             'Site Survey Added!'
         ]
     },
@@ -16,10 +18,10 @@ let Changelog = {
         description: [
             'Bug fixes.',
             'Moved Zone Selection & Tower Selection.',
-            'Updated VOIP ticket!',
+            'Updated VOIP Ticket!',
             'MTL / MDU tickets now assigned to correct group.',
-            'Updated radio options.',
-            'Updated tower zones.',
+            'Updated Radio Options!',
+            'Updated Tower Zones!',
             'Added Date to Install Ticket!',
             'Updated Zones & Towers!',
             'Fixed position for back button!',
