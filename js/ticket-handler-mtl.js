@@ -18,6 +18,14 @@ let Tickets = new function() // All form specific processes.
             cst_status: '',
 
             mtl_id: '',
+            mtl_mac: '',
+            cst_torch: '',
+            mtl_dhcp: '',
+            mtl_queue: '',
+            mtl_queue_max: '',
+            mtl_ap: '',
+            mtl_ap_uptime: '',
+            mtl_snr: '',
             tkt_reason:  '',
 
             tkt_type: 'mtl_mdu'

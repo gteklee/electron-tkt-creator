@@ -415,6 +415,13 @@ function FormBuilder()
                             '   <p class="err-msg" id="err-cst_unit"></p>'+
                             '</div>';
                 }
+                else if(objArray[i].fields[j] === 'cst_site') {
+                    form += '<p class="input-header" id="input-header-cst_site"> CUSTOMER SITE NUMBER </p>'+
+                            '<input id="input-cst_site" type="text" name="cst_site"/>'+
+                            '<div class="err-container">'+
+                            '   <p class="err-msg" id="err-cst_site"></p>'+
+                            '</div>';
+                }
                 else if(objArray[i].fields[j] === 'cst_status') {
                     form += '<p class="input-header" id="input-header-cst_status"> CUSTOMER STATUS </p>'+
                             '<input id="input-cst_status-current" type="radio" name="status" value="current"> Current Customer <br>'+
@@ -665,6 +672,54 @@ function FormBuilder()
                             '<div class="err-container">'+
                             '   <p class="err-msg" id="err-mtl_id"></p>'+
                             '</div>';
+                }
+                else if(objArray[i].fields[j] === 'mtl_mac') {
+                    form += '<p class="input-header" id="input-header-mtl_mac"> VISP MAC ADDRESS (IF ANY)</p>'+
+                            '<input id="input-mtl_mac" type="text" name="mtl_mac"/>'+
+                            '<div class="err-container">'+
+                                '<p class="err-msg" id="err-mtl_mac"></p>'+
+                            '</div>';
+                }
+                else if(objArray[i].fields[j] === 'mtl_dhcp') {
+                    form += '<p class="input-header" id="input-header-mtl_dhcp"> IS THE CUSTOMER CURRENTLY IN THE DHCP </br> SERVER AND ARP TABLE? </p>'+
+                            '<select id="input-mtl_dhcp">'+
+                                '<option value=""> </option>'+
+                                '<option value="No"> No </option>'+
+                                '<option value="Yes"> Yes </option>'+
+                            '</select>';
+                }
+                else if(objArray[i].fields[j] === 'mtl_queue') {
+                    form += '<p class="input-header" id="input-header-mtl_queue"> IS THE CUSTOMER CURRENTLY IN THE </br> QUEUE LIST? </p>'+
+                            '<select id="input-mtl_queue">'+
+                                '<option value=""> </option>'+
+                                '<option value="No"> No </option>'+
+                                '<option value="Yes"> Yes </option>'+
+                            '</select>';
+                }
+                else if(objArray[i].fields[j] === 'mtl_queue_max') {
+                    form += '<p class="input-header" id="input-header-mtl_queue_max"> WHAT COLOR IS THE CUSTOMER SHOWING </br> UNDER THE QUEUE LIST? </p>'+
+                            '<select id="input-mtl_queue_max">'+
+                                '<option value=""> </option>'+
+                                '<option value="Red"> Red </option>'+
+                                '<option value="Yellow"> Yellow </option>'+
+                                '<option value="Green"> Green </option>'+
+                            '</select>';
+                }
+                else if(objArray[i].fields[j] === 'mtl_ap') {
+                    form += '<p class="input-header" id="input-header-mtl_ap"> WHAT AP IS THE CUSTOMER CONNECTED TO? </p>'+
+                            '<input id="input-mtl_ap" type="text" name="mtl_ap"/>'
+                }
+                else if(objArray[i].fields[j] === 'mtl_ap_uptime') {
+                    form += '<p class="input-header" id="input-header-mtl_ap_uptime"> HOW LONG HAS THE AP BEEN UP? </p>'+
+                            '<input id="input-mtl_ap_uptime" type="text" name="mtl_ap_uptime"/>'
+                }
+                else if(objArray[i].fields[j] === 'mtl_snr') {
+                    form += '<p class="input-header" id="input-header-mtl_snr"> IS THE SNR ABOVE 20? </p>'+
+                            '<select id="input-mtl_snr">'+
+                                '<option value=""> </option>'+
+                                '<option value="No"> No </option>'+
+                                '<option value="Yes"> Yes </option>'+
+                            '</select>';
                 }
                 else if(objArray[i].fields[j] === 'special_equipment') {
                     form += '<p class="input-header" id="input-header-special_equipment"> SPECIAL EQUIPMENT NEEDED </p>'+

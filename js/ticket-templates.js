@@ -296,23 +296,34 @@ module.exports = {
             /**
              * MTL / MDU Escalation.
              * 
-             * @param {Number} cst_id
-             * @param {String} cst_name
-             * @param {String} cst_phone
-             * @param {Number} cst_unit
-             * @param {String} cst_status
-             * @param {String} tkt_reason
+             * @param {Object} tkt_data
              */
-            mtl_mdu: function(cst_id, cst_name, cst_phone, cst_unit, cst_status, tkt_reason)
+            mtl_mdu: function(tkt_data)
             {
                 let template = '<p> Escalating Reason: MTL / MDU <br>';
                 template += 'Date: ' + (new Date().toLocaleDateString()) + '</p>';
-                template += '<p> Customer ID: ' + cst_id + '<br>';
-                template += 'Customer Name: ' + cst_name + '<br>';
-                template += 'Customer Number: ' + cst_phone + '<br>';
-                template += 'Customer Unit: ' + cst_unit + '</p>';
-                template += '<p> Customer Status: ' + cst_status + '<br>';
-                template += 'Reason For Escalation: ' + tkt_reason + '</p>';
+
+                template += '<p> Customer ID: ' + tkt_data.cst_id + '<br>';
+                template += 'Customer Name: ' + tkt_data.cst_name + '<br>';
+                template += 'Customer Number: ' + tkt_data.cst_phone + '<br>';
+                template += 'Customer Unit: ' + tkt_data.cst_unit + '</p>';
+
+                template += '<p> Customer Status: ' + tkt_data.cst_status + '<br>';
+                if(tkt_data.mtl_mac !== '') {
+                    template += 'MAC In VISP: ' + tkt_data.mtl_mac + '</p>';
+                } else {
+                    template += '</p>';
+                }
+
+                template += '<p> Torch Results: ' + tkt_data.cst_torch + '<br>';
+                template += 'In DHCP Server? ' + tkt_data.mtl_dhcp + ' <br>';
+                template += 'In Queue? ' + tkt_data.mtl_queue + ' <br>';
+                template += 'Queue Status Color: ' + tkt_data.mtl_queue_max + ' <br>';
+                template += 'Access Point: ' + tkt_data.mtl_ap + ' <br>';
+                template += 'Access Point Uptime: ' + tkt_data.mtl_ap_uptime + ' <br>';
+                template += 'SNR Above 20? ' + tkt_data.mtl_snr + ' </p>';
+
+                template += '<p> Reason For Escalation: ' + tkt_data.tkt_reason + '</p>';
                 
                 return template;
             }

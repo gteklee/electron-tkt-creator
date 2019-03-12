@@ -2,7 +2,8 @@ let Changelog = {
     v182: {
         name: 'v1.8.2',
         description: [
-            'Updated tower zones.'
+            'Updated MTL / MDU Escalation Ticket Format!',
+            'Updated Tower Zones!'
         ]
     },
     v181: {
@@ -17,10 +18,10 @@ let Changelog = {
         description: [
             'Bug fixes.',
             'Moved Zone Selection & Tower Selection.',
-            'Updated VOIP ticket!',
+            'Updated VOIP Ticket!',
             'MTL / MDU tickets now assigned to correct group.',
-            'Updated radio options.',
-            'Updated tower zones.',
+            'Updated Radio Options!',
+            'Updated Tower Zones!',
             'Added Date to Install Ticket!',
             'Updated Zones & Towers!',
             'Fixed position for back button!',
