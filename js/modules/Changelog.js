@@ -4,7 +4,6 @@ let Changelog = {
         description: [
             'Removed MTL / MDU Escalation Ticket fields!',
             'Updated Tower Zones!'
-        ]
     },
     v181: {
         name: 'v1.8.x',
