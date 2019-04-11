@@ -1,4 +1,4 @@
-const Processes = require('./modules/processes.js'); // All common processes with the form.
+const Processes = require('./modules/processes-test.js'); // All common processes with the form.
 let Tickets = new function() // All form specific processes.
 {
     this.Handler = new function()
@@ -275,7 +275,7 @@ $('#btn-tkt-submit').on('click', () => {
     });
         // "OKAY" button for submission of ticket.
         $('#btn-submission-close').on('click', () => {
-            Processes.alert.submission.close();
+            Processes.alert.submitted.close();
         });
     /**
      * "CANCEL" button clicked event.
@@ -298,7 +298,8 @@ $('#btn-create-tkt').on('click', () => {
  * "CHECK ACCOUNT" button
  */
 $('#btn-check-acnt').on('click', () => {
-    Processes.checkForCustomerAccount((data, err) => {
+    Processes.checkForCustomerAccountById($('#input-customer-search-cst-id').val(),
+        (data, err) => {
         if(err) {   // Handle error
             Tickets.Handler.handleErrorObject(err, '#err-search-cst_id');
         }
@@ -315,7 +316,8 @@ $('#btn-check-acnt').on('click', () => {
      * Sonar.
      */
     $('#btn-cst-confirm').on('click', () => {
-        Processes.getCustomerData(Tickets.Handler.getTicketDataProperty('acct_obj').data.id, (data, err) => {
+        Processes.getCustomerDataById(Tickets.Handler.getTicketDataProperty('acct_obj').data.id, 
+        (data, err) => {
             if(err) {  // Handle error
                 Tickets.Handler.handleErrorObject(err, '#info-confirm-cst_id');
             }

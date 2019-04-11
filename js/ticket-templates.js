@@ -328,5 +328,18 @@ module.exports = {
                 return template;
             }
         }
+    },
+
+    // Ticket types
+    types:  {
+        repair: 'repair',
+        install: 'install',
+        onsite: 'onsite',
+        relo: 'relo',
+        static: 'static',
+        key: 'key_upgrade',
+        voip: 'voip',
+        mdu: 'mtl_mdu',
+        survey: 'survey',
     }
 };

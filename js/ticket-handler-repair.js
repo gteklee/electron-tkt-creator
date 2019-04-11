@@ -1,4 +1,4 @@
-const Processes = require('./modules/processes.js'); // All common processes with the form.
+const Processes = require('./modules/Processes-test'); // All common processes with the form.
 let Tickets = new function() // All form specific processes.
 {
     this.Handler = new function()
@@ -130,7 +130,6 @@ let Tickets = new function() // All form specific processes.
                         this.that.setTicketDataProperty(prop, $('#input-' + prop).val());
                     }
                 }
-                console.log(this.that.getTicketData());
                 Processes.submitTicket(Tickets.Handler.getTicketData());
                 this.that.clearTicketData();
             }
@@ -258,6 +257,7 @@ let Tickets = new function() // All form specific processes.
                     console.error('Property "' + prop + '" does not exist!');
                 }
             }
+            console.log(this._ticketData);
         }
         /**
          * Clear all properties of the Ticket Data object.
@@ -337,7 +337,7 @@ $('#btn-tkt-submit').on('click', () => {
     });
         // "OKAY" button for submission of ticket.
         $('#btn-submission-close').on('click', () => {
-            Processes.alert.submission.close();
+            Processes.alert.submitted.close();
         });
     /**
      * "CANCEL" button clicked event.
@@ -352,7 +352,7 @@ $('#btn-tkt-submit').on('click', () => {
 $('#btn-create-tkt').on('click', () => {
     Tickets.Handler.form.clear();
     Processes.displayForm(Tickets.Handler.getCurrentSection(), 
-        (string) => Tickets.Handler.setCurrentSection(string));
+        string => Tickets.Handler.setCurrentSection(string));
 });
 
 /**
@@ -360,7 +360,8 @@ $('#btn-create-tkt').on('click', () => {
  * "CHECK ACCOUNT" button
  */
 $('#btn-check-acnt').on('click', () => {
-    Processes.checkForCustomerAccount((data, err) => {
+    Processes.checkForCustomerAccountById($('#input-customer-search-cst-id').val(),
+    (data, err) => {
         if(err) {   // Handle error
             Tickets.Handler.handleErrorObject(err, '#err-search-cst_id');
         }
@@ -377,7 +378,8 @@ $('#btn-check-acnt').on('click', () => {
      * Sonar.
      */
     $('#btn-cst-confirm').on('click', () => {
-        Processes.getCustomerData(Tickets.Handler.getTicketDataProperty('acct_obj').data.id, (data, err) => {
+        Processes.getCustomerDataById(Tickets.Handler.getTicketDataProperty('acct_obj').data.id, 
+        (data, err) => {
             if(err) {  // Handle error
                 Tickets.Handler.handleErrorObject(err, '#info-confirm-cst_id');
             }
@@ -444,7 +446,7 @@ $('#input-job_tower').on('change', () => {
  * tower options.
  */
 $('#input-job_zone').on('change', () => {
-    Processes.setTowerOptions($('#input-job_zone option:selected')[0].value, (tower) => {
+    Processes.setTowerOptionsByZone($('#input-job_zone option:selected')[0].value, (tower) => {
         $('#input-job_tower').val(tower);
     });
 });
