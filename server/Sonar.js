@@ -143,7 +143,7 @@ let Sonar = new function()
             options.method = 'GET';
             this.callback = callback;
 
-            this.getData(options, this.callback);
+            this.getData(options, username, password, this.callback);
         }
         
         /**
@@ -151,9 +151,16 @@ let Sonar = new function()
          * @param {*} options 
          * @param {*} callback 
          */
-        this.getData = function(options, callback)
+        let resData = []; // Global for appending tower info
+        this.getData = function(options, username, password, callback, data)
         {
-            https.request(options, (res) => {
+            // Check if page needs to be specified.
+            let postData;
+            if(data) {
+                postData = JSON.stringify(data);
+            }
+
+            let req = https.request(options, (res) => {
                 let body = '';  // body of JSON.
 
                 res.on('data', (chunk) => { // data is received.
@@ -161,11 +168,36 @@ let Sonar = new function()
                 });
 
                 res.on('end', () => { // when finished parsing data.
-                    let data = JSON.parse(body);
-                    callback(data);
+                    let parsedBody = JSON.parse(body);
+                    resData = resData.concat(parsedBody.data);
+                    parsedBody.data = resData;
+                    
+                    // Check if extra request needs to be made.
+                    if(parsedBody.paginator.current_page < parsedBody.paginator.total_pages) {
+                        // Update to next page
+                        let page = parsedBody.paginator.current_page + 1;
+                        let data = { page: page.toString() }; // Set page object
+                        postData = JSON.stringify(data);
+
+                        // Create auth and parameter headers
+                        options.headers = {
+                            'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64'),
+                            'Content-Type': 'application/json',
+                            'Content-Length': postData.length
+                        }
+
+                        // Make extra request.
+                        this.getData(options, username, password, callback, data);
+
+                    } else {
+                        callback(parsedBody);
+                    }
                 });
 
-            }).end();
+            });
+
+            if(data) req.write(postData);
+            req.end();
         }
     }
 

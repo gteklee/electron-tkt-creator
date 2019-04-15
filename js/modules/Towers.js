@@ -23,7 +23,7 @@ let Towers = new function()
         this.Sonar = require('../../server/Sonar.js');
 
         this.Sonar.Towers.GetTowers(sessionStorage.username, sessionStorage.password, (obj) => {
-
+            console.log(obj);
             if(obj.error) // Make sure no error
                 console.log(obj.error);
             else
@@ -77,7 +77,7 @@ let Towers = new function()
         else if(this.Zones.zone_7.filter(obj => obj.name == tower).length > 0) return 7;    // Zone 7
         else if(this.Zones.zone_8.filter(obj => obj.name == tower).length > 0) return 8;    // Zone 8
         else
-            console.log('Zone error!');
+            console.log('Zone error: ' + tower);
     }
 
     /**
@@ -127,7 +127,7 @@ let Towers = new function()
     {
         // Check each tower by id.
         for(let i = 0; i < this.towers.length; i++)
-        {
+        {   
             // Zone 1
             // 7, 8, 16, 25, 26 31, 33, 39, 40, 41, 42, 45, 48, 55, 59, 65, 68, 70, 75, 76, 78, 79, 84, 126, 131, 133
             if(this.towers[i].id == 7 || this.towers[i].id == 8 || this.towers[i].id == 16 || this.towers[i].id == 25 || this.towers[i].id == 26 || this.towers[i].id == 31 || this.towers[i].id == 33 || this.towers[i].id == 39 || this.towers[i].id == 40 || this.towers[i].id == 41 || this.towers[i].id == 42 || this.towers[i].id == 45 || this.towers[i].id == 48 || this.towers[i].id == 55 || this.towers[i].id == 59 || this.towers[i].id == 65 || this.towers[i].id == 68 || this.towers[i].id == 70 || this.towers[i].id == 75 || this.towers[i].id == 76 || this.towers[i].id == 78 || this.towers[i].id == 79 || this.towers[i].id == 84 || this.towers[i].id == 126 || this.towers[i].id == 131 || this.towers[i].id == 133)
