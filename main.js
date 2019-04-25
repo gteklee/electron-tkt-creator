@@ -1,7 +1,7 @@
 const electron = require('electron');
 const {ipcMain} = require('electron');
 const {autoUpdater} = require('electron-updater');
-require('electron-reload')(__dirname);
+// require('electron-reload')(__dirname);
 // Module to control application life.
 const app = electron.app;
 // Module to create native browser window.
