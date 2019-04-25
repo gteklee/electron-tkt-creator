@@ -33,7 +33,7 @@ module.exports = {
                     assigned_type: "accounts",
                     assigned_id: id,
                     notes: template
-                }
+                };
             }
             // Make request
             client.create.Job(obj)

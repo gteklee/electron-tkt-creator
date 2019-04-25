@@ -1,5 +1,4 @@
-// Search for '<>' to find the required changes for each ticket.
-const Processes = require('./modules/Processes-test.js'); // All common processes with the form.
+const Processes = require('./modules/Processes.js'); // All common processes with the form.
 let Tickets = new function() // All form specific processes.
 {
     this.Handler = new function()
