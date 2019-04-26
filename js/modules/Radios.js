@@ -1,4 +1,4 @@
-let Radios = {
+const Radios = {
     
     UBNT: [
         'NanoBridge M5',

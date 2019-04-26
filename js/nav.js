@@ -13,8 +13,7 @@ $other.on('click', event => {
     let option = event.target;          // Get target that was clicked on.
     let section = $(option).attr('id'); // Get what section to make visible.
 
-    if(!sessionStorage.loggedIn)
-    {
+    if(!sessionStorage.loggedIn) {
         $('#err-login').text('Please login before creating tickets!');
         return;
     }
