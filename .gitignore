@@ -1,5 +1,6 @@
 node_modules
 electron-builder.yml
+/server/keys.js
 /dist
 /build
 /template

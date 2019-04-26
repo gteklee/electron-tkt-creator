@@ -1,13 +1,13 @@
+const sonar = require('node-sonar-api');
+
 let Sonar = new function()
 {
-    let https = require('https');   // https module.
 
     // Template of GET request options for proper https request.
     let options = {
         host: 'gtek.sonar.software',
-        path: '',
-        headers: '',
-        method: ''
+        user: '',
+        pass: ''
     }
 
     this.Customer = new function()
@@ -138,12 +138,21 @@ let Sonar = new function()
          */
         this.GetTowers = function(username, password, callback)
         {
-            options.path = '/api/v1/network/network_sites';
-            options.headers = {'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64')};
-            options.method = 'GET';
-            this.callback = callback;
+            const client = sonar.createClient({
+                sonarHost: options.host,
+                sonarUsername: username,
+                sonarPassword: password
+            });
 
-            this.getData(options, username, password, this.callback);
+            client.getAll.networkSites()
+                .then(json => callback(json));
+
+            // options.path = '/api/v1/network/network_sites';
+            // options.headers = {'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64')};
+            // options.method = 'GET';
+            // this.callback = callback;
+
+            // this.getData(options, this.callback);
         }
         
         /**
@@ -208,12 +217,21 @@ let Sonar = new function()
          */
         this.Authenticate = function(username, password, callback) 
         {
-            options.path = '/api/v1/users';
-            options.headers = {'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64')};
-            options.method = 'GET';
-            this.callback = callback;
+            const client = sonar.createClient({
+                sonarHost: options.host,
+                sonarUsername: username,
+                sonarPassword: password
+            });
 
-            this.getData(options, this.callback);
+            client.getAll.users()
+                .then(json => callback(json));
+
+            // options.path = '/api/v1/users';
+            // options.headers = {'Authorization': 'Basic ' + new Buffer(username+':'+password).toString('base64')};
+            // options.method = 'GET';
+            // this.callback = callback;
+
+            // this.getData(options, this.callback);
         }
 
         /**

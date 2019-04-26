@@ -1,356 +1,468 @@
+const changelog = require('./modules/Changelog');
+const sonar = require('./modules/Sonar');
+const towers = require('./modules/Towers');
+const updates = require('./modules/Updates');
+
+/** ---------------------------------------------------------------------------------- */
+
+let _username = '';
+let _password = '';
+let _loggedIn = false;
+let _name = '';
+
+let _client = null;
+
+let _errorMessage = '';
+let _error = false;
+
+let _changelog = false;
+
+// Home object: Home page functionality
+const Home = {
+
+    // User authentication
+    auth: {
+
+        /**
+         * Log the 
+         * @param {String} user 
+         * @param {String} pass 
+         * :VOID:
+         */
+        login: function(user, pass) {
+            if(sessionStorage.loggedIn) {
+
+                // Get login info from local storage
+                setLoggedIn(true);
+                setUsername(sessionStorage.username);
+                setPassword(sessionStorage.password);
+                setName(sessionStorage.name);
+                setClient(sonar.createClient(getUsername(), getPassword()));
+                // console.log(getClient());
+                towers.retrieveTowers(getClient());
+                Home.message.welcomeUser();
+            }
+            else {
+
+                // Check if testing storage login
+                if(user === undefined || pass === undefined) return;
+
+                // Request via authentication
+                sonar.authenticate(user, pass, (json, client) => {
+                    if(json.error) { // Problem
+                        Home.message.handleError(json.error, '#err-login');
+                    }
+                    else { // Success
+                        console.log(client);
+                        setUsername(user);
+                        setPassword(pass);
+                        createSession(json, client);
+                        towers.retrieveTowers(getClient());
+                        Home.message.welcomeUser();
+                    }
+                });
+            }
+        },
+
+        /**
+         * Check if provided username and password
+         * is valid.
+         * @param {String} user 
+         * @param {Password} pass
+         * :BOOL:
+         */
+        isValidUsernamePassword: function(user, pass) {
+            if(user == '' || pass == '') {
+                setErrorMessage('Username or Password cannot be blank!');
+                Home.message.showError('#err-login');
+                return false;
+            } else {
+                Home.message.cancelError('#err-login');
+            }
+            return true;
+        },
+
+        /**
+         * Live check username for errors as the user
+         * types.
+         * @param {String} user
+         * :VOID: 
+         */
+        liveCheckUsername: function(user) {
+
+            // Error check
+            if(user.indexOf(' ') >= 0) { // whitespace
+                setErrorMessage('Username cannot contain whitespace!');
+            }
+            else if(user.match(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi)) { // Regex for invalid characters
+                setErrorMessage('Username contains invalid characters!');
+            }
+            else {
+                Home.message.cancelError('#err-username');
+            }
+            
+            if(hasError()) { // Show error if any
+                Home.message.showError('#err-username');
+            }
+        }
+    },
+
+    // UI message system
+    message: {
+
+        /**
+         * Welcome the user with their username.
+         * :VOID:
+         */
+        welcomeUser: function() {
+            $('#input-block-log-in').removeClass('input-block').addClass('input-block-hidden');
+            $('#input-block-logged-in').removeClass('input-block-hidden').addClass('input-block');
+            $('.login-success').text('Welcome, ' + getName() + '!');
+        },
+
+        /**
+         * handle any error.
+         * @param {Object} err 
+         * @param {String} id
+         * :VOID:
+         */
+        handleError: function(err, id) {
+
+            // Check error status
+            if(err.status_code == 401) {
+                setErrorMessage('Incorrect username or password!');
+            } else {
+                setErrorMessage('Possible permissions error: Error Code ' + err.status_code + '!');
+            }
+
+            // Show error
+            Home.message.showError(id);
+        },
+
+        /**
+         * Display current error to user.
+         * @param {String} id
+         * :VOID:
+         */
+        showError: function(id) {
+            if(hasError()) {
+                $(id).text(getErrorMessage());
+            }
+        },
+
+        /**
+         * Remove error from element and reset error
+         * status.
+         * @param {String} id
+         * :VOID: 
+         */
+        cancelError: function(id) {
+            resetError();
+            $(id).text('');
+        }
+    },
+
+    // Changelog UI system
+    changelog: {
+
+        /**
+         * Hide the changelog UI.
+         * :VOID:
+         */
+        hide: function() {
+
+            // Hide all changelog elements
+            setChangelogDisplayed(false);
+            $('#input-block-changelog').removeClass('input-block');
+            $('#input-block-changelog').addClass('input-block-hidden');
+            $('.changelog-description h1').remove();
+            $('.changelog-description p').remove();
+
+            // Check what to show after hiding changelog
+            if(isLoggedIn()) { // User logged in
+                $('#input-block-logged-in').removeClass('input-block-hidden');
+                $('#input-block-logged-in').addClass('input-block');
+            } else { // Not logged in
+                $('#input-block-log-in').removeClass('input-block-hidden');
+                $('#input-block-log-in').addClass('input-block');
+            }
+        },
+
+        /**
+         * Show the changelog UI.
+         * :VOID:
+         */
+        show: function() {
+
+            // Instead of checking is user is logged in or not,
+            // just hide both blocks
+            $('#input-block-log-in').removeClass('input-block');
+            $('#input-block-log-in').addClass('input-block-hidden');
+            $('#input-block-logged-in').removeClass('input-block');
+            $('#input-block-logged-in').addClass('input-block-hidden');
+
+            // Show changelog block
+            $('#input-block-changelog').removeClass('input-block-hidden');
+            $('#input-block-changelog').addClass('input-block');
+
+            // Show information
+            for(let obj in changelog) {
+                $('.changelog-description').append('<h1> ' + changelog[obj].name + ' </h1>');
+                for(let i = 0; i < changelog[obj].description.length; i++) {
+                    $('.changelog-description').append('<p> ' + changelog[obj].description[i] + '</p>');
+                }
+            }
+
+            setChangelogDisplayed(true);
+        },
+
+        /**
+         * Is the changelog currently showing?
+         * :BOOL:
+         */
+        isDisplayed: function() {
+            return isChangelogBeingDisplayed();
+        }
+    }
+};
+
+
+
+/** ---------------------------------------------------------------------------------- */
+
+
+
 /**
- * Home Object. Each function relative to the home page
- * is stored in this object. Listeners then use the
- * home object to make appropriate function calls.
- * 
- * Functions:
- * 
- * Login() :: void
+ * Set username.
+ * @param {String} user
+ * :VOID: 
  */
-let changelog = require('./modules/Changelog');
-$(() => { // Set version on load
+function setUsername(user) {
+    _username = user;
+}
+
+/**
+ * Get current username.
+ * :STRING:
+ */
+function getUsername() {
+    return _username;
+}
+
+/**
+ * Set password.
+ * @param {String} pass 
+ * :VOID:
+ */
+function setPassword(pass) {
+    _password = pass;
+}
+
+/**
+ * Get current password.
+ * :STRING:
+ */
+function getPassword() {
+    return _password;
+}
+
+/**
+ * Set logged in status.
+ * @param {Boolean} bool 
+ * :VOID:
+ */
+function setLoggedIn(bool) {
+    _loggedIn = bool;
+}
+
+/**
+ * Is the user logged in?
+ * :BOOL:
+ */
+function isLoggedIn() {
+    return _loggedIn;
+}
+
+/**
+ * Set name.
+ * @param {String} name 
+ * :VOID:
+ */
+function setName(name) {
+    _name = name;
+}
+
+/**
+ * Get current name.
+ * :STRING:
+ */
+function getName() {
+    return _name;
+}
+
+/**
+ * Get name from Json data.
+ * @param {Object} json 
+ * :STRING:
+ */
+function getNameFromJson(json) {
+    for(let i = 0; i < json.data.length; i++) {
+        if(json.data[i].username.toLowerCase() == getUsername().toLowerCase()) {
+            return json.data[i].public_name;
+        }
+    }
+}
+
+/**
+ * Set the sonar client to be used in the
+ * session.
+ * @param {Object} client 
+ */
+function setClient(client) {
+    _client = client;
+}
+
+/**
+ * Get the current sonar client.
+ * :OBJECT:
+ */
+function getClient() {
+    return _client;
+}
+
+/**
+ * Create the current session and store it for
+ * reload.
+ * @param {Object} json 
+ * @param {Object} client 
+ */
+function createSession(json, client) {
+    setLoggedIn(true);
+    setName(getNameFromJson(json));
+    setClient(client);
+    sessionStorage.username = getUsername();
+    sessionStorage.password = getPassword();
+    sessionStorage.name = getName();
+    sessionStorage.client = getClient();
+    sessionStorage.loggedIn = isLoggedIn();
+}
+
+/**
+ * Set the error status.
+ * @param {Boolean} bool 
+ * :VOID:
+ */
+function setError(bool) {
+    _error = bool;
+}
+
+/**
+ * Check error status.
+ * :BOOL:
+ */
+function hasError() {
+    return _error;
+}
+
+/**
+ * Set the error message to by displayed.
+ * Automatically sets error to true.
+ * @param {String} msg 
+ * :VOID:
+ */
+function setErrorMessage(msg) {
+    setError(true);
+    _errorMessage = msg;
+}
+
+/**
+ * Get the current error message.
+ * :STRING:
+ */
+function getErrorMessage() {
+    return _errorMessage;
+}
+
+/**
+ * Reset error to none.
+ * :VOID:
+ */
+function resetError() {
+    setError(false);
+    setErrorMessage('');
+}
+
+/**
+ * Set if changelog should be displayed or not.
+ * @param {Boolean} bool 
+ * :VOID:
+ */
+function setChangelogDisplayed(bool) {
+    _changelog = bool;
+}
+
+/**
+ * Is the changelog being displayed?
+ * :BOOL:
+ */
+function isChangelogBeingDisplayed() {
+    return _changelog;
+}
+
+/**
+ * Show the current application version on the UI.
+ * :VOID:
+ */
+function setVersion() {
     for(let obj in changelog) {
         $('#version').text(changelog[obj].name);
         break;
     } // End after first object
-});
+}
 
-let Home = new function()
-{
-    /**
-     * Login property that deals with allowing the
-     * user to log into the application.
-     * 
-     * Functions:
-     * login(string, string)                    :: void
-     * checkUsernamePassword(string, string)    :: void
-     * checkUsername(string)                    :: void
-     * displayError(string)                     :: void
-     * resetError(string)                       :: void
-     */
-/**/this.Login = new function()
-    {
-        this.username = ''; // username: string.
-        this.password = ''; // password: string.
-        this.name = ''; // name of the user: string
-        this.errorMsg = ''; // error message to be displayed: string.
 
-        this.loggedIn = false; // is user logged in?: bool
-        this.error = false; // does an error exist with log in?: bool
 
-        /**
-         * Logs the user in by sending a test GET request to
-         * the Sonar API with the entered username and password
-         * as the authentication. 
-         * 
-         * If successful, then the user is informed that they are
-         * logged in.
-         * 
-         * If anything fails, then they are provided the
-         * appropriate error message - typically "incorrect
-         * username or password".
-         * 
-         * @param {*} username 
-         * @param {*} password 
-         */
-        this.login = function(username, password)
-        {
-            this.user = username;
-            this.pass = password;
-            this.Sonar = require('../server/Sonar.js');
-            this.Towers = require('../js/modules/Towers.js');
-
-            // Authenticates and logs the user in if successful with username and password.
-            this.Sonar.Login.Authenticate(this.user, this.pass, (data) => {
-                
-                if(data.error)
-                {
-                    this.error = true;
-                    
-                    if(data.error.status_code == 401)
-                        this.errorMsg = 'Incorrect username or password!';
-                    else
-                        this.errorMsg = 'Inform Admin of Error Code ' + data.error.status_code + '!';
-
-                    this.displayError('#err-login');
-                }
-                else
-                {
-                    console.log('Success! ', data);
-                    this.name = this.getName(username, data);
-                    this.loggedIn = true;
-                    this.welcomeUser();
-                    this.createSession();
-                    this.Towers.RetrieveTowers();
-                }
-            });
-
-            /**
-             * Once the user is successfully logged in, get the
-             * public name of the user to inform them they
-             * successfully logged in.
-             * @param {*} username 
-             * @param {*} data 
-             */
-            this.getName = function(username, data)
-            {
-                for(let i = 0; i < data.data.length; i++)
-                    if(data.data[i].username.toLowerCase() == username.toLowerCase()) // Changed to compare when all lowercase to an 'undefined' name.
-                        return data.data[i].public_name;
-            }
-        }
-
-        /**
-         * Utilizes the username, password, and loggedIn
-         * variables to create a session state for the user.
-         */
-        this.createSession = function()
-        {
-            sessionStorage.username = this.username;
-            sessionStorage.password = this.password;
-            sessionStorage.name = this.name;
-            sessionStorage.loggedIn = this.loggedIn;
-        }
-
-        /**
-         * Welcome the user with their username when 
-         * the successfully login.
-         */
-        this.welcomeUser = function()
-        {
-            $('#input-block-log-in').removeClass('input-block').addClass('input-block-hidden');
-            $('#input-block-logged-in').removeClass('input-block-hidden').addClass('input-block');
-            $('.login-success').text('Welcome, ' + this.name + '!');
-        }
-
-        /**
-         * Checks the username and password entered by the user
-         * when the login button is pressed.
-         * @param {*} username 
-         * @param {*} password 
-         */
-        this.checkUsernamePassword = function(username, password)
-        {
-            this.username = username;   // string value entered as username.
-            this.password = password;   // string value entered as password.
-
-            // check any errors with username / password entered.
-            if(this.username == '' || this.password == '')  // check if blank.
-            {
-                this.error = true;
-                this.errorMsg = 'Username or Password cannot be blank!';
-            }
-            else // if no errors
-                this.resetError('#err-login');
-
-            if(this.error)
-            {
-                this.displayError('#err-login');
-                return;
-            }
-
-            this.login(this.username, this.password);
-        }
-
-        /**
-         * Checks the username on the key up event.
-         * This is used to inform the user of any error
-         * while they are typing. "Live error checkin".
-         * @param {*} username 
-         */
-        this.checkUsername = function(username)
-        {
-            this.username = username;
-
-            if(this.username.indexOf(' ') >= 0) // check for any whitespace
-            {
-                this.error = true;
-                this.errorMsg = 'Username cannot contain whitespace!';
-            }
-            else if(this.username.match(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi))
-            {
-                this.error = true;
-                this.errorMsg = 'Username contains invalid characters!';
-            }
-            /*else if(this.username.match(/[A-Z]/))
-            {
-                this.error = true;
-                this.errorMsg = 'Username contains uppercase characters!';
-            }*/
-            else
-                this.resetError('#err-username');
-
-            if(this.error)
-                this.displayError('#err-username');
-
-        }
-
-        /**
-         * If there is an error and this function is called,
-         * then the error message is displayed to the user.
-         * @param {*} id -> element location of error message
-         */
-        this.displayError = function(id)
-        {
-            if(this.error)
-                $(id).text(this.errorMsg);
-        }
-
-        /**
-         * Resets error message when error is resolved.
-         * @param {*} id -> element location of error message.
-         */
-        this.resetError = function(id)
-        {
-            this.error = false;
-            this.errorMsg = '';
-            $(id).text('');
-        }
-
-    }
-
-    /**
-     * Data that needs to be retrieve upon reload.
-     */
-    this.Reload = new function()
-    {
-        this.towers = function()
-        {
-            this.Towers = require('../js/modules/Towers.js');
-            this.Towers.RetrieveTowers();
-        }
-    }
-/**/
-};
-let update = false;
-let displayed = false;
+/** ---------------------------------------------------------------------------------- */
 
 /**
- * Login button-clicked listener
- */
-$('#btn-home-login').on('click', () => {
-    if(!Home.error)
-        Home.Login.checkUsernamePassword($('#input-login-username').val(), $('#input-login-password').val());
-    else
-        Home.Login.displayError();
-});
-
-/**
- * Back button clicked listener
- */
-$('#btn-changelog-back').on('click', () => {
-    displayed = false;
-    $('#input-block-changelog').removeClass('input-block');
-    $('#input-block-changelog').addClass('input-block-hidden');
-
-    if(!Home.Login.loggedIn)
-    {
-        $('#input-block-log-in').removeClass('input-block-hidden');
-        $('#input-block-log-in').addClass('input-block');
-    }
-    else
-    {
-        $('#input-block-logged-in').removeClass('input-block-hidden');
-        $('#input-block-logged-in').addClass('input-block');
-    }
-    $('.changelog-description h1').remove();
-    $('.changelog-description p').remove();
-
-});
-
-/**
- * User typing in username listener
+ * User typing username.
+ * :EVENT KEYUP:
  */
 $('#input-login-username').keyup(() => {
-    Home.Login.checkUsername($('#input-login-username').val());
+    Home.auth.liveCheckUsername($('#input-login-username').val());
 });
 
 /**
- * On version click - update software if needed.
+ * Login button clicked.
+ * :EVENT CLICK:
+ */
+$('#btn-home-login').on('click', () => {
+    let user = $('#input-login-username').val();
+    let pass = $('#input-login-password').val();
+    if(Home.auth.isValidUsernamePassword(user, pass)) {
+        Home.auth.login(user, pass);
+    }
+});
+
+/**
+ * Changelog back button clicked.
+ * :EVENT CLICK:
+ */
+$('#btn-changelog-back').on('click', () => {
+    Home.changelog.hide();
+});
+
+/**
+ * Version clicked.
  */
 $('#version').on('click', () => {
-    if(update)  // If we are ready to update.
-    {
-        ipcRenderer.send('quitAndInstall');
-        $('#update-ready p').text('Updating...');
-        update = false;
-    }
-    else
-    {
-        if(displayed) return;
+    if(updates.isUpdateReady()) {
+        updates.update();
+    } else {
+        // Changelog is already showing.
+        if(Home.changelog.isDisplayed()) return;
 
-        if(!Home.Login.loggedIn)
-        {
-            $('#input-block-log-in').removeClass('input-block');
-            $('#input-block-log-in').addClass('input-block-hidden');
-        }
-        else
-        {
-            // Open changelog.
-            $('#input-block-logged-in').removeClass('input-block');
-            $('#input-block-logged-in').addClass('input-block-hidden');
-        }
-        $('#input-block-changelog').removeClass('input-block-hidden');
-        $('#input-block-changelog').addClass('input-block');
-
-        // Show info.
-        for(let obj in changelog)
-        {
-            $('.changelog-description').append('<h1> ' + changelog[obj].name + ' </h1>')
-            for(let i = 0; i < changelog[obj].description.length; i++)
-                $('.changelog-description').append('<p> ' + changelog[obj].description[i] + '</p>');
-        }
-        displayed = true;
-    }
-});
-
-const ipcRenderer = require('electron').ipcRenderer;
-/**
- * When checking for an update, inform the user.
- */
-ipcRenderer.on('checkingForUpdate', (event, text) => {
-    $('#update-ready p').text('Checking For Update...');
-});
-
-/**
- * When downloading the update, inform the user.
- */
-ipcRenderer.on('download-progress', (event, text) => {
-    $('#update-ready p').text('Downloading Update...');
-});
-
-/**
- * When no update is found, inform the user they are
- * up-to-date.
- */
-ipcRenderer.on('update-not-available', (event, text) => {
-    $('#update-ready p').text('Up To Date!');
-});
-
-/**
- * When the update is ready, inform the user and provide
- * the option to install the new update.
- */
-ipcRenderer.on('updateReady', (event, text) => {
-    $('#update-ready p').text('Update Is Available!');
-    $('#version').css('color', 'red');
-    $('#version').addClass('version-update');
-    update = true;
-});
-
-/**
- * When page loads, check if session is still available and
- * update elements accordingly.
- */
-$(window).on('load', () => {
-    if(sessionStorage.loggedIn)
-    {
-        Home.Login.loggedIn = true;
-        Home.Login.username = sessionStorage.username;
-        Home.Login.password = sessionStorage.password;
-        Home.Login.name = sessionStorage.name;
-        Home.Login.welcomeUser();
-        Home.Reload.towers();
+        Home.changelog.show();
     }
 });
 
@@ -358,6 +470,17 @@ $(window).on('load', () => {
  * On enter key pressed, click login button.
  */
 $(window).on('keydown', (e) => {
-    if(e.keyCode === 13 && !Home.Login.loggedIn)
+    if(e.keyCode === 13 && !isLoggedIn())
         $('#btn-home-login').click();
+});
+
+/**
+ * On load event set version and attempt to
+ * login.
+ * 
+ * :EVENT LOAD:
+ */
+$(() => {
+    setVersion(); // Set current version of app
+    Home.auth.login(); // Attempt to login
 });

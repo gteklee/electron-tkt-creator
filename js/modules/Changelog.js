@@ -1,16 +1,19 @@
 let Changelog = {
-    v185: {
-        name: 'v1.8.5',
+    v190: {
+        name: 'v1.9.0',
         description: [
-            'Fixed bug where some towers were not populating.'
+            'API architecture refactored.',
+            'Code refactored.'
         ]
     },
     v184: {
         name: 'v1.8.x',
         description: [
+            'Removed MTL / MDU Escalation Ticket fields!',
             'Updated MTL / MDU Escalation Ticket Format!',
             'Bug fix for invalid JSON on ticket submission.',
-            'Site Survey Added!'
+            'Site Survey Added!',
+            'Updated Tower Zones!'
         ]
     },
     v178: {
